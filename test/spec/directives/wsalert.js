@@ -3,7 +3,7 @@
 describe('Directive: WSAlert', function () {
 
   // load the directive's module
-  beforeEach(module('worldSkillsApp'));
+  beforeEach(module('orgApp'));
 
   var element,
     scope;

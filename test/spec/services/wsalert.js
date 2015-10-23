@@ -3,7 +3,7 @@
 describe('Service: WSAlert', function () {
 
   // load the service's module
-  beforeEach(module('worldSkillsApp'));
+  beforeEach(module('orgApp'));
 
   // instantiate service
   var WSAlert;

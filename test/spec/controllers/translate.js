@@ -3,7 +3,7 @@
 describe('Controller: TranslateCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('worldSkillsApp'));
+  beforeEach(module('orgApp'));
 
   var TranslateCtrl,
     scope;
