@@ -1,0 +1,17 @@
+.clickable {
+	cursor: pointer;
+}
+
+.filterSelect {
+	min-width: 230px;
+}
+
+.file_upload_drop_zone {
+	border: 4px dashed #ddd;
+	width: 100%;
+	height: 50px;
+}
+
+.flag {
+	max-width: 400px;
+}

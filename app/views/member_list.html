@@ -1,0 +1,85 @@
+<ol class="breadcrumb">
+    <li class="active" translate>Members</li>
+</ol>
+
+<h1 translate>Members</h1>
+
+<alerts></alerts>
+
+<div class="row">
+	<ws-spinner ng-show='loading' class='bigSpinner col-sm-9'></ws-spinner>
+	<div class="col-md-9" ng-hide="loading">
+		<div class="table-responsive">
+			<table class="table table-striped resource_list">
+				<colgroup>
+					<col width="20%" />
+					<col width="80%" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th><span translate>MemCode</span></th>
+						<th><span translate>Name</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="member in members.members">
+						<td><a ui-sref="member({member_id: member.id})" class="clickable">{{member.code}}</a></td>
+						<td><a ui-sref="member({member_id: member.id})" class="clickable">{{member.name.text}}</a></td>
+					</tr>
+					<tr ng-show="members.total_count == 0">
+						<td colspan="2"><span translate>NoMembers</span></td>
+					</tr>
+
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="2"></td>
+					</tr>
+				</tfoot>
+			</table>
+
+			<span class="pull-right"><pagination total-items="members.total_count" page="current_page"
+				items-per-page='items_per_page' class="pagination-small"
+				boundary-links="true" rotate="false" max-size="5"
+				on-select-page="changePage(page)"></pagination></span>
+		</div>
+	</div>
+	<div class="col-md-3 sidebar" role="navigation">
+		<form name="form" novalidate ng-controller="MemberFilterController">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <a class="pull-right" href="" ng-click="clear()">Clear</a>
+                    <h3 class="panel-title" translate>Filter</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                    	<div class="form-group">
+                            <label for="name" translate>Name</label>
+                            <input ng-model="filter.name" class="form-control input-sm" id="name"/>
+                        </div>
+                        <div class="form-group">
+							<label for="wse" translate>ShowMemOf</label>
+							<select ui-select2 ng-model="filter.memberOf" class="filterSelect">
+							    <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.name.text}}</option>
+							</select>
+						</div>
+                        <div class="form-group">
+                            <label for="sort" translate>Sort</label>
+                            <select ng-model="filter.sort" class="form-control input-sm" id="sort">
+		        				<option value="name" translate>Name</option>
+		        				<option value="name_desc" translate>NameDesc</option>
+		        				<option value="1058" translate>Sort1058</option>
+		        				<option value="1058_desc" translate>Sort1058Desc</option>
+		        				<option value="code" translate>MemCode</option>
+		        				<option value="code_desc" translate>MemCodeDesc</option>
+		        				<option value="year" translate>YearJoin</option>
+		        				<option value="year_desc" translate>YearJoinDesc</option>
+		        			</select>
+                        </div>
+                        <a ng-click="filterResults()" class="btn btn-primary pull-right" ng-disabled="loading || deleting"><span translate>SetFilter</span><spinner ng-show="loading" class="ng-hide"></spinner></a>
+                    </form>
+                </div>
+            </div>
+        </form>
+	</div>
+</div>

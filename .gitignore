@@ -1,0 +1,8 @@
+/node_modules/
+/.settings/
+/.sass-cache/
+/.tmp/
+/dist/
+/bower_components/
+/app/template
+/test/
