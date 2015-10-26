@@ -395,7 +395,15 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
-      }
+      },
+      config: {
+        	src: '<%= yeoman.app %>/scripts/config.js.' + grunt.option('server'),
+      	dest: '<%= yeoman.app %>/scripts/config.js'
+        },
+        select2png: {
+      	  src: '<%= yeoman.app %>/../bower_components/select2/select2.png',
+      	  dest: '<%= yeoman.dist %>/styles/select2.png'
+        }
     },
 
     // Run some tasks in parallel to speed up the build process
