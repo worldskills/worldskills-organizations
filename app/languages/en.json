@@ -26,9 +26,16 @@
 	"YearJoinDesc": "Year Joined Descending",
 	"SetFilter": "Set Filter",
 	
+	"MemberInfo": "Member Info",
 	"Name1058": "Name for 1058 Sorting",
 	"Flag": "Flag",
 	"Save": "Save",
 	"couldNotUploadImage":"Could not upload the flag image",
-	"saveMemberMsg": "Member data saved"
+	"saveMemberMsg": "Member data saved",
+	
+	"Membership": "Membership",
+	"MemberOf": "Member Of",
+	"Status": "Status",
+	"YrJoined": "Year Joined",
+	"AddMShip": "Add Membership"
 }

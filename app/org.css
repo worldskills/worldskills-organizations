@@ -15,3 +15,24 @@
 .flag {
 	max-width: 400px;
 }
+
+.list, .list-padding{
+	padding-left: 0;
+	margin-left: 0;
+}
+
+.list li, .list-padding li{	
+	list-style-type: none;
+}
+
+.list-padding li{
+	padding-bottom: 1em;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 1em;
+}
+
+.list-padding li:last-child{
+	border: 0;
+	padding-bottom: 0;
+	margin-bottom: 0;
+}

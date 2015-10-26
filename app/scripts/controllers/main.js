@@ -7,6 +7,7 @@ angular.module('orgApp')
     $scope.auth = auth;
     $scope.user = user;
     
+    $rootScope.memStatusList = false;
     
     $scope.logout = function (e) {
         auth.logout();
@@ -29,6 +30,15 @@ angular.module('orgApp')
     		$rootScope.allMembers = result.members;
     	}, $rootScope.errorHandler);
     };
+    
+    // get the membership status list
+    $rootScope.getMemberStatusList = function()
+    {
+    	Restangular.one('org/members/member_status').get().then( function(result)
+    	{
+    		$rootScope.memStatusList = result;
+    	}, $rootScope.errorHandler);
+    }
     
     // load all the stuff we need 
     if ($rootScope.initialised === false)
