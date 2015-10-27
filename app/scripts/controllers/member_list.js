@@ -13,9 +13,9 @@ angular.module('orgApp')
 	  }
 	  
 	  $scope.clear = function() {
-		  $scope.filter.name = '';
-		  $scope.filter.memberOf = '';
-		  $scope.filter.sort = '';
+		  $scope.filter.name = undefined;
+		  $scope.filter.memberOf = undefined;
+		  $scope.filter.sort = 'name';
 		  $scope.changePage(1);	
 	  };
 		
@@ -28,7 +28,7 @@ angular.module('orgApp')
 		   
 		  $scope.current_page = page;
 		  Restangular.one('org/members').get({member_of: $scope.filter.memberOf, name: $scope.filter.name,
-			  									sort: $scope.filter.sort, limit: $scope.items_per_page, offset: $scope.items_per_page * (page-1), 
+			  									sort: $scope.filter.sort, limit: $scope.items_per_page, offset: $scope.items_per_page * (page-1)
 			  }).then( function(result) 
 			  {
 				  $scope.members = result;

@@ -81,6 +81,12 @@ angular
     });
 
   })
+  // set up a restangular object for the people service
+  .factory('PeopleRestangular', function(Restangular, API_PEOPLE) {
+	  return Restangular.withConfig(function(RestangularConfigurer) {
+		  RestangularConfigurer.setBaseUrl(API_PEOPLE);
+	  });
+  })
 .run(function($rootScope, $state, $stateParams, auth, user, $window, Restangular){
   $rootScope.available_languages = {"en":"English"};
 

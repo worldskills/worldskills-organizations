@@ -37,5 +37,12 @@
 	"MemberOf": "Member Of",
 	"Status": "Status",
 	"YrJoined": "Year Joined",
-	"AddMShip": "Add Membership"
+	"AddMShip": "Add Membership",
+	
+	"Contacts": "Contacts",
+	"FirstName": "First Name",
+	"LastName": "Last Name",
+	"Email": "Email",
+	"AddContact": "Add Contact",
+	"NoPeople": "No people match your search criteria"
 }

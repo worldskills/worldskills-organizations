@@ -128,5 +128,42 @@
 			    </div>
 			</div>
 		</div>
+		
+		<div class='panel panel-default'>
+			<div class='panel-heading' translate>Contacts</div>
+			<div class='panel-body'>
+				<div class="form-group">
+				    <div class="col-md-12">
+			        	<ul class='list-padding'>
+			        		<li class='row'>
+			        			<div class='col-xs-3'><strong translate>FirstName</strong></div>
+			        			<div class='col-xs-3'><strong translate>LastName</strong></div>
+			        			<div class='col-xs-3'><strong translate>Email</strong></div>
+			        			<div class='col-xs-3'></div>
+			        		</li>	        		
+			        		<li ng-repeat="contact in member.contacts">
+			        			<div class='row'>	        				
+			        				<div class='col-xs-3'>{{contact.first_name}}</div>	        			
+			        				<div class='col-xs-3'>{{contact.last_name}}</div>
+			        				<div class='col-xs-3'>{{contact.email}}</div>
+			        				<div class='col-xs-3'>
+			        					<span class='pull-right'>
+			        						<button ng-click="removeContact(contact.id)" class='btn btn-xs btn-danger' ng-disabled="savingContacts"><span class='glyphicon glyphicon-remove'></span></button>
+			        					</span>
+			        				</div>
+			        			</div>
+			        		</li>
+			        		<li ng-show="user.hasPermission('Admin') || user.hasPermission('EditMember')">
+			        			<div class='row'>
+			        				<div class='col-xs-3'><a ng-click="showContactForm()" href="" class='small'><span class='glyphicon glyphicon-plus'></span> <span translate>AddContact</span></a></div>
+			        			</div>
+			        		</li>		        		        
+			        	</ul>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		
+		
 	</div>
 </div>

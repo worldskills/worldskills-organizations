@@ -16,5 +16,6 @@
     wsApp.constant('LOGOUT_URL', loginApp + '/logout');
     wsApp.constant('API_AUTH_CODE', 800);
     wsApp.constant('API_IMAGES', 'https://api.worldskills.org/images/');
+    wsApp.constant('API_PEOPLE', 'https://api.worldskills.org/people');
     
 })();

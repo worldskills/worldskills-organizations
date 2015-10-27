@@ -36,3 +36,12 @@
 	padding-bottom: 0;
 	margin-bottom: 0;
 }
+
+.modal-dialog {
+    width:900px;
+}
+
+.add_contact_list {
+	min-height:620px;
+	padding: 15px;
+}
