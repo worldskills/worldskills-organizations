@@ -8,6 +8,7 @@ angular.module('orgApp')
     $scope.user = user;
     
     $rootScope.memStatusList = false;
+    $rootScope.allCountries = false;
     
     $scope.logout = function (e) {
         auth.logout();
@@ -40,6 +41,15 @@ angular.module('orgApp')
     	}, $rootScope.errorHandler);
     }
     
+    // get the list of countries
+    $rootScope.getCountryList = function()
+    {
+    	Restangular.one('org/countries').get().then( function(result)
+    	{
+    		$rootScope.allCountries = result.country_list;
+    	}, $rootScope.errorHandler);
+    }
+    
     // load all the stuff we need 
     if ($rootScope.initialised === false)
     {
@@ -50,10 +60,18 @@ angular.module('orgApp')
     // handler for an error
     $rootScope.errorHandler = function(response)
     {
+    	console.log(response);
     	$scope.loading = false;
     	$translate('Error').then(function(errLabel)
     	{
-    		alert.error(errLabel + ' ' + response.data.code + ': ' + response.data.user_msg);
+    		if (response.data === undefined)
+    		{
+    			WSAlert.danger("Unknown error");
+    		}
+    		else
+    		{
+    			WSAlert.danger(errLabel + ' ' + response.data.code + ': ' + response.data.user_msg);
+    		}
     	});
     	document.body.scrollTop = document.documentElement.scrollTop = 0;
     };

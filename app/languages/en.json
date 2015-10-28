@@ -44,5 +44,19 @@
 	"LastName": "Last Name",
 	"Email": "Email",
 	"AddContact": "Add Contact",
-	"NoPeople": "No people match your search criteria"
+	"NoPeople": "No people match your search criteria",
+	"RemoveContactConfirm": "Are you sure you want to remove this contact?",
+	
+	"Organization": "Organization",
+	
+	"Addrs": "Addresses",
+	"Ln1": "Line 1",
+	"Ln2": "Line 2",
+	"Ln3": "Line 3",
+	"Ln4": "Line 4",
+	"City": "City",
+	"ZipCode": "Zip Code",
+	"Country": "Country",
+	"AddAddress": "Add Address",
+	"RemoveAddrConfirm": "Are you sure you want to remove this address?"
 }
