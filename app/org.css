@@ -45,3 +45,8 @@
 	min-height:620px;
 	padding: 15px;
 }
+
+.note {
+	font-size: 80%;
+	padding-top: 15px;
+}

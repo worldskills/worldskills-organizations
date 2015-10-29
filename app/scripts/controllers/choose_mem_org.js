@@ -1,35 +1,32 @@
 'use strict';
 
 angular.module('orgApp')
-  .controller('AddMemberContactCtrl', function ($scope, $rootScope, $state, $translate, Language, auth, user, WSAlert, Restangular, PeopleRestangular) {
+  .controller('ChooseMemberOrgCtrl', function ($scope, $rootScope, $state, $translate, Language, auth, user, WSAlert, Restangular) {
     
-	  $scope.current_people_page = 1;
-	  $scope.people_items_per_page = 10;
-	  $scope.searchingPeople = true;
+	  $scope.current_org_page = 1;
+	  $scope.org_items_per_page = 10;
+	  $scope.searchingOrg = true;
 	  
 	  $scope.searchFilter = {
-		  'entity': $scope.member.ws_entity.id
+		  'name': undefined
 	  }
-	  
+		  
 	  
 	  $scope.clearFilter = function()
 	  {
 		  $scope.searchFilter.name = undefined;
-		  $scope.searchFilter.email = undefined;
 		  $scope.changePage(1);
 	  }
 	  
 	  $scope.changePage = function(page) 
 	  {
-		  $scope.searchingPeople = true;
-		  PeopleRestangular.one('/person').get({entity: $scope.searchFilter.entity, 
-			  name: $scope.searchFilter.name, email: $scope.searchFilter.email,
-			  limit: $scope.people_items_per_page, offset: $scope.people_items_per_page * (page-1)})
+		  $scope.searchingOrg = true;
+		  Restangular.one('/org/').get({name: $scope.searchFilter.name, limit: $scope.org_items_per_page, offset: $scope.org_items_per_page * (page-1)})
 		  .then(function(response) {
-			    $scope.people = response;
-			    $scope.searchingPeople = false;
+			    $scope.orgs = response;
+			    $scope.searchingOrg = false;
 		  	  }, function(response) {
-		  		$scope.searchingPeople = false;
+		  		$scope.searchinOrg = false;
 		  		$rootScope.errorHandler(response);
 		  	  });
 	  }
@@ -45,12 +42,12 @@ angular.module('orgApp')
           return email;
 	  }
 	  
-	  $scope.changePage($scope.current_people_page);
+	  $scope.changePage($scope.current_org_page);
   });
 
 
 angular.module('orgApp')
-.controller('MemberContactFilterController', function ($scope, $rootScope, $element)
+.controller('OrgFilterController', function ($scope, $rootScope, $element)
 {
 	// filter the results when enter pressed in form
 	$element.bind('keydown keypress', function (event) {

@@ -48,6 +48,11 @@
 	"RemoveContactConfirm": "Are you sure you want to remove this contact?",
 	
 	"Organization": "Organization",
+	"Website": "Website",
+	"NewOrg": "New Organization",
+	"ChangeOrg": "Change Organization",
+	"NoOrgs": "No organizations match your search criteria",
+	"OrgNote": "Note: Do not edit this organization's details if a new body is representing the Member. Create a new Organization.",
 	
 	"Addrs": "Addresses",
 	"Ln1": "Line 1",

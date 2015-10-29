@@ -60,7 +60,6 @@ angular.module('orgApp')
     // handler for an error
     $rootScope.errorHandler = function(response)
     {
-    	console.log(response);
     	$scope.loading = false;
     	$translate('Error').then(function(errLabel)
     	{
