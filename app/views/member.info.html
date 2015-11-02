@@ -1,0 +1,45 @@
+<div class='panel panel-default'>
+			<div class='panel-heading' translate>MemberInfo</div>
+			<div class='panel-body'>
+				<form class="form-horizontal" name="form" role="form">
+					<div class="form-group">
+						<label for="name" class="col-sm-3 control-label" translate>Name</label>
+						<div class="col-sm-9">
+							<input class="form-control" id="name" placeholder="Name" ng-model="member.name.text">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="memCode" class="col-sm-3 control-label" translate>MemCode</label>
+						<div class="col-sm-9">
+							<input class="form-control" id="memCode" placeholder="XX" ng-model="member.code">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="name1058" class="col-sm-3 control-label" translate>Name1058</label>
+						<div class="col-sm-9">
+							<input class="form-control" id="name1058" placeholder="Name" ng-model="member.name_1058.text">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="flag" class="col-sm-3 control-label" translate>Flag</label>
+						<div class="col-sm-5">
+							<img ng-src="{{member.flag.links[1].href}}" class="flag" />
+						</div>
+						<div class="col-sm-4">
+							<div class="file_upload_drop_zone" nv-file-drop nv-file-over uploader="uploader">
+							<span ng-show="uploader.queue.length == 0">Drop file here</span>
+							<span ng-repeat="item in uploader.queue">{{item.file.name}}<a ng-click="clearUploadQueue()" class="btn-sm btn-danger clickable pull-right"><span translate>Remove</span></a><br/></span>
+							</div>
+							OR
+							<input type="file" nv-file-select uploader="uploader">
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-3"></div>
+						<div class="col-sm-9">
+							<a ng-click="saveMemberInfo()" class="btn btn-success clickable" ng-disabled="savingMember"><span translate>Save</span></a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
