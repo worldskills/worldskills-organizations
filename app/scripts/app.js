@@ -25,8 +25,7 @@ angular
     'ui.select2',
     'angularFileUpload'
   ])
-  //.config(function ($routeProvider) {
-    .config(function ($routeProvider, $translateProvider, $stateProvider, $urlRouterProvider, $locationProvider, RestangularProvider, REST_BASE_URL) {
+    .config(function ($routeProvider, $translateProvider, $stateProvider, $urlRouterProvider, $locationProvider, RestangularProvider, REST_BASE_URL, APP_ROLES) {
     
     $urlRouterProvider.otherwise('/');
 
@@ -71,14 +70,107 @@ angular
           requireLoggedIn: true
       }
     })
-    .state('member', {
+    /*.state('member', {
       url: '/members/{member_id}',
       templateUrl: 'views/member.html',
       controller: 'MemberCtrl',
       data: {
           requireLoggedIn: true
       }
-    });
+    })*/
+    .state('member', {
+	    url: '/members/{member_id}',
+	    templateUrl: 'views/member.html',
+	    controller: 'MemberCtrl',
+	    abstract: true,
+	    data: {
+	      requireLoggedIn: true,
+	      requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	      ],
+	      pageName: 'MemberInfo'
+	    }
+    })
+    .state('member.info', {
+	    url: '',
+	    templateUrl: 'views/member.info.html',
+	    controller: 'MemberInfoCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'MemberInfo'
+	    }
+	})
+	.state('member.org', {
+	    url: '/org',
+	    templateUrl: 'views/member.org.html',
+	    controller: 'MemberOrgCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'MemberOrg'
+	    }
+	})
+	.state('member.membership', {
+	    url: '/membership',
+	    templateUrl: 'views/member.membership.html',
+	    controller: 'MemberMembershipCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'Membership'
+	    }
+	})
+	.state('member.contacts', {
+	    url: '/contacts',
+	    templateUrl: 'views/member.contacts.html',
+	    controller: 'MemberContactsCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'Contacts'
+	    }
+	})
+	.state('member.addresses', {
+	    url: '/addresses',
+	    templateUrl: 'views/member.addresses.html',
+	    controller: 'MemberAddressesCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'Addresses'
+	    }
+	})
+	.state('member.websites', {
+	    url: '/websites',
+	    templateUrl: 'views/member.websites.html',
+	    controller: 'MemberWebsitesCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'Websites'
+	    }
+	})
+    ;
 
   })
   // set up a restangular object for the people service

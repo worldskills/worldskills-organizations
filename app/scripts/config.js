@@ -18,4 +18,11 @@
     wsApp.constant('API_IMAGES', 'http://localhost:9292/images/');
     wsApp.constant('API_PEOPLE', 'http://localhost:8080/people');
     
+    wsApp.constant('APP_ROLES', {
+        ADMIN: 'Admin',
+        EDIT_MEMBER: 'EditMember',
+        EDIT_ORG: 'EditOrg',
+        EDIT_COUNTRIES: 'EditCountries'
+    });
+    
 })();

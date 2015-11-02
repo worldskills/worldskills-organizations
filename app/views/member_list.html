@@ -23,8 +23,8 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="member in members.members">
-						<td><a ui-sref="member({member_id: member.id})" class="clickable">{{member.code}}</a></td>
-						<td><a ui-sref="member({member_id: member.id})" class="clickable">{{member.name.text}}</a></td>
+						<td><a ui-sref="member.info({member_id: member.id})" class="clickable">{{member.code}}</a></td>
+						<td><a ui-sref="member.info({member_id: member.id})" class="clickable">{{member.name.text}}</a></td>
 					</tr>
 					<tr ng-show="members.total_count == 0">
 						<td colspan="2"><span translate>NoMembers</span></td>

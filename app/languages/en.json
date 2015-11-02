@@ -26,7 +26,7 @@
 	"YearJoinDesc": "Year Joined Descending",
 	"SetFilter": "Set Filter",
 	
-	"MemberInfo": "Member Info",
+	"MemberInfo": "Member Information",
 	"Name1058": "Name for 1058 Sorting",
 	"Flag": "Flag",
 	"Save": "Save",
@@ -47,6 +47,7 @@
 	"NoPeople": "No people match your search criteria",
 	"RemoveContactConfirm": "Are you sure you want to remove this contact?",
 	
+	"MemberOrg": "Member Organization",
 	"Organization": "Organization",
 	"Website": "Website",
 	"NewOrg": "New Organization",
@@ -63,5 +64,13 @@
 	"ZipCode": "Zip Code",
 	"Country": "Country",
 	"AddAddress": "Add Address",
-	"RemoveAddrConfirm": "Are you sure you want to remove this address?"
+	"RemoveAddrConfirm": "Are you sure you want to remove this address?",
+	
+	"Websites": "Websites",
+	"URL": "URL",
+	"Description": "Description",
+	"NewWebsite": "New Website",
+	"DeleteWebsiteConfirm": "Are you sure you want to remove this website?"
+	
+	
 }

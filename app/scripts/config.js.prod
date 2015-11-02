@@ -18,4 +18,11 @@
     wsApp.constant('API_IMAGES', 'https://api.worldskills.org/images/');
     wsApp.constant('API_PEOPLE', 'https://api.worldskills.org/people');
     
+    wsApp.constant('APP_ROLES', {
+        ADMIN: 'Admin',
+        EDIT_MEMBER: 'EditMember',
+        EDIT_ORG: 'EditOrg',
+        EDIT_COUNTRIES: 'EditCountries'
+    });
+    
 })();
