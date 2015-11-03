@@ -183,6 +183,19 @@ angular
 	        pageName: 'PhoneNums'
 	    }
 	})
+	.state('member.social_media', {
+	    url: '/social_media',
+	    templateUrl: 'views/member.social_media.html',
+	    controller: 'MemberSocialMediaCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'SocMedia'
+	    }
+	})
     ;
 
   })

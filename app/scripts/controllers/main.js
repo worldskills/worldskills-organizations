@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('orgApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $state, $translate, Language, auth, user, WSAlert, Restangular) {
+  .controller('MainCtrl', function ($scope, $rootScope, $state, $translate, Language, auth, user, WSAlert, Restangular, PeopleRestangular) {
     $scope.selectedLanguage = Language.selectedLanguage;
     
     $scope.auth = auth;
@@ -56,6 +56,15 @@ angular.module('orgApp')
     	Restangular.one('org/phone_types').get().then( function(result)
     	{
     		$rootScope.phoneTypes = result.phone_types;
+    	}, $rootScope.errorHandler);
+    }
+    
+    // get list of social networks
+    $rootScope.getSocialNetworks = function()
+    {
+    	PeopleRestangular.one('/social_networks').get().then( function(result)
+    	{
+    		$rootScope.socialNetworks = result.socialNetworks;
     	}, $rootScope.errorHandler);
     }
     

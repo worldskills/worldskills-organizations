@@ -73,13 +73,23 @@ angular.module('orgApp')
 	  $scope.removePhone = function(id)
 	  {
 		  $scope.savingPhones = true;
-		  Restangular.one('/org/members/' + $scope.memberId + '/phones/' + id).customDELETE()
-	 	  .then(function(response) {
-	 		 $scope.getPhones();
-	 	  }, function(response) {
-	  		  $scope.savingPhones = false;
-	  		  $rootScope.errorHandler(response);
-	  	  });
+		  $translate('DeletePhoneConfirm').then(function(msg)
+		  {
+			  if (confirm(msg))
+			  {
+				  Restangular.one('/org/members/' + $scope.memberId + '/phones/' + id).customDELETE()
+			 	  .then(function(response) {
+			 		 $scope.getPhones();
+			 	  }, function(response) {
+			  		  $scope.savingPhones = false;
+			  		  $rootScope.errorHandler(response);
+			  	  });
+			  }
+			  else
+			  {
+				  $scope.savingPhones = false;
+			  }
+		  });
 	  }
 	  
   });

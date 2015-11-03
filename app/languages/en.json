@@ -73,7 +73,14 @@
 	"DeleteWebsiteConfirm": "Are you sure you want to remove this website?",
 	
 	"PhoneNums": "Phone Numbers",
-	"AddPhone": "Add Phone"
+	"AddPhone": "Add Phone",
+	"DeletePhoneConfirm": "Are you sure you want to remove this phone number?",
+	
+	"SocMedia": "Social Media",
+	"Ident": "Identifier",
+	"Link": "Link",
+	"AddSocialMedia": "Add Social Media",
+	"DeleteSocMediaConfirm": "Are you sure you want to delete this social media data?"
 	
 	
 }
