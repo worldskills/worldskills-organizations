@@ -50,6 +50,15 @@ angular.module('orgApp')
     	}, $rootScope.errorHandler);
     }
     
+    // get the list of phone types
+    $rootScope.getPhoneTypes = function()
+    {
+    	Restangular.one('org/phone_types').get().then( function(result)
+    	{
+    		$rootScope.phoneTypes = result.phone_types;
+    	}, $rootScope.errorHandler);
+    }
+    
     // load all the stuff we need 
     if ($rootScope.initialised === false)
     {

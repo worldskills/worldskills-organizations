@@ -170,6 +170,19 @@ angular
 	        pageName: 'Websites'
 	    }
 	})
+	.state('member.phones', {
+	    url: '/phones',
+	    templateUrl: 'views/member.phones.html',
+	    controller: 'MemberPhonesCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN},
+	          {code: 800, role: APP_ROLES.EDIT_MEMBER}
+	        ],
+	        pageName: 'PhoneNums'
+	    }
+	})
     ;
 
   })

@@ -37,14 +37,14 @@ angular.module('orgApp')
 			  "country": $scope.newAddr.country
 		  }
 		  Restangular.one('/org/members/' + $scope.memberId + '/addresses').customPOST(data)
-		 		.then(function(response) {
-		 			$scope.member.addresses = response.address_list;
-		 			$scope.savingAddress = false;
-		 			$scope.showNewAddressForm = false;
-		 			$scope.clearNewAddr();
+		 	  .then(function(response) {
+		 		  $scope.member.addresses = response.address_list;
+		 		  $scope.savingAddress = false;
+		 		  $scope.showNewAddressForm = false;
+		 		  $scope.clearNewAddr();
 		  	  }, function(response) {
-		  		$scope.savingAddress = false;
-		  		$rootScope.errorHandler(response);
+		  		  $scope.savingAddress = false;
+		  		  $rootScope.errorHandler(response);
 		  	  });
 	  };
 	  $scope.editAddress = function(addrIndex)
@@ -66,14 +66,14 @@ angular.module('orgApp')
 				  "country": $scope.member.addresses[$scope.editAddr].country.code
 			  };
 			  Restangular.one('/org/members/' + $scope.memberId + '/addresses/' + $scope.member.addresses[$scope.editAddr].id).customPUT(data)
-			 		.then(function(response) {
-			 			$scope.member.addresses[$scope.editAddr] = response;
-			 			$scope.savingAddress = false;
-			 			$scope.showNewAddressForm = false;
-			 			$scope.editAddr = -1;
+			 	  .then(function(response) {
+			 		  $scope.member.addresses[$scope.editAddr] = response;
+			 		  $scope.savingAddress = false;
+			 		  $scope.showNewAddressForm = false;
+			 		  $scope.editAddr = -1;
 			  	  }, function(response) {
-			  		$scope.savingAddress = false;
-			  		$rootScope.errorHandler(response);
+			  		  $scope.savingAddress = false;
+			  		  $rootScope.errorHandler(response);
 			  	  });
 		  }
 	  };
@@ -85,12 +85,12 @@ angular.module('orgApp')
 			  if (confirm(msg))
 			  {
 				  Restangular.one('/org/members/' + $scope.memberId + '/addresses/' + id).customDELETE()
-			  		.then(function(response) {
-			  			// reload the list
-			  			$scope.getAddresses();
+				  	  .then(function(response) {
+				  		  // reload the list
+				  		  $scope.getAddresses();
 				  	  }, function(response) {
-				  		$scope.savingAddress = false;
-				  		$rootScope.errorHandler(response);
+				  		  $scope.savingAddress = false;
+				  		  $rootScope.errorHandler(response);
 				  	  });
 			  }
 			  else
@@ -104,11 +104,11 @@ angular.module('orgApp')
 		  $scope.savingAddress = true;
 		  Restangular.one('/org/members/' + $scope.memberId + '/addresses/').get()
 		  .then(function(response) {
-	 			$scope.member.addresses = response.address_list;
-	 			$scope.savingAddress = false;
+	 		  $scope.member.addresses = response.address_list;
+	 		  $scope.savingAddress = false;
 	  	  }, function(response) {
-	  		$scope.savingAddress = false;
-	  		$rootScope.errorHandler(response);
+	  		  $scope.savingAddress = false;
+	  		  $rootScope.errorHandler(response);
 	  	  });
 	  }
 	  

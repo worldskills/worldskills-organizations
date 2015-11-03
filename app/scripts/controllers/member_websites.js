@@ -23,7 +23,6 @@ angular.module('orgApp')
 	  $scope.updateWebsite = function(idx)
 	  {
 		  $scope.savingWebsite = true;
-		  console.log($scope.editWeb + ':' + idx);
 		  $scope.editWeb = idx;
 		  var data = {
 			  "url": $scope.member.websites[$scope.editWeb].url,

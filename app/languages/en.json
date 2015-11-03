@@ -70,7 +70,10 @@
 	"URL": "URL",
 	"Description": "Description",
 	"NewWebsite": "New Website",
-	"DeleteWebsiteConfirm": "Are you sure you want to remove this website?"
+	"DeleteWebsiteConfirm": "Are you sure you want to remove this website?",
+	
+	"PhoneNums": "Phone Numbers",
+	"AddPhone": "Add Phone"
 	
 	
 }

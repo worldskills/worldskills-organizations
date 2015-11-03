@@ -28,8 +28,8 @@ angular.module('orgApp')
 		   
 		  $scope.current_page = page;
 		  Restangular.one('org/members').get({member_of: $scope.filter.memberOf, name: $scope.filter.name,
-			  									sort: $scope.filter.sort, limit: $scope.items_per_page, offset: $scope.items_per_page * (page-1)
-			  }).then( function(result) 
+			  sort: $scope.filter.sort, limit: $scope.items_per_page, offset: $scope.items_per_page * (page-1)})
+			  .then( function(result) 
 			  {
 				  $scope.members = result;
 				  $rootScope.loading = false;

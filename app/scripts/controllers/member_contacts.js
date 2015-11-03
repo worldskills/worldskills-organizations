@@ -15,12 +15,12 @@ angular.module('orgApp')
 			  if (confirm(msg))
 			  {
 				  Restangular.one('/org/members/' + $scope.memberId + '/contacts/' + id).customDELETE()
-			  		.then(function(response) {
-			  			// reload the list
-			  			$scope.getContacts();
+			  		  .then(function(response) {
+			  			  // reload the list
+			  			  $scope.getContacts();
 				  	  }, function(response) {
-				  		$scope.savingContacts = false;
-				  		$rootScope.errorHandler(response);
+				  		  $scope.savingContacts = false;
+				  		  $rootScope.errorHandler(response);
 				  	  });
 			  }
 			  else
@@ -35,12 +35,12 @@ angular.module('orgApp')
 		  
 		  Restangular.one('/org/members/' + $scope.memberId + '/contacts').get()
 			  .then(function(response) {
-				    $scope.member.contacts = response.contacts;
-				    $scope.savingContacts = false;
-			  	  }, function(response) {
-			  		$scope.savingContacts = false;
-			  		$rootScope.errorHandler(response);
-			  	  });
+				  $scope.member.contacts = response.contacts;
+				  $scope.savingContacts = false;
+			  }, function(response) {
+			  	  $scope.savingContacts = false;
+			  	  $rootScope.errorHandler(response);
+			  });
 		  
 	  }
 	  $scope.showContactForm = function()
@@ -60,12 +60,12 @@ angular.module('orgApp')
 			  "contact": id
 		  }
 		  Restangular.one('/org/members/' + $scope.memberId + '/contacts').customPOST(data)
-		 		.then(function(response) {
-		 			$scope.member.contacts = response.contacts;
-		 			$scope.savingContacts = false;
+		 	  .then(function(response) {
+		 		  $scope.member.contacts = response.contacts;
+		 		  $scope.savingContacts = false;
 		  	  }, function(response) {
-		  		$scope.savingContacts = false;
-		  		$rootScope.errorHandler(response);
+		  		  $scope.savingContacts = false;
+		  		  $rootScope.errorHandler(response);
 		  	  });
 	  };
 	  

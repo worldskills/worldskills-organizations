@@ -82,19 +82,19 @@ angular.module('orgApp')
 			  }
 		  }
 		  Restangular.one('/org/members/' + $scope.memberId).customPUT(data)
-		  		.then(function(response) {
-		  			$scope.clearUploadQueue();
-		  			$scope.savingMember = false;
-		  			$scope.member = response;
-			  		document.body.scrollTop = document.documentElement.scrollTop = 0;
-			  		$translate('saveMemberMsg').then(function(msg)
-			  		{
-			  			  WSAlert.success(msg);
-			  		});
-			  	  }, function(response) {
-			  		$scope.savingMember = false;
-			  		$rootScope.errorHandler(response);
-			  	  });
+		  	  .then(function(response) {
+		  		  $scope.clearUploadQueue();
+		  		  $scope.savingMember = false;
+		  		  $scope.member = response;
+		  		  document.body.scrollTop = document.documentElement.scrollTop = 0;
+		  		  $translate('saveMemberMsg').then(function(msg)
+		  		  {
+			  		  WSAlert.success(msg);
+		  		  });
+			  }, function(response) {
+				  $scope.savingMember = false;
+			  	  $rootScope.errorHandler(response);
+			  });
 	  };
 	 
   });

@@ -29,34 +29,35 @@ angular.module('orgApp')
 			  if ($scope.member.organization.websites[0].url !== undefined && $scope.member.organization.websites[0].url !== '')
 			  {
 				  Restangular.one('/org/' + $scope.member.organization.id + '/websites/' + $scope.member.organization.websites[0].id)
-				  	.customPUT(websiteData).then(function(response) {
-				  		// now update the organization
-				  		$scope.updateOrgName();
-			 	  }, function(response) {$scope.savingOrg = false;
-			  		$rootScope.errorHandler(response);
-			  	  });
+				  	  .customPUT(websiteData).then(function(response) {
+				  		  // now update the organization
+				  		  $scope.updateOrgName();
+				  	  }, function(response) {$scope.savingOrg = false;
+				  	  	  $rootScope.errorHandler(response);
+				  	  });
 			  }
 			  // remove existing url
 			  else
 			  {
 				  Restangular.one('/org/' + $scope.member.organization.id + '/websites/' + $scope.member.organization.websites[0].id)
-				  	.customDELETE().then(function(response) {
-				  		// now update the organization
-				  		$scope.updateOrgName();
-			 	  }, function(response) {$scope.savingOrg = false;
-			  		$rootScope.errorHandler(response);
-			  	  });
+				  	  .customDELETE().then(function(response) {
+				  		  // now update the organization
+				  		  $scope.updateOrgName();
+				  	  }, function(response) {$scope.savingOrg = false;
+				  	  	  $rootScope.errorHandler(response);
+				  	  });
 			  }
 		  }
 		  else if ($scope.member.organization.websites[0].url !== undefined && $scope.member.organization.websites[0].url !== '')
 		  {
 			  // add a new url
-			  Restangular.one('/org/' + $scope.member.organization.id + '/websites/').customPOST(websiteData).then(function(response) {
-			  		// now update the organization
-			  		$scope.updateOrgName();
-		 	  }, function(response) {$scope.savingOrg = false;
-		  		$rootScope.errorHandler(response);
-		  	  });
+			  Restangular.one('/org/' + $scope.member.organization.id + '/websites/').customPOST(websiteData)
+			  	  .then(function(response) {
+			  		  // now update the organization
+			  		  $scope.updateOrgName();
+			  	  }, function(response) {$scope.savingOrg = false;
+			  	  	  $rootScope.errorHandler(response);
+			  	  });
 		  }
 		  else
 		  {
@@ -73,14 +74,14 @@ angular.module('orgApp')
 			  }
 		  }
 		  Restangular.one('/org/' + $scope.member.organization.id).customPUT(nameData)
-	 		.then(function(response) {
-	 			$scope.member.organization = response;
-	 			$scope.savingOrg = false;
-	 			$scope.editOrg = false;
-	  	  }, function(response) {
-	  		$scope.savingOrg = false;
-	  		$rootScope.errorHandler(response);
-	  	  });
+	 		  .then(function(response) {
+	 			  $scope.member.organization = response;
+	 			  $scope.savingOrg = false;
+	 			  $scope.editOrg = false;
+	 		  }, function(response) {
+	 			  $scope.savingOrg = false;
+	 			  $rootScope.errorHandler(response);
+	 		  });
 	  }
 	  $scope.createNewOrg = function()
 	  {
@@ -94,21 +95,20 @@ angular.module('orgApp')
 		  // create the organization first
 		  Restangular.one('/org/').customPOST(data).then(function(response) {
 			  $scope.member.organization = response;
-	 			// now add the website
-			  	if ($scope.newOrg.url !== undefined && $scope.newOrg.url !== '')
-			  	{
-			  		var websiteData = {
-			  		    "url": $scope.newOrg.url
-			  		}
-		 			Restangular.one('/org/' + $scope.member.organization.id + '/websites').customPOST(websiteData)
-				 		.then(function(response) {
-				 			$scope.member.organization.websites = response;
-				 			// now update the member
-				 			$scope.setNewOrg();
-				 			
+			  // now add the website
+			  if ($scope.newOrg.url !== undefined && $scope.newOrg.url !== '')
+			  {
+			  	  var websiteData = {
+			  	      "url": $scope.newOrg.url
+			  	  }
+			  	  Restangular.one('/org/' + $scope.member.organization.id + '/websites').customPOST(websiteData)
+				 	  .then(function(response) {
+				 		  $scope.member.organization.websites = response;
+				 		  // now update the member
+				 		  $scope.setNewOrg();
 				  	  }, function(response) {
-				  		$scope.savingOrg = false;
-				  		$rootScope.errorHandler(response);
+				  		  $scope.savingOrg = false;
+				  		  $rootScope.errorHandler(response);
 				  	  });
 			  	}
 			  	else
@@ -124,20 +124,20 @@ angular.module('orgApp')
 	  $scope.setNewOrg = function(id)
 	  {
 		  var memData = {
-	 				"id": $scope.member.organization.id
-	 			}
+		      "id": $scope.member.organization.id
+		  }
 	 			
-	 			// now update the member
-	 			Restangular.one('/org/members/' + $scope.memberId + '/organization').customPUT(memData)
-			 		.then(function(response) {
-			 			$scope.member.organization = response;
-			 			$scope.savingOrg = false;
-			 			$scope.editOrg = false;
-			 			$scope.showOrgForm = false;
-			  	  }, function(response) {
-			  		$scope.savingOrg = false;
-			  		$rootScope.errorHandler(response);
-			  	  });
+	 	  // now update the member
+		  Restangular.one('/org/members/' + $scope.memberId + '/organization').customPUT(memData)
+			  .then(function(response) {
+				  $scope.member.organization = response;
+				  $scope.savingOrg = false;
+				  $scope.editOrg = false;
+				  $scope.showOrgForm = false;
+			  }, function(response) {
+				  $scope.savingOrg = false;
+				  $rootScope.errorHandler(response);
+			  });
 	  }
 	  $scope.showChooseOrgForm = function()
 	  {
@@ -156,12 +156,12 @@ angular.module('orgApp')
 			  "id": id
 		  }
 		  Restangular.one('/org/members/' + $scope.memberId + '/organization').customPUT(data)
-		 		.then(function(response) {
-		 			$scope.member.organization = response;
-		 			$scope.savingOrg = false;
+		 	  .then(function(response) {
+		 		  $scope.member.organization = response;
+		 		  $scope.savingOrg = false;
 		  	  }, function(response) {
-		  		$scope.savingOrg = false;
-		  		$rootScope.errorHandler(response);
+		  		  $scope.savingOrg = false;
+		  		  $rootScope.errorHandler(response);
 		  	  });
 	  };
 	  

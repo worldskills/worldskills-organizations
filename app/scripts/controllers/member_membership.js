@@ -32,14 +32,13 @@ angular.module('orgApp')
 			  "year_joined": $scope.newMShip.year_joined
 		  }
 		  Restangular.one('/org/members/' + $scope.memberId + '/memberships').customPOST(data)
-	  		.then(function(response) {
-	  			$scope.member.member_of = response;
-	  			$scope.showMembershipForm = false;
-	  			$scope.savingMemberships = false;
-	  			
-		  	  }, function(response) {
-		  		$scope.savingMemberships = false;
-		  		$rootScope.errorHandler(response);
+	  		  .then(function(response) {
+	  			  $scope.member.member_of = response;
+	  			  $scope.showMembershipForm = false;
+	  			  $scope.savingMemberships = false;
+	  		  }, function(response) {
+	  			  $scope.savingMemberships = false;
+	  			  $rootScope.errorHandler(response);
 		  	  });
 	  }
 	  $scope.removeMembership = function(memId)
@@ -48,12 +47,12 @@ angular.module('orgApp')
 		  if (confirm("Are you sure you want to remove this membership?"))
 		  {
 			  Restangular.one('/org/members/' + $scope.memberId + '/memberships/' + memId).customDELETE()
-		  		.then(function(response) {
-		  			// reload the list
-		  			$scope.getMemberships();
+		  		  .then(function(response) {
+		  			  // reload the list
+		  			  $scope.getMemberships();
 			  	  }, function(response) {
-			  		$scope.savingMemberships = false;
-			  		$rootScope.errorHandler(response);
+			  		  $scope.savingMemberships = false;
+			  		  $rootScope.errorHandler(response);
 			  	  });
 		  }
 		  else
@@ -65,12 +64,12 @@ angular.module('orgApp')
 	  {
 		  $scope.savingMemberships = true;
 		  Restangular.one('/org/members/' + $scope.memberId + '/memberships').get()
-		  .then(function(response) {
-			    $scope.member.member_of = response;
-			    $scope.savingMemberships = false;
+		  	  .then(function(response) {
+		  		  $scope.member.member_of = response;
+		  		  $scope.savingMemberships = false;
 		  	  }, function(response) {
-		  		$scope.savingMemberships = false;
-		  		$rootScope.errorHandler(response);
+		  		  $scope.savingMemberships = false;
+		  		  $rootScope.errorHandler(response);
 		  	  });
 	  }
 	  $scope.editMembership = function(msIndex)
@@ -85,13 +84,13 @@ angular.module('orgApp')
 		  }
 		  console.log(data);
 		  Restangular.one('/org/members/' + $scope.memberId + '/memberships/' + $scope.member.member_of[$scope.editMem].id).customPUT(data)
-	  		.then(function(response) {
-	  			// reload the list
-	  			$scope.getMemberships();
-	  			$scope.editMem = -1;
+	  		  .then(function(response) {
+	  			  // reload the list
+	  			  $scope.getMemberships();
+	  			  $scope.editMem = -1;
 		  	  }, function(response) {
-		  		$scope.savingMemberships = false;
-		  		$rootScope.errorHandler(response);
+		  		  $scope.savingMemberships = false;
+		  		  $rootScope.errorHandler(response);
 		  	  });
 	  }
   });
