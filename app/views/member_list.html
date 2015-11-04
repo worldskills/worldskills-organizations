@@ -2,9 +2,14 @@
     <li class="active" translate>Members</li>
 </ol>
 
-<h1 translate>Members</h1>
-
 <alerts></alerts>
+
+<p class="pull-right" ng-show="user.hasPermission('Admin') || user.hasPermission('EditMember')">
+	<a ng-click="showNewMemberForm()" class="btn btn-success" translate>NewMember</a>
+</p>
+
+<h1 translate>Members</h1>
+<hr />
 
 <div class="row">
 	<ws-spinner ng-show='loading' class='bigSpinner col-sm-9'></ws-spinner>

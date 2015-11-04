@@ -25,6 +25,11 @@
 	"YearJoin": "Year Joined",
 	"YearJoinDesc": "Year Joined Descending",
 	"SetFilter": "Set Filter",
+	"NewMember": "New Member",
+	"MemberRep": "Member represents",
+	"CreateMem": "Create Member",
+	"SelCountryMsg": "Select a country that this Member represents",
+	"NoCountryDataMsg": "Could not find data for selected country",
 	
 	"MemberInfo": "Member Information",
 	"Name1058": "Name for 1058 Sorting",

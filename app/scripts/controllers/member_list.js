@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('orgApp')
-  .controller('MemberListCtrl', function ($scope, $rootScope, $state, $translate, Language, auth, user, WSAlert, Restangular) {
+  .controller('MemberListCtrl', function ($scope, $rootScope, $state, $translate, Language, auth, user, WSAlert, Restangular, $modal) {
     
 	  $scope.current_page = $rootScope.currentMemberPage;
 	  $scope.items_per_page = 15;
+	  
+	  $scope.newMemberModal = false;
 	  
 	  $scope.filter = {
 		  name: $rootScope.memFilter.name,
@@ -42,6 +44,34 @@ angular.module('orgApp')
 	  };
 	  
 	  $scope.changePage($scope.current_page);
+	  
+	  
+	  // new member form
+	  $scope.showNewMemberForm = function()
+	  {
+		  $scope.newMemberModal = $modal.open({
+			  scope: $scope,
+			  templateUrl: 'views/new_member.html',
+			  controller: 'NewMemberCtrl',
+			  size: 'lg'
+		  });
+	  }
+	  $scope.addContact = function(id)
+	  {
+		  $scope.savingContacts = true;
+		  $scope.addContactModal.close();
+		  var data = {
+			  "contact": id
+		  }
+		  Restangular.one('/org/members/' + $scope.memberId + '/contacts').customPOST(data)
+		 	  .then(function(response) {
+		 		  $scope.member.contacts = response.contacts;
+		 		  $scope.savingContacts = false;
+		  	  }, function(response) {
+		  		  $scope.savingContacts = false;
+		  		  $rootScope.errorHandler(response);
+		  	  });
+	  };
   });
 
 

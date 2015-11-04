@@ -72,7 +72,6 @@
         if (!accessToken) {
             // try to retrive access token from storage
             accessToken = sessionStorage.getItem('access_token');
-            console.log('access token ' + accessToken);
         } else {
             // verify state
             if (state != oauthState) {

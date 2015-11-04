@@ -92,4 +92,22 @@ angular.module('orgApp')
     	});
     	document.body.scrollTop = document.documentElement.scrollTop = 0;
     };
+    
+    $rootScope.getCountryWithId = function(id)
+    {
+    	if ($rootScope.allCountries === undefined)
+    	{
+    		return undefined;
+    	}
+    	
+    	var c;
+    	angular.forEach($rootScope.allCountries, function(country)
+    	{
+    		if (country.id == id)
+    		{
+    			c = country;
+    		}
+    	});
+    	return c;
+    }
   });
