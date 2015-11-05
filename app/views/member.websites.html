@@ -12,7 +12,7 @@
 	        			</span>
 					</div>
 					<div class='col-xs-2'>
-						<span class='pull-right' ng-show="editWeb !== $index">
+						<span class='pull-right' ng-show="editWeb !== $index && (user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id))">
 							<button ng-click="editWeb = $index" class='btn btn-xs btn-warning'><span class='glyphicon glyphicon-edit'></span></button>
 							&nbsp;<button ng-click="deleteWebsite(site.id)" class='btn btn-xs btn-danger' ng-disabled="savingWebsite"><span class='glyphicon glyphicon-remove'></span></button>
 		        		</span>
@@ -44,7 +44,7 @@
 				<div class='col-xs-12'><hr/></div>
 			</div>
 					
-			<div class='row' ng-show="user.hasPermission('Admin') || user.hasPermission('EditMember')">
+			<div class='row' ng-show="user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id)">
 	      		<div ng-show="showWebForm === false" class='col-xs-12'>
 	      				<a ng-click="showWebForm = !showWebForm" href="" class='small'><span class='glyphicon glyphicon-plus'></span> <span translate>NewWebsite</span></a>
 	      			</div>

@@ -17,6 +17,7 @@
     wsApp.constant('API_AUTH_CODE', 800);
     wsApp.constant('API_IMAGES', 'https://staging-api.worldskills.org/images/');
     wsApp.constant('API_PEOPLE', 'https://staging-api.worldskills.org/people');
+    wsApp.constant('LOAD_CHILD_ENTITY_ROLES', true); 
     
     wsApp.constant('APP_ROLES', {
         ADMIN: 'Admin',

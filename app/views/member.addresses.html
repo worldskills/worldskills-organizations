@@ -12,7 +12,7 @@
 	        					</span>
 							</div>
 							<div class='col-xs-2'>
-								<span class='pull-right' ng-show="editAddr !== $index">
+								<span class='pull-right' ng-show="editAddr !== $index && (user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id))">
 									<button ng-click="editAddress($index)" class='btn btn-xs btn-warning'><span class='glyphicon glyphicon-edit'></span></button>
 				        			&nbsp;<button ng-click="removeAddress(address.id)" class='btn btn-xs btn-danger' ng-disabled="savingAddress"><span class='glyphicon glyphicon-remove'></span></button>
 				        		</span>
@@ -80,7 +80,7 @@
 					</div>
 				
 				
-					<div class='row' ng-show="user.hasPermission('Admin') || user.hasPermission('EditMember')">
+					<div class='row' ng-show="user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id)">
 	        			<div ng-show="showNewAddressForm === false" class='col-xs-12'><a ng-click="showNewAddressForm = !showNewAddressForm" href="" class='small'><span class='glyphicon glyphicon-plus'></span> <span translate>AddAddress</span></a></div>
 	        			<span ng-show='showNewAddressForm !== false'>
 			        		<form class="form-horizontal" name="new_address" novalidate focus-error>						            		        		

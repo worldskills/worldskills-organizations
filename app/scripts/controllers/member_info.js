@@ -33,6 +33,10 @@ angular.module('orgApp')
 	  
 	  $scope.saveMemberInfo = function() 
 	  {
+		  // check if the link should be disabled
+		  if ($scope.savingMember || (!user.hasPermission('Admin') && !user.hasPermissionForEntity('EditMember', $scope.member.ws_entity.id)))
+			  return;
+		  
 		  $scope.savingMember = true;
 		  // do we have a new image to save?
 		  if ($scope.uploader.queue.length > 0)

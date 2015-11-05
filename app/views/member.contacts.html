@@ -16,13 +16,13 @@
 	        				<div class='col-xs-3'>{{contact.last_name}}</div>
 	        				<div class='col-xs-3'>{{contact.email}}</div>
 	        				<div class='col-xs-3'>
-	        					<span class='pull-right'>
+	        					<span class='pull-right' ng-show="user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id)">
 	        						<button ng-click="removeContact(contact.id)" class='btn btn-xs btn-danger' ng-disabled="savingContacts"><span class='glyphicon glyphicon-remove'></span></button>
 	        					</span>
 	        				</div>
 	        			</div>
 	        		</li>
-	        		<li ng-show="user.hasPermission('Admin') || user.hasPermission('EditMember')">
+	        		<li ng-show="user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id)">
 	        			<div class='row'>
 	        				<div class='col-xs-3'><a ng-click="showContactForm()" href="" class='small'><span class='glyphicon glyphicon-plus'></span> <span translate>AddContact</span></a></div>
 	        			</div>

@@ -16,13 +16,13 @@
 	        				<div class='col-xs-3'>{{social.social_network_identifier}}</div>
 	        				<div class='col-xs-6'><a href='{{getSocialLink($index)}}' target='_new'>{{getSocialLink($index)}}</a></div>
 	        				<div class='col-xs-1'>
-	        					<span class='pull-right'>
+	        					<span class='pull-right' ng-show="user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id)">
 	        						<button ng-click="removeSocMedia(social.id)" class='btn btn-xs btn-danger' ng-disabled="savingSocMedia"><span class='glyphicon glyphicon-remove'></span></button>
 	        					</span>
 	        				</div>
 	        			</div>
 	        		</li>
-	        		<li ng-show="user.hasPermission('Admin') || user.hasPermission('EditMember')">
+	        		<li ng-show="user.hasPermission('Admin') || user.hasPermissionForEntity('EditMember', member.ws_entity.id)">
 	        			<div class='row' ng-show="!showSocMediaForm">
 	        				<div class='col-xs-3'><a ng-click="showSocMediaForm = !showSocMediaForm" href="" class='small'><span class='glyphicon glyphicon-plus'></span> <span translate>AddSocialMedia</span></a></div>
 	        			</div>

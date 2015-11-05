@@ -68,6 +68,13 @@
 							    <option ng-repeat="member in allMembers" value="{{member.id}}">{{member.name.text}}</option>
 							</select>
 						</div>
+						<div class="form-group">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" ng-model="filter.editable" class=""/><span translate>ShowEditable</span>
+								</label>
+							</div>
+						</div>
                         <div class="form-group">
                             <label for="sort" translate>Sort</label>
                             <select ng-model="filter.sort" class="form-control input-sm" id="sort">

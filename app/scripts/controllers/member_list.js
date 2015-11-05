@@ -11,7 +11,8 @@ angular.module('orgApp')
 	  $scope.filter = {
 		  name: $rootScope.memFilter.name,
 		  member: $rootScope.memFilter.memberOf,
-		  sort: $rootScope.memFilter.sort
+		  sort: $rootScope.memFilter.sort,
+		  editable: $rootScope.memFilter.editable
 	  }
 	  
 	  $scope.clear = function() {
@@ -29,7 +30,7 @@ angular.module('orgApp')
 		  $rootScope.memFilter.sort = $scope.filter.sort;
 		   
 		  $scope.current_page = page;
-		  Restangular.one('org/members').get({member_of: $scope.filter.memberOf, name: $scope.filter.name,
+		  Restangular.one('org/members').get({member_of: $scope.filter.memberOf, name: $scope.filter.name, editable: $scope.filter.editable,
 			  sort: $scope.filter.sort, limit: $scope.items_per_page, offset: $scope.items_per_page * (page-1)})
 			  .then( function(result) 
 			  {

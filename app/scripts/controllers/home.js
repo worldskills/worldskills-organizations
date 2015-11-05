@@ -5,10 +5,7 @@ angular.module('orgApp')
     
 	  $scope.$watch("auth.user.first_name", function(newValue, oldValue){
 		  
-		  if (user.hasPermission("Admin"))
-		  {
-			  $state.go("member_list");
-		  }
-
+		  $state.go("member_list");
+		
 	    });
   });

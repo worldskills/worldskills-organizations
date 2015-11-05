@@ -7,7 +7,6 @@ angular.module('orgApp')
 	  // initialise variables
 	  $scope.memberId = $stateParams.member_id;
 	 
-	  
 	  $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {    
 	        if (typeof toState.data != 'undefined' && typeof toState.data.pageName != 'undefined') {            
 	        	$translate($state.current.data.pageName).then(function(msg)

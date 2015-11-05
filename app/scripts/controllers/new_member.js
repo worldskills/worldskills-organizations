@@ -25,6 +25,11 @@ angular.module('orgApp')
 		  $rootScope.getCountryList();
 	  }
 	  
+	  if ($rootScope.editableMembers === undefined)
+	  {
+		  $rootScope.getEditableMembers();
+	  }
+	  
 	  // see if we should be showing the country form
 	  $scope.$watch("newMember.parent_id", function(newValue, oldValue)
 	  {
@@ -96,8 +101,7 @@ angular.module('orgApp')
 	 			 Restangular.one('/org/countries/' + country.code).customPUT(countryData)
 			 	  .then(function(response) {
 			 		  // now redirect to editting the new member
-			 		  $scope.newMemberModal.close();
-			 		  $state.go('member.info', {member_id: newId});
+			 		 $scope.redirectToEdit(newId);
 			  	  }, function(response) {
 			  		  $scope.savingMember = false;
 			  		  $rootScope.errorHandler(response);
@@ -106,8 +110,7 @@ angular.module('orgApp')
 	 		  else
 	 		  {
 	 			  // just redirect to the edit screen
-	 			  $scope.newMemberModal.close();
-	 			  $state.go('member.info', {member_id: newId});
+	 			 $scope.redirectToEdit(newId);
 	 		  }
 	  	  }, function(response) {
 	  		  $scope.savingMember = false;
@@ -115,6 +118,14 @@ angular.module('orgApp')
 	  	  });
 	  }
 	  
+	  $scope.redirectToEdit = function(newId)
+	  {
+		  auth.refreshRoles(); 
+		  $rootScope.getAllMembers();
+		  $rootScope.getEditableMembers();
+		  $scope.newMemberModal.close();
+		  $state.go('member.info', {member_id: newId});
+	  }
 	  
   });
     

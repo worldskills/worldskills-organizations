@@ -7,5 +7,10 @@ angular.module('orgApp')
 		{
 			return authenticator.hasPermission(auth.user, API_AUTH_CODE, permission);
 		};
+		
+		this.hasPermissionForEntity = function(permission, entity)
+		{
+			return authenticator.hasPermissionForEntity(auth.user, API_AUTH_CODE, permission, entity);
+		};
 
 	});

@@ -17,6 +17,7 @@
     wsApp.constant('API_AUTH_CODE', 800);
     wsApp.constant('API_IMAGES', 'http://localhost:9292/images/');
     wsApp.constant('API_PEOPLE', 'http://localhost:8080/people');
+    wsApp.constant('LOAD_CHILD_ENTITY_ROLES', true); 
     
     wsApp.constant('APP_ROLES', {
         ADMIN: 'Admin',

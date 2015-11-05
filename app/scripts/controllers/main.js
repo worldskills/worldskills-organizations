@@ -20,7 +20,8 @@ angular.module('orgApp')
     
     $rootScope.currentMemberPage = 1;
     $rootScope.memFilter = {
-    	sort: "name"
+    	sort: "name",
+    	editable: true
     };
     
     // get all the existing members
@@ -29,6 +30,15 @@ angular.module('orgApp')
     	Restangular.one('org/members').get({sort: name, limit: 500, offset: 0}).then( function(result)
     	{
     		$rootScope.allMembers = result.members;
+    	}, $rootScope.errorHandler);
+    };
+    
+    // get all the editable members
+    $rootScope.getEditableMembers = function()
+    {
+    	Restangular.one('org/members').get({editable: 'true', sort: name, limit: 500, offset: 0}).then( function(result)
+    	{
+    		$rootScope.editableMembers = result.members;
     	}, $rootScope.errorHandler);
     };
     
@@ -87,7 +97,12 @@ angular.module('orgApp')
     		}
     		else
     		{
-    			WSAlert.danger(errLabel + ' ' + response.data.code + ': ' + response.data.user_msg);
+    			var msg = '';
+    			if (response.data)
+    			{
+    				msg =  response.data.code + ': ' + response.data.user_msg;
+    			}
+    			WSAlert.danger(errLabel + ' ' + msg);
     		}
     	});
     	document.body.scrollTop = document.documentElement.scrollTop = 0;

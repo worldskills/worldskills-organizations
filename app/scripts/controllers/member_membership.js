@@ -8,6 +8,10 @@ angular.module('orgApp')
 	  {
 		  $rootScope.getMemberStatusList();
 	  }
+	  if ($rootScope.editableMembers === undefined)
+	  {
+		  $rootScope.getEditableMembers();
+	  }
 	  $scope.editMem = -1;
 	  
 	  $scope.clearNewMShip = function() 
@@ -22,7 +26,7 @@ angular.module('orgApp')
 	  $scope.clearNewMShip();
 	  
 	  
-	// membership functions
+	  // membership functions
 	  $scope.addMembership = function()
 	  {
 		  $scope.savingMemberships = true;
