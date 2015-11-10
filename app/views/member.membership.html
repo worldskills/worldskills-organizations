@@ -28,7 +28,7 @@
 			        					</span>
 			        				</div>
 			        				<div class='col-xs-2'>
-			        					<span class='pull-right' ng-show="editMem !== $index && hasPermissionForEntity('EditMember', mship.ws_entity.id)">
+			        					<span class='pull-right' ng-show="editMem !== $index && (user.hasPermission('Admin') || hasPermissionForEntity('EditMember', mship.ws_entity.id))">
 			        						<button ng-click="editMembership($index)" class='btn btn-xs btn-warning'><span class='glyphicon glyphicon-edit'></span></button>
 			        						&nbsp;<button ng-click="removeMembership(mship.id)" class='btn btn-xs btn-danger' ng-disabled="savingMemberships"><span class='glyphicon glyphicon-remove'></span></button>
 			        					</span>
