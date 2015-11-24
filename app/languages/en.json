@@ -11,6 +11,10 @@
 	"SYSTEM_RESOURCES": "Resource Manager",
 	
 	"Members":"Members",
+	"MemberList": "Member List",
+	"Export": "Export",
+	"ExportMem": "Export Members",
+	"ExportExcel": "Export to Spreadsheet",
 	"NoMembers": "No Members match your criteria",
 	"MemCode": "Member Code",
 	"Filter": "Filter",

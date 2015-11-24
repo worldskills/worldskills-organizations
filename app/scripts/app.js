@@ -196,6 +196,17 @@ angular
 	        pageName: 'SocMedia'
 	    }
 	})
+	.state('member_export', {
+	    url: '/member_export',
+	    templateUrl: 'views/member_export.html',
+	    controller: 'MemberExportCtrl',
+	    data:{
+	        requireLoggedIn: true,
+	        requiredRoles: [
+	          {code: 800, role: APP_ROLES.ADMIN}
+	        ]
+	    }
+	})
     ;
 
   })

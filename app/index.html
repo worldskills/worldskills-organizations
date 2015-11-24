@@ -40,7 +40,16 @@
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a ui-sref='member_list' translate>Members</a></li>
+                    <li ng-show="!user.hasPermission('Admin')"><a ui-sref='member_list' translate>Members</a></li>
+                    <li class="dropdown" ng-show="user.hasPermission('Admin')">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                            <span translate>Members</span> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a ui-sref='member_list' translate>MemberList</a></li>
+                            <li><a ui-sref='member_export' translate>Export</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li ng-show="!auth.loggedIn"><a href="{{auth.loginUrl}}" translate>LOGIN</a></li>
@@ -180,11 +189,13 @@
         <script src="scripts/controllers/add_mem_contact.js"></script>
         <script src="scripts/controllers/choose_mem_org.js"></script>
         <script src="scripts/controllers/new_member.js"></script>
+        <script src="scripts/controllers/member_export.js"></script>
         <script src="scripts/services/language.js"></script>
         <script src="scripts/controllers/translate.js"></script>
         <script src="scripts/directives/konami.js"></script>
         <script src="scripts/services/authenticator.js"></script>
         <script src="scripts/services/user.js"></script>
+        <script src="scripts/services/downloader.js"></script>
         <script src="scripts/directives/wsalert.js"></script>
         <script src="scripts/services/wsalert.js"></script>
         <!-- endbuild -->
