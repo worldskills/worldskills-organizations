@@ -38,10 +38,10 @@
 					</tfoot>
 				</table>
 	
-				<span class="pull-right"><pagination total-items="people.total_count" page="current_people_page"
+				<span class="pull-right"><pagination total-items="people.total_count" ng-model="current_people_page"
 					items-per-page='people_items_per_page' class="pagination-small"
 					boundary-links="true" rotate="false" max-size="5"
-					on-select-page="changePage(page)"></pagination></span>
+					ng-change="changePage(page)"></pagination></span>
 			</div>
 		</div>
 		<div class="col-md-3 sidebar" role="navigation">
@@ -61,7 +61,7 @@
 	                            <label for="email" translate>Email</label>
 	                            <input ng-model="searchFilter.email" class="form-control input-sm" id="email"/>
 	                        </div>
-	                        <a ng-click="filterResults()" class="btn btn-primary pull-right" ng-disabled="searchingPeople"><span translate>SetFilter</span><spinner ng-show="searchingPeople" class="ng-hide"></spinner></a>
+	                        <a ng-click="changePage(1)" class="btn btn-primary pull-right" ng-disabled="searchingPeople"><span translate>SetFilter</span><spinner ng-show="searchingPeople" class="ng-hide"></spinner></a>
 	                    </form>
 	                </div>
 	            </div>
