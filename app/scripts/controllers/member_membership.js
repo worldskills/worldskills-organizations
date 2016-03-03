@@ -8,7 +8,7 @@ angular.module('orgApp')
 	  {
 		  $rootScope.getMemberStatusList();
 	  }
-	  if ($rootScope.editableMembers === undefined)
+	  if ($rootScope.editableMembers === undefined || $rootScope.editableMembers === null)
 	  {
 		  $rootScope.getEditableMembers();
 	  }

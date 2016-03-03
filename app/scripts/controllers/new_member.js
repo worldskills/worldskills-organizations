@@ -45,7 +45,7 @@ angular.module('orgApp')
 	  
 	  $scope.createMember = function()
 	  {
-		  if ($scope.showCountryForm === true && $scope.newMember.country_id === undefined)
+		  if ($scope.showCountryForm === true && ($scope.newMember.country_id === undefined) || $scope.newMember.country_id === null) 
 		  {
 			  $translate('SelCountryMsg').then(function(msg)
 			  {
@@ -76,7 +76,7 @@ angular.module('orgApp')
 		  Restangular.one('/org/members/').customPOST(memData)
 	 	  .then(function(response) {
 	 		  var newId = response.id;
-	 		  if ($scope.newMember.country_id !== undefined)
+	 		  if ($scope.newMember.country_id !== undefined && $scope.newMember.country_id !== null)
 	 		  {
 	 			  // now set the country data
 	 			  var country = $rootScope.getCountryWithId($scope.newMember.country_id);

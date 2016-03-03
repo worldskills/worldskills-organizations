@@ -78,7 +78,7 @@ angular.module('orgApp')
 				  "text": $scope.member.name_1058.text
 			  },
 		  };
-		  if (imageId !== undefined && thumbnail !== undefined)
+		  if (imageId !== undefined && imageId !== null && thumbnail !== undefined && thumbnail !== null)
 		  {
 			  data.flag = {
 				  "image_id": imageId,

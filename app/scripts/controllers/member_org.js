@@ -12,7 +12,7 @@ angular.module('orgApp')
 	  $scope.updateOrg = function()
 	  {
 		  $scope.savingOrg = true;
-		  if ($scope.member.organization.websites[0] === undefined)
+		  if ($scope.member.organization.websites[0] === undefined || $scope.member.organization.websites[0] === null)
 		  {
 			  $scope.updateOrgName();
 			  return;
@@ -23,10 +23,10 @@ angular.module('orgApp')
 			  "url": $scope.member.organization.websites[0].url
 		  }
 		  // update the website first
-		  if ($scope.member.organization.websites[0].id !== undefined)
+		  if ($scope.member.organization.websites[0].id !== undefined && $scope.member.organization.websites[0].id !== null)
 		  {
 			  // update existing url
-			  if ($scope.member.organization.websites[0].url !== undefined && $scope.member.organization.websites[0].url !== '')
+			  if ($scope.member.organization.websites[0].url !== undefined && $scope.member.organization.websites[0].url !== '' && $scope.member.organization.websites[0].url !== null)
 			  {
 				  Restangular.one('/org/' + $scope.member.organization.id + '/websites/' + $scope.member.organization.websites[0].id)
 				  	  .customPUT(websiteData).then(function(response) {
@@ -48,7 +48,7 @@ angular.module('orgApp')
 				  	  });
 			  }
 		  }
-		  else if ($scope.member.organization.websites[0].url !== undefined && $scope.member.organization.websites[0].url !== '')
+		  else if ($scope.member.organization.websites[0].url !== undefined && $scope.member.organization.websites[0].url !== '' && $scope.member.organization.websites[0].url !== null)
 		  {
 			  // add a new url
 			  Restangular.one('/org/' + $scope.member.organization.id + '/websites/').customPOST(websiteData)
@@ -96,7 +96,7 @@ angular.module('orgApp')
 		  Restangular.one('/org/').customPOST(data).then(function(response) {
 			  $scope.member.organization = response;
 			  // now add the website
-			  if ($scope.newOrg.url !== undefined && $scope.newOrg.url !== '')
+			  if ($scope.newOrg.url !== undefined && $scope.newOrg.url !== '' && $scope.newOrg.url !== null)
 			  {
 			  	  var websiteData = {
 			  	      "url": $scope.newOrg.url

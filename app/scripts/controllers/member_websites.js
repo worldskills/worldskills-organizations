@@ -31,10 +31,10 @@ angular.module('orgApp')
 				  "text": $scope.member.websites[$scope.editWeb].name.text
 			  }
 		  }
-		  if ($scope.member.websites[$scope.editWeb].description.text != undefined)
+		  if ($scope.member.websites[$scope.editWeb].description.text != undefined && $scope.member.websites[$scope.editWeb].description.text != null)
 		  {
 			  var language = $scope.member.websites[$scope.editWeb].description.lang_code;
-			  if (language === undefined)
+			  if (language === undefined || language === null)
 				  language = 'en';
 			  var desc = {
 				  "lang_code": language,
@@ -62,7 +62,7 @@ angular.module('orgApp')
 				  "text": $scope.newWeb.name
 			  }
 		  };
-		  if ($scope.newWeb.description !== undefined && $scope.newWeb.description !== '')
+		  if ($scope.newWeb.description !== undefined && $scope.newWeb.description !== '' && $scope.newWeb.description !== null)
 		  {
 			  data.description = {
 				  "lang_code": "en",

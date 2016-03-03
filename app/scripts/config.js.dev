@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    var restBaseUrl = 'http://localhost:9090';
-    var authBaseUrl = 'http://localhost:8088';
+    var restBaseUrl = 'http://localhost:8080';
+    var authBaseUrl = 'http://localhost:8080';
     var loginApp = 'http://worldskillsdevauth.com';
     
     var wsApp = angular.module('orgApp'); 
