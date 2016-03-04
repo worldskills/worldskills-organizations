@@ -9,7 +9,7 @@
 	"SYSTEM_GLOSSARY": "Glossary",
 	"SYSTEM_PEOPLE": "People",
 	"SYSTEM_RESOURCES": "Resource Manager",
-	
+
 	"Members":"Members",
 	"MemberList": "Member List",
 	"Export": "Export",
@@ -35,20 +35,23 @@
 	"CreateMem": "Create Member",
 	"SelCountryMsg": "Select a country that this Member represents",
 	"NoCountryDataMsg": "Could not find data for selected country",
-	
+
 	"MemberInfo": "Member Information",
 	"Name1058": "Name for 1058 Sorting",
 	"Flag": "Flag",
 	"Save": "Save",
+	"RemFlag": "Remove Flag",
+	"RemoveFlagConfirm": "Are you sure you want to remove the Member's flag?",
 	"couldNotUploadImage":"Could not upload the flag image",
 	"saveMemberMsg": "Member data saved",
-	
+	"flagRemovedMsg": "Flag removed",
+
 	"Membership": "Membership",
 	"MemberOf": "Member Of",
 	"Status": "Status",
 	"YrJoined": "Year Joined",
 	"AddMShip": "Add Membership",
-	
+
 	"Contacts": "Contacts",
 	"FirstName": "First Name",
 	"LastName": "Last Name",
@@ -56,7 +59,7 @@
 	"AddContact": "Add Contact",
 	"NoPeople": "No people match your search criteria",
 	"RemoveContactConfirm": "Are you sure you want to remove this contact?",
-	
+
 	"MemberOrg": "Member Organization",
 	"Organization": "Organization",
 	"Website": "Website",
@@ -64,7 +67,7 @@
 	"ChangeOrg": "Change Organization",
 	"NoOrgs": "No organizations match your search criteria",
 	"OrgNote": "Note: Do not edit this organization's details if a new body is representing the Member. Create a new Organization.",
-	
+
 	"Addrs": "Addresses",
 	"Ln1": "Line 1",
 	"Ln2": "Line 2",
@@ -75,22 +78,22 @@
 	"Country": "Country",
 	"AddAddress": "Add Address",
 	"RemoveAddrConfirm": "Are you sure you want to remove this address?",
-	
+
 	"Websites": "Websites",
 	"URL": "URL",
 	"Description": "Description",
 	"NewWebsite": "New Website",
 	"DeleteWebsiteConfirm": "Are you sure you want to remove this website?",
-	
+
 	"PhoneNums": "Phone Numbers",
 	"AddPhone": "Add Phone",
 	"DeletePhoneConfirm": "Are you sure you want to remove this phone number?",
-	
+
 	"SocMedia": "Social Media",
 	"Ident": "Identifier",
 	"Link": "Link",
 	"AddSocialMedia": "Add Social Media",
 	"DeleteSocMediaConfirm": "Are you sure you want to delete this social media data?"
-	
-	
+
+
 }

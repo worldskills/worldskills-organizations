@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('orgApp')
-  .controller('MemberInfoCtrl', function ($scope, $rootScope, $stateParams, $translate, Language, auth, user, 
+  .controller('MemberInfoCtrl', function ($scope, $rootScope, $stateParams, $translate, Language, auth, user,
 		  WSAlert, Restangular, API_IMAGES, FileUploader, $modal) {
-    
+
 	  // initialise variables
 	  $scope.memberId = $stateParams.member_id;
 	  $scope.savingMember = false;
@@ -12,10 +12,10 @@ angular.module('orgApp')
 	  $scope.showOrgForm = false;
 	  $scope.newOrg = {};
 	  $scope.chooseOrgModal = false;
-	  
+
 	  // set up flag uploader
 	  $scope.uploader = new FileUploader({
-          scope: $scope,                   
+          scope: $scope,
           queueLimit: 1,
           url: API_IMAGES,
           formData: [
@@ -26,17 +26,17 @@ angular.module('orgApp')
           },
           filters: []
       });
-	  $scope.clearUploadQueue = function() 
+	  $scope.clearUploadQueue = function()
 	  {
 		  $scope.uploader.clearQueue();
 	  };
-	  
-	  $scope.saveMemberInfo = function() 
+
+	  $scope.saveMemberInfo = function()
 	  {
 		  // check if the link should be disabled
 		  if ($scope.savingMember || (!user.hasPermission('Admin') && !user.hasPermissionForEntity('EditMember', $scope.member.ws_entity.id)))
 			  return;
-		  
+
 		  $scope.savingMember = true;
 		  // do we have a new image to save?
 		  if ($scope.uploader.queue.length > 0)
@@ -51,7 +51,7 @@ angular.module('orgApp')
 			  $scope.sendMemberUpdate();
 		  }
 	  };
-	  $scope.uploader.onErrorItem = function(item, response, status, headers) 
+	  $scope.uploader.onErrorItem = function(item, response, status, headers)
 	  {
 		  $scope.savingMember = false;
 		  $translate('couldNotUploadImage').then(function(msg)
@@ -59,13 +59,13 @@ angular.module('orgApp')
         	  WSAlert.danger(msg);
           });
 	  }
-	  $scope.uploader.onSuccessItem = function(item, response, status, headers) 
+	  $scope.uploader.onSuccessItem = function(item, response, status, headers)
 	  {
 		  // now that the upload is complete, send the update to the member with the new image
 		  $scope.sendMemberUpdate(response.id, response.thumbnail_hash);
 	  };
 	  // send the update request
-	  $scope.sendMemberUpdate = function(imageId, thumbnail) 
+	  $scope.sendMemberUpdate = function(imageId, thumbnail)
 	  {
 		  var data = {
 			  "code": $scope.member.code,
@@ -73,7 +73,7 @@ angular.module('orgApp')
 				  "lang_code": "en",
 				  "text": $scope.member.name.text
 			  },
-			  "name_1058": { 		
+			  "name_1058": {
 				  "lang_code": "en",
 				  "text": $scope.member.name_1058.text
 			  },
@@ -100,5 +100,29 @@ angular.module('orgApp')
 			  	  $rootScope.errorHandler(response);
 			  });
 	  };
-	 
+
+    $scope.removeFlag = function() {
+      $translate('RemoveFlagConfirm').then(function(msg)
+		  {
+			  if (confirm(msg))
+			  {
+          Restangular.one('/org/members/' + $scope.memberId + '/flag').customDELETE()
+            .then(function(response) {
+              $scope.getMember($scope.memberId);
+              $translate('flagRemovedMsg').then(function(msg)
+              {
+                WSAlert.success(msg);
+              });
+            }, function(response) {
+    				    $scope.savingMember = false;
+    			  	  $rootScope.errorHandler(response);
+    			  });
+          }
+  			  else
+  			  {
+  				  $scope.savingMember = false;
+  			  }
+  		  });
+    }
+
   });

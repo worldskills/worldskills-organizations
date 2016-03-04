@@ -23,7 +23,7 @@
 					<div class="form-group">
 						<label for="flag" class="col-sm-3 control-label" translate>Flag</label>
 						<div class="col-sm-5">
-							<img ng-src="{{member.flag.thumbnail}}" class="flag" />
+							<img ng-src="{{member.flag.thumbnail}}" class="flag" ng-show="member.flag.thumbnail"/>
 						</div>
 						<div class="col-sm-4">
 							<div class="file_upload_drop_zone" nv-file-drop nv-file-over uploader="uploader">
@@ -38,6 +38,7 @@
 						<div class="col-sm-3"></div>
 						<div class="col-sm-9">
 							<a ng-click="saveMemberInfo()" class="btn btn-success clickable" ng-disabled="savingMember || (!user.hasPermission('Admin') && !user.hasPermissionForEntity('EditMember', member.ws_entity.id))"><span translate>Save</span></a>
+							<a ng-click="removeFlag()" ng-show="member.flag.thumbnail" class="btn btn-danger clickable" ng-disabled="savingMember || (!user.hasPermission('Admin') && !user.hasPermissionForEntity('EditMember', member.ws_entity.id))"><span translate>RemFlag</span></a>
 						</div>
 					</div>
 				</form>
