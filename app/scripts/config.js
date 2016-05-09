@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    var restBaseUrl = 'http://localhost:8080';
+    var restBaseUrl = 'http://localhost:9090';
     var authBaseUrl = 'http://localhost:8080';
     var loginApp = 'http://worldskillsdevauth.com';
     

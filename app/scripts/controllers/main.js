@@ -7,7 +7,7 @@ angular.module('orgApp')
     $scope.auth = auth;
     $scope.user = user;
     
-    $rootScope.memStatusList = false;
+    $rootScope.memStatusList = ["FULL", "ASSOCIATE", "INACTIVE_FULL", "INACTIVE_ASSOCIATE"];
     $rootScope.allCountries = false;
     
     $scope.logout = function (e) {
@@ -41,15 +41,7 @@ angular.module('orgApp')
     		$rootScope.editableMembers = result.members;
     	}, $rootScope.errorHandler);
     };
-    
-    // get the membership status list
-    $rootScope.getMemberStatusList = function()
-    {
-    	Restangular.one('org/members/member_status').get().then( function(result)
-    	{
-    		$rootScope.memStatusList = result;
-    	}, $rootScope.errorHandler);
-    }
+
     
     // get the list of countries
     $rootScope.getCountryList = function()

@@ -4,10 +4,6 @@ angular.module('orgApp')
 	  
 	  $scope.showMembershipForm = false;
 	  $scope.newMShip = {};
-	  if ($rootScope.memStatusList === false)
-	  {
-		  $rootScope.getMemberStatusList();
-	  }
 	  if ($rootScope.editableMembers === undefined || $rootScope.editableMembers === null)
 	  {
 		  $rootScope.getEditableMembers();
@@ -83,7 +79,7 @@ angular.module('orgApp')
 	  $scope.updateMembership = function()
 	  {
 		  var data = {
-			  "status": $scope.member.member_of[$scope.editMem].status.id,
+			  "status": $scope.member.member_of[$scope.editMem].status,
 			  "year_joined": $scope.member.member_of[$scope.editMem].year_joined
 		  }
 		  console.log(data);
