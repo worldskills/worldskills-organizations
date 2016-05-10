@@ -44,7 +44,7 @@
 						<div class="col-sm-9">
 							<select ui-select2="select2Config" data-placeholder="Select status" name='status_id' required ng-model='newMember.status' class='filterSelect small'>
 						    	<option value=''></option>
-						        <option ng-repeat="status in memStatusList" value="{{status.id}}">{{status.name}}</option>
+						        <option ng-repeat="status in memStatusList" value="{{status}}">{{status}}</option>
 						    </select>
 						</div>
 					</div>
