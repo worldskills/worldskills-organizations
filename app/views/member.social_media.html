@@ -29,13 +29,13 @@
 	        			<div class='row' ng-show="showSocMediaForm">
 	        				<form class="form-horizontal" name="new_social_media" novalidate focus-error>
 		        				<div class='col-xs-2'>
-		        					<select ui-select2="select2Config" data-placeholder="Select social network" name='network' required ng-model='newSocMedia.social_network' class='socialNetworkSelect small'>
+		        					<select ui-select2 allow-clear="true" data-placeholder="Select social network" name='network' required ng-model='newSocMedia.social_network' class='socialNetworkSelect small'>
 						        		<option value=''></option>
 						        		<option ng-repeat="network in socialNetworks" value="{{network.id}}">{{network.name}}</option>
 						        	</select>
 		        				</div>	        			
-		        				<div class='col-xs-4'><input class="form-control input-sm" required id="identifier" ng-model="newSocMedia.identifier"></div>
-		        				<div class='col-xs-5'></div>
+		        				<div class='col-xs-4'><input class="form-control input-sm" required id="identifier" ng-model="newSocMedia.identifier" placeholder="Identifier"></div>
+		        				<div class='col-xs-5'><span translate class='note'>SocialMediaNote</span></div>
 		        				<div class='col-xs-1'>
 		        					
 		        				</div>

@@ -93,6 +93,7 @@
 	"Ident": "Identifier",
 	"Link": "Link",
 	"AddSocialMedia": "Add Social Media",
+	"SocialMediaNote": "Note: Only enter the identifier. The system will automatically create the URL based on the identifier.",
 	"DeleteSocMediaConfirm": "Are you sure you want to delete this social media data?"
 
 
