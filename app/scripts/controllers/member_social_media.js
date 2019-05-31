@@ -43,7 +43,7 @@ angular.module('orgApp')
 		  	  case 7:
 		  		  return 'https://www.flickr.com/photos/' + id;
 		  	  case 8:
-		  		  return 'https://www.youtube.com/user/' + id;
+		  		  return 'https://www.youtube.com/' + id;
 		  	  default:
 		  		  return '';
 		  }
