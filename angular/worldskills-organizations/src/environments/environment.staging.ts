@@ -5,6 +5,7 @@ export const environment = {
   worldskillsAuthAppId: 300,
   worldskillsApi: 'https://api.worldskills.show',
   worldskillsApiAuth: 'https://api.worldskills.show/auth',
+  worldskillsApiOrg: 'https://api.worldskills.show/org',
   worldskillsApiPeople: 'https://api.worldskills.show/people',
   worldskillsApiEvents: 'https://api.worldskills.show/events',
   worldskillsApiImages: 'https://api.worldskills.show/images',

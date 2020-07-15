@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
     private localeContextService: LocaleContextService,
   ) {
     this.date = new Date();
-    this.breadcrumb.homeItemRoute = '/organizations';
+    this.breadcrumb.homeItemRoute = '/members';
     this.breadcrumb.targetOutlet = 'primary';
     this.breadcrumb.breadcrumbs = [];
     this.breadcrumb.build(this.route.root);
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
       const target = queryParamMap.has('returnUrl') ? queryParamMap.get('returnUrl') : undefined;
       if (url === '/' || target) {
         if (authStatus.authenticated) {
-          this.router.navigate(['organizations']);
+          this.router.navigate(['members']);
         } else if (!authStatus.isLoggedIn) {
           this.authService.login();
         }

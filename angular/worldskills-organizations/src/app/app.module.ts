@@ -24,6 +24,8 @@ import {DatePipe} from '@angular/common';
 import {HttpInterceptorService} from '../services/http-interceptor/http-interceptor.service';
 import {OrganizationsComponent} from './organizations/organizations.component';
 import {WsSpinnerComponent} from './ws-spinner/ws-spinner.component';
+import { MembersComponent } from './members/members.component';
+import { MembersSearchFormComponent } from './members-search-form/members-search-form.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,6 +38,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ErrorComponent,
     OrganizationsComponent,
     WsSpinnerComponent,
+    MembersComponent,
+    MembersSearchFormComponent,
   ],
   imports: [
     BrowserModule,

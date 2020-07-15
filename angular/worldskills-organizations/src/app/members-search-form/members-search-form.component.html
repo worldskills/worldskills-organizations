@@ -1,0 +1,61 @@
+<div class="card">
+  <h5 class="card-header m-0">{{'Search people' | translate}}</h5>
+  <div class="card-body">
+    <form *ngIf="initialized" class="form-horizontal" novalidate (ngSubmit)="submit()" #form="ngForm"
+          (change)="onChange()">
+      <fieldset [disabled]="loading">
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <input
+              type="text"
+              placeholder="{{'Name' | translate}}"
+              class="form-control"
+              name="name"
+              [ngModel]="fetchParams.name"
+            >
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <ng-select
+              [wsSelect]="['id', 'name.text']"
+              name="member_of"
+              [ngModel]="fetchParams.member_of"
+              placeholder="{{'Member of' | translate}}"
+              [items]="members || []"
+              [disabled]="loading"
+            ></ng-select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <input
+              type="checkbox"
+              name="editable"
+              [checked]="fetchParams.editable"
+              [ngModel]="fetchParams.editable"
+              (change)="onChange()"
+            >&nbsp;{{'Editable' | translate}}
+          </div>
+        </div>
+
+        <div class="form-group row mb-0">
+          <div class="col-sm-12 text-right">
+            <button
+              type="submit"
+              class="btn btn-primary btn-sm" id="saveCentre" [disabled]="loading">
+              <ng-container *ngIf="!loading">{{'Search' | translate}}</ng-container>
+              <ng-container *ngIf="loading">
+                <ws-spinner></ws-spinner>
+              </ng-container>
+            </button>&nbsp;
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+    <ws-spinner *ngIf="!initialized"></ws-spinner>
+  </div>
+</div>
