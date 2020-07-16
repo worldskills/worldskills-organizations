@@ -12,6 +12,13 @@ export interface AuthEntity extends AuthEntityRequest {
   links: Array<Link>;
 }
 
+export interface OrgEntity {
+  id: number;
+  name: I18nModel;
+  parent: OrgEntity;
+  links: Array<Link>;
+}
+
 export type AuthEntityList = List<AuthEntity, 'ws_entity_list'>;
 
-export type PeopleEntityList = List<AuthEntity, 'entities'>;
+export type OrgEntityList = List<OrgEntity, 'entities'>;

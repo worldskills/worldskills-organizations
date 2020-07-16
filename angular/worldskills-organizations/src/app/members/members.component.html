@@ -24,8 +24,9 @@
         <table class="table table-striped">
           <colgroup>
             <col width="20%">
-            <col width="40%">
-            <col width="40%">
+            <col width="30%">
+            <col width="30%">
+            <col width="20%">
           </colgroup>
           <thead>
           <tr>
@@ -50,6 +51,13 @@
                 <ng-container *ngIf="fetchParams.sort !== '1058'">&uarr;</ng-container>
               </a>
             </th>
+            <th class="border-top-0">
+              <a href="#" (click)="$event.preventDefault(); sort('year')">
+                {{'Year joined' | translate}}&nbsp;
+                <ng-container *ngIf="fetchParams.sort === 'year'">&darr;</ng-container>
+                <ng-container *ngIf="fetchParams.sort !== 'year'">&uarr;</ng-container>
+              </a>
+            </th>
           </tr>
           </thead>
           <ng-template [ngIf]="!loading" [ngIfElse]="loader">
@@ -70,16 +78,21 @@
                   {{member.name_1058 ? member.name_1058.text : '-'}}
                 </a>
               </td>
+              <td>
+                <a routerLink="{{member.id}}">
+                  {{getJoinedYear(member)}}
+                </a>
+              </td>
             </tr>
             <tr *ngIf="memberList.members.length === 0">
-              <td colspan="3">{{'No members found.' | translate}}</td>
+              <td colspan="4">{{'No members found.' | translate}}</td>
             </tr>
             </tbody>
           </ng-template>
           <ng-template #loader>
             <tbody>
             <tr>
-              <td colspan="3">
+              <td colspan="4">
                 <ws-spinner></ws-spinner>
               </td>
             </tr>

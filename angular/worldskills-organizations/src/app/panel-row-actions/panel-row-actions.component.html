@@ -34,3 +34,27 @@
     <fa-icon size="xs" [icon]="faTimes"></fa-icon>
   </button>
 </a>
+<a *ngIf="!!cancel.observers.length">
+  <button
+    style="width: 30px; height: 30px"
+    type="button"
+    class="btn btn-warning btn-sm ml-1"
+    (click)="cancel.emit()"
+    placement="top"
+    [ngbTooltip]="this.cancelLabel"
+  >
+    <fa-icon size="xs" [icon]="faBan"></fa-icon>
+  </button>
+</a>
+<a *ngIf="!!save.observers.length">
+  <button
+    style="width: 30px; height: 30px"
+    type="button"
+    class="btn btn-success btn-sm ml-1"
+    (click)="save.emit()"
+    placement="top"
+    [ngbTooltip]="this.saveLabel"
+  >
+    <fa-icon size="xs" [icon]="faSave"></fa-icon>
+  </button>
+</a>

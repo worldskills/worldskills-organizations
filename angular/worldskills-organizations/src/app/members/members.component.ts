@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {WsComponent} from '@worldskills/worldskills-angular-lib';
-import {MemberList} from '../../types/member';
+import {Member, MemberList} from '../../types/member';
 import {isMembersFetchParams, MembersFetchParams, MembersService} from '../../services/members/members.service';
 import {take} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -77,6 +77,13 @@ export class MembersComponent extends WsComponent implements OnInit {
         offset: this.fetchParams.limit ? this.fetchParams.limit * (page - 1) : 0,
       });
     }
+  }
+
+  getJoinedYear(member: Member) {
+    return member.member_of && member.member_of.length > 0 ?
+      member.member_of.map(m => m.year_joined)
+        .reduce((acc, year) => acc === null ? year : (year < acc) ? year : acc, null)
+      : '-';
   }
 
 }

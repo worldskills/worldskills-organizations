@@ -1,12 +1,7 @@
 import {Link, List} from './common';
 import {I18nModel} from '@worldskills/worldskills-angular-lib';
-
-export interface WsEntity {
-  id: number;
-  name: I18nModel;
-  parent: WsEntity;
-  links: Array<Link>;
-}
+import {OrgEntity} from "./entity";
+import {Membership} from "./membership";
 
 export interface Website {
   id: number;
@@ -23,14 +18,6 @@ export interface Organization {
   phones: Array<Phone>;
   addresses: Array<Address>;
   links: Array<Link>;
-}
-
-export interface MemberOf {
-  id: number;
-  name: I18nModel;
-  ws_entity: WsEntity;
-  status: string;
-  year_joined: number;
 }
 
 export interface PhoneType {
@@ -113,9 +100,9 @@ export interface MemberRequest {
   code?: string;
   name?: I18nModel;
   name_1058?: I18nModel;
-  ws_entity?: WsEntity;
+  ws_entity?: OrgEntity;
   organization?: Organization;
-  member_of?: Array<MemberOf>;
+  member_of?: Array<Membership>;
   websites?: Array<Website>;
   phones?: Array<Phone>;
   addresses?: Array<Address>;
@@ -129,9 +116,9 @@ export interface Member {
   code: string;
   name: I18nModel;
   name_1058: I18nModel;
-  ws_entity: WsEntity;
+  ws_entity: OrgEntity;
   organization: Organization;
-  member_of: Array<MemberOf>;
+  member_of: Array<Membership>;
   websites: Array<Website>;
   phones: Array<Phone>;
   addresses: Array<Address>;
