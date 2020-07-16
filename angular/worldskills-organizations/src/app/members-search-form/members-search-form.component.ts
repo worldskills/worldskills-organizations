@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {LOADER_ONLY, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {MembersFetchParams, MembersService} from '../../services/members/members.service';
 import {NgForm} from '@angular/forms';
+import {Member} from '../../types/member';
 
 @Component({
   selector: 'app-members-search-form',
@@ -11,7 +12,7 @@ import {NgForm} from '@angular/forms';
 export class MembersSearchFormComponent extends WsComponent implements OnInit {
 
   fetchParams: MembersFetchParams;
-  members: Array<Members>;
+  members: Array<Member>;
   loading = false;
   @ViewChild('form') form: NgForm;
 

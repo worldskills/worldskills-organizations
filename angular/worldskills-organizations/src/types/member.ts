@@ -96,6 +96,11 @@ export interface MemberSocialNetwork {
   social_network_identifier: string;
 }
 
+export interface FlagRequest {
+  image_id: number;
+  thumbnail_hash: string;
+}
+
 export interface Flag {
   id: number;
   image_id: number;
@@ -105,6 +110,21 @@ export interface Flag {
 }
 
 export interface MemberRequest {
+  code?: string;
+  name?: I18nModel;
+  name_1058?: I18nModel;
+  ws_entity?: WsEntity;
+  organization?: Organization;
+  member_of?: Array<MemberOf>;
+  websites?: Array<Website>;
+  phones?: Array<Phone>;
+  addresses?: Array<Address>;
+  contacts?: Array<Contact>;
+  social_networks?: Array<MemberSocialNetwork>;
+  flag?: FlagRequest;
+}
+
+export interface Member {
   id: number;
   code: string;
   name: I18nModel;
@@ -119,9 +139,6 @@ export interface MemberRequest {
   social_networks: Array<MemberSocialNetwork>;
   flag: Flag;
   links: Array<Link>;
-}
-
-export interface Member extends MemberRequest {
 }
 
 export type MemberList = List<Member, 'members'>;

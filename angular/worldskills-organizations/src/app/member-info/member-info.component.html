@@ -2,15 +2,98 @@
   <ws-spinner></ws-spinner>
 </ng-container>
 <ng-container *ngIf="initialized && !loading">
-  <app-panel-header title="{{'Member info' | translate}}"></app-panel-header>
-  <app-panel title="{{'Member info' | translate}}">
-    <div class="container">
-      <app-panel-row>
-        <ng-container left>
-        </ng-container>
-        <ng-container right>
-        </ng-container>
-      </app-panel-row>
-    </div>
-  </app-panel>
+  <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
+        (ngSubmit)="submitForm()" #form="ngForm">
+    <app-panel-header title="{{'Member info' | translate}}"></app-panel-header>
+    <app-panel title="{{'Member info' | translate}}">
+      <div class="container">
+        <app-panel-row>
+          <ng-container left>
+            {{'Name' | translate}}&nbsp;*
+          </ng-container>
+          <ng-container right>
+            <input
+              class="form-control"
+              name="name"
+              placeholder="Name"
+              [ngModel]="member.name.text"
+              required
+            />
+          </ng-container>
+        </app-panel-row>
+        <app-panel-row>
+          <ng-container left>
+            {{'Member code' | translate}}&nbsp;*
+          </ng-container>
+          <ng-container right>
+            <input
+              class="form-control"
+              name="code"
+              placeholder="Member code"
+              [ngModel]="member.code"
+              required
+            />
+          </ng-container>
+        </app-panel-row>
+        <app-panel-row>
+          <ng-container left>
+            {{'Name for 1058 sorting' | translate}}&nbsp;*
+          </ng-container>
+          <ng-container right>
+            <input
+              class="form-control"
+              name="name_1058"
+              placeholder="Name for 1058 sorting"
+              [ngModel]="member.name_1058.text"
+              required
+            />
+          </ng-container>
+        </app-panel-row>
+        <app-panel-row>
+          <ng-container left>
+            {{'Flag' | translate}}
+          </ng-container>
+          <ng-container right>
+            <div class="mb-1 mw-100">
+              <img class="mw-100" *ngIf="member.flag" [src]="member.flag.thumbnail"/>
+              <div
+                *ngIf="!member.flag"
+                class="alert alert-warning"
+              >
+                {{'No flag has been uploaded' | translate}}
+              </div>
+            </div>
+
+            <div>
+              <input
+                #flagInput
+                class="float-left"
+                name="flag"
+                type="file"
+                (change)="setFileFromInput($event)"
+              />
+              <button *ngIf="!!uploadFile" class="btn btn-danger btn-sm float-right" (click)="unsetFlag()">
+                {{'Remove image' | translate}}
+              </button>
+              <div class="clearfix"></div>
+            </div>
+          </ng-container>
+        </app-panel-row>
+        <app-panel-row [alignRightRowRight]="true">
+          <ng-container right>
+            <button *ngIf="member.flag" type="button" class="btn btn-danger btn-sm mr-1"
+                    (click)="deleteFlag()">{{'Remove flag' | translate}}</button>
+            <button type="submit" class="btn btn-success btn-sm">{{'Save' | translate}}</button>
+          </ng-container>
+          <p class="my-4" *ngIf="resourceLoading">
+            <ngb-progressbar
+              type="info"
+              [value]="resourceProgress * 100"
+              [striped]="true"
+            ></ngb-progressbar>
+          </p>
+        </app-panel-row>
+      </div>
+    </app-panel>
+  </form>
 </ng-container>

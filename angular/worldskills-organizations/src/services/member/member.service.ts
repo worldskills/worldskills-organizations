@@ -52,11 +52,17 @@ export class MemberService extends WsService<Member> {
     return this.request(observable, multicastOptions);
   }
 
-  update(memberId: number, member: Member, rOpt?: RequestOptions): Observable<Member>;
-  update(memberId: number, member: Member, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
-  update(memberId: number, member: Member, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  update(memberId: number, member: Member, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  update(memberId: number, member: Member, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
+  update(memberId: number, member: MemberRequest, rOpt?: RequestOptions): Observable<Member>;
+  update(memberId: number, member: MemberRequest, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
+  update(memberId: number, member: MemberRequest, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
+  update(memberId: number, member: MemberRequest, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
+  update(
+    memberId: number,
+    member: MemberRequest,
+    p1: WsServiceRequestP1,
+    p2?: WsServiceRequestP2,
+    p3?: WsServiceRequestP3
+  ): Observable<Member> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
     const params = httpParamsFromFetchParams(fetchParams);
     const observable = this.http.put<Member>(
@@ -74,6 +80,19 @@ export class MemberService extends WsService<Member> {
     const params = httpParamsFromFetchParams(fetchParams);
     const observable = this.http.delete<Member>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/members/${memberId}`, {params}
+    ).pipe(share());
+    return this.request(observable, multicastOptions);
+  }
+
+  deleteFlag(memberId: number, rOpt?: RequestOptions): Observable<Member>;
+  deleteFlag(memberId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
+  deleteFlag(memberId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
+  deleteFlag(memberId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
+  deleteFlag(memberId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
+    const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
+    const params = httpParamsFromFetchParams(fetchParams);
+    const observable = this.http.delete<Member>(
+      requestOptions.url ?? `${environment.worldskillsApiOrg}/members/${memberId}/flag`, {params}
     ).pipe(share());
     return this.request(observable, multicastOptions);
   }
