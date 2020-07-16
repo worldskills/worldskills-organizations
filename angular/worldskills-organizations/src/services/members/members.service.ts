@@ -43,7 +43,8 @@ export class MembersService extends WsService<MemberList, MembersFetchParams> {
       offset: 0,
       limit: 20,
       editable: true,
-    }, false);
+      sort: 'name',
+    }, true);
   }
 
   updateFetchParams(value: MembersFetchParams | undefined, update = true) {

@@ -3,6 +3,15 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {ErrorComponent} from './error/error.component';
 import {MembersComponent} from './members/members.component';
+import {MemberComponent} from './member/member.component';
+import {MemberInfoComponent} from './member-info/member-info.component';
+import {OrganizationComponent} from './organization/organization.component';
+import {MembershipComponent} from './membership/membership.component';
+import {ContactsComponent} from './contacts/contacts.component';
+import {AddressesComponent} from './addresses/addresses.component';
+import {WebsitesComponent} from './websites/websites.component';
+import {PhoneNumbersComponent} from './phone-numbers/phone-numbers.component';
+import {SocialMediaComponent} from './social-media/social-media.component';
 
 function forAppCode(appCode: number, roles: Array<string>) {
   return roles.map(name => ({
@@ -18,7 +27,61 @@ const routes: Routes = [
     children: [
       {
         path: 'members',
-        component: MembersComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: MembersComponent,
+          },
+          {
+            path: ':memberId',
+            component: MemberComponent,
+            data: {breadcrumb: 'Member'},
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: MemberInfoComponent,
+                data: {breadcrumb: 'Member info'},
+              },
+              {
+                path: 'organization',
+                component: OrganizationComponent,
+                data: {breadcrumb: 'Organization'},
+              },
+              {
+                path: 'membership',
+                component: MembershipComponent,
+                data: {breadcrumb: 'Membership'},
+              },
+              {
+                path: 'contacts',
+                component: ContactsComponent,
+                data: {breadcrumb: 'Contacts'},
+              },
+              {
+                path: 'addresses',
+                component: AddressesComponent,
+                data: {breadcrumb: 'Addresses'},
+              },
+              {
+                path: 'websites',
+                component: WebsitesComponent,
+                data: {breadcrumb: 'Websites'},
+              },
+              {
+                path: 'phone-numbers',
+                component: PhoneNumbersComponent,
+                data: {breadcrumb: 'Phone numbers'},
+              },
+              {
+                path: 'social-media',
+                component: SocialMediaComponent,
+                data: {breadcrumb: 'Social media'},
+              },
+            ],
+          },
+        ],
       }
     ]
   },

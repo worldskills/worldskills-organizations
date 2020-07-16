@@ -1,0 +1,67 @@
+<h2 class="mt-0">
+  <ng-container *ngIf="!initialized">{{'Loading, please wait...' | translate}}</ng-container>
+  <ng-container *ngIf="initialized">
+    {{member.name.text}}
+  </ng-container>
+</h2>
+<div class="clearfix"></div>
+
+<div class="row mt-2">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="list-group list-group-flush">
+        <a
+          routerLinkActive="active"
+          routerLink="./" [routerLinkActiveOptions]="{exact: true}"
+          class="list-group-item list-group-item-action">
+          {{'Member information' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="organization"
+          class="list-group-item list-group-item-action">
+          {{'Organization' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="membership"
+          class="list-group-item list-group-item-action">
+          {{'Membership' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="contacts"
+          class="list-group-item list-group-item-action">
+          {{'Contacts' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="addresses"
+          class="list-group-item list-group-item-action">
+          {{'Addresses' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="websites"
+          class="list-group-item list-group-item-action">
+          {{'Websites' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="phone-numbers"
+          class="list-group-item list-group-item-action">
+          {{'Phone numbers' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="social-media"
+          class="list-group-item list-group-item-action">
+          {{'Social media' | translate}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <router-outlet></router-outlet>
+  </div>
+</div>

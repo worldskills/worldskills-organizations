@@ -22,10 +22,22 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common';
 import {HttpInterceptorService} from '../services/http-interceptor/http-interceptor.service';
-import {OrganizationsComponent} from './organizations/organizations.component';
 import {WsSpinnerComponent} from './ws-spinner/ws-spinner.component';
-import { MembersComponent } from './members/members.component';
-import { MembersSearchFormComponent } from './members-search-form/members-search-form.component';
+import {MembersComponent} from './members/members.component';
+import {MembersSearchFormComponent} from './members-search-form/members-search-form.component';
+import {MemberComponent} from './member/member.component';
+import {MemberInfoComponent} from './member-info/member-info.component';
+import {OrganizationComponent} from './organization/organization.component';
+import {MembershipComponent} from './membership/membership.component';
+import {ContactsComponent} from './contacts/contacts.component';
+import {AddressesComponent} from './addresses/addresses.component';
+import {WebsitesComponent} from './websites/websites.component';
+import {PhoneNumbersComponent} from './phone-numbers/phone-numbers.component';
+import {SocialMediaComponent} from './social-media/social-media.component';
+import {PanelComponent} from './panel/panel.component';
+import {PanelHeaderComponent} from './panel-header/panel-header.component';
+import {PanelRowComponent} from './panel-row/panel-row.component';
+import {PanelRowActionsComponent} from './panel-row-actions/panel-row-actions.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -36,10 +48,22 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomeComponent,
     ErrorComponent,
-    OrganizationsComponent,
     WsSpinnerComponent,
     MembersComponent,
     MembersSearchFormComponent,
+    MemberComponent,
+    MemberInfoComponent,
+    OrganizationComponent,
+    MembershipComponent,
+    ContactsComponent,
+    AddressesComponent,
+    WebsitesComponent,
+    PhoneNumbersComponent,
+    SocialMediaComponent,
+    PanelComponent,
+    PanelHeaderComponent,
+    PanelRowComponent,
+    PanelRowActionsComponent,
   ],
   imports: [
     BrowserModule,

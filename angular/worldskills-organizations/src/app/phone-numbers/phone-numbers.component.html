@@ -1,0 +1,16 @@
+<ng-container *ngIf="loading || !initialized">
+  <ws-spinner></ws-spinner>
+</ng-container>
+<ng-container *ngIf="initialized && !loading">
+  <app-panel-header title="{{'Phone numbers' | translate}}"></app-panel-header>
+  <app-panel title="{{'Phone numbers' | translate}}">
+    <div class="container">
+      <app-panel-row>
+        <ng-container left>
+        </ng-container>
+        <ng-container right>
+        </ng-container>
+      </app-panel-row>
+    </div>
+  </app-panel>
+</ng-container>

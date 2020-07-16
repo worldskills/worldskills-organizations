@@ -1,0 +1,13 @@
+<div class="card mb-4">
+  <div class="card-header">
+    {{title}}
+    <ng-template [ngIf]="editLink">
+      <a class="text-primary float-right" routerLink="{{editLink}}">
+        <fa-icon size="lg" [icon]="faEdit"></fa-icon>
+      </a>
+    </ng-template>
+  </div>
+  <div class="card-body no-gutters">
+    <ng-content></ng-content>
+  </div>
+</div>

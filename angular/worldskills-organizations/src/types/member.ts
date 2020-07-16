@@ -104,7 +104,7 @@ export interface Flag {
   links: Array<Link>;
 }
 
-export interface Member {
+export interface MemberRequest {
   id: number;
   code: string;
   name: I18nModel;
@@ -119,6 +119,9 @@ export interface Member {
   social_networks: Array<MemberSocialNetwork>;
   flag: Flag;
   links: Array<Link>;
+}
+
+export interface Member extends MemberRequest {
 }
 
 export type MemberList = List<Member, 'members'>;
