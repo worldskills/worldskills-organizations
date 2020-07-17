@@ -4,6 +4,7 @@ import {OrgEntity} from './entity';
 import {Membership} from './membership';
 import {Contact} from './contact';
 import {Address} from './address';
+import {Phone} from './phone';
 
 export interface Website {
   id: number;
@@ -20,25 +21,6 @@ export interface Organization {
   phones: Array<Phone>;
   addresses: Array<Address>;
   links: Array<Link>;
-}
-
-export interface PhoneType {
-  id: number;
-  name: string;
-}
-
-export interface PhoneCountry {
-  id: number;
-  code: string;
-  name: I18nModel;
-  prefix: string;
-}
-
-export interface Phone {
-  id: number;
-  phone_type: PhoneType;
-  phone_number: string;
-  country: PhoneCountry;
 }
 
 export interface SocialNetwork {
