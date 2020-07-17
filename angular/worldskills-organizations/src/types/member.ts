@@ -2,6 +2,7 @@ import {Link, List} from './common';
 import {I18nModel} from '@worldskills/worldskills-angular-lib';
 import {OrgEntity} from "./entity";
 import {Membership} from "./membership";
+import {Contact} from "./contact";
 
 export interface Website {
   id: number;
@@ -62,14 +63,6 @@ export interface Address {
   city: string;
   zip_code: string;
   country: AddressCountry;
-}
-
-export interface Contact {
-  id: number;
-  person_id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
 }
 
 export interface SocialNetwork {

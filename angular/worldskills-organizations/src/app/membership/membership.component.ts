@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {LOADER_ONLY, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, LOADER_ONLY, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
 import {combineLatest} from 'rxjs';
@@ -8,6 +8,7 @@ import {MembersService} from '../../services/members/members.service';
 import {NgForm} from '@angular/forms';
 import {Membership, MembershipRequest} from '../../types/membership';
 import {MembershipsService} from '../../services/memberships/memberships.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-membership',
@@ -27,6 +28,8 @@ export class MembershipComponent extends WsComponent implements OnInit {
     private memberService: MemberService,
     private membersService: MembersService,
     private membershipsService: MembershipsService,
+    private alertService: AlertService,
+    private translateService: TranslateService,
   ) {
     super();
   }
@@ -57,8 +60,17 @@ export class MembershipComponent extends WsComponent implements OnInit {
 
   unbindMembership(membership: Membership) {
     const memberId = this.member.id;
-    this.membershipsService.unbind(memberId, membership.id)
-      .subscribe(() => this.memberService.fetch(memberId));
+    this.translateService.get('Are you sure you want to unbind the membership').subscribe(t => {
+      if (confirm(t)) {
+        this.membershipsService.unbind(memberId, membership.id)
+          .subscribe(() => {
+            this.memberService.fetch(memberId);
+            this.translateService.get('Unbound membership').subscribe(t => {
+              this.alertService.setAlert('unbound-membership', AlertType.success, null, null, t, true);
+            });
+          });
+      }
+    });
   }
 
   submitEditForm() {
@@ -73,6 +85,9 @@ export class MembershipComponent extends WsComponent implements OnInit {
         .subscribe(() => {
           this.editingMembership = null;
           this.memberService.fetch(memberId);
+          this.translateService.get('Updated membership').subscribe(t2 => {
+            this.alertService.setAlert('updated-membership', AlertType.success, null, null, t2, true);
+          });
         });
     }
   }
@@ -87,7 +102,12 @@ export class MembershipComponent extends WsComponent implements OnInit {
         year_joined,
       };
       this.membershipsService.bind(memberId, data)
-        .subscribe(() => this.memberService.fetch(memberId));
+        .subscribe(() => {
+          this.memberService.fetch(memberId);
+          this.translateService.get('Bound to new membership').subscribe(t => {
+            this.alertService.setAlert('bound-membership', AlertType.success, null, null, t, true);
+          });
+        });
     }
   }
 
