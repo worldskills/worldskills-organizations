@@ -1,9 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {WsComponent} from '@worldskills/worldskills-angular-lib';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AlertService, AlertType, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {MemberService} from '../../services/member/member.service';
 import {Member} from '../../types/member';
 import {combineLatest} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Address, AddressRequest} from '../../types/address';
+import {NgForm} from '@angular/forms';
+import {CountriesService} from '../../services/countries/countries.service';
+import {Country} from '../../types/country';
+import {AddressesService} from '../../services/addresses/addresses.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-addresses',
@@ -13,10 +19,18 @@ import {map} from 'rxjs/operators';
 export class AddressesComponent extends WsComponent implements OnInit {
 
   member: Member;
+  countries: Array<Country>;
   loading = false;
+  editingAddress: Address = null;
+  @ViewChild('form') form: NgForm;
+  @ViewChild('editForm') editForm: NgForm;
 
   constructor(
     private memberService: MemberService,
+    private countriesService: CountriesService,
+    private addressesService: AddressesService,
+    private alertService: AlertService,
+    private translateService: TranslateService,
   ) {
     super();
   }
@@ -24,15 +38,105 @@ export class AddressesComponent extends WsComponent implements OnInit {
   ngOnInit(): void {
     this.subscribe(
       this.memberService.subject.subscribe(member => (this.member = member)),
+      this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
       combineLatest([
         this.memberService.loading,
+        this.countriesService.loading,
+        this.addressesService.loading,
       ]).pipe(map(ls => !ls.every(l => !l)))
         .subscribe(loading => (this.loading = loading)),
     );
+    this.countriesService.fetch();
   }
 
   get initialized() {
-    return !!this.member;
+    return !!this.member && !!this.countries;
+  }
+
+  editAddress(address: Address) {
+    this.editingAddress = address;
+  }
+
+  cancelEditAddress() {
+    this.editingAddress = null;
+  }
+
+  unbindAddress(address: Address) {
+    const memberId = this.member.id;
+    this.translateService.get('Are you sure you want to remove the address').subscribe(t => {
+      if (confirm(t)) {
+        this.addressesService.unbind(memberId, address.id)
+          .subscribe(() => {
+            this.memberService.fetch(memberId);
+            this.translateService.get('Removed address').subscribe(t => {
+              this.alertService.setAlert('removed-address', AlertType.success, null, null, t, true);
+            });
+          });
+      }
+    });
+  }
+
+  submitEditForm() {
+    if (this.editForm.valid) {
+      const memberId = this.member.id;
+      const {
+        city,
+        country,
+        line1,
+        line2,
+        line3,
+        line4,
+        zip_code,
+      } = this.editForm.value;
+      const data: AddressRequest = {
+        city,
+        country,
+        line1,
+        line2,
+        line3,
+        line4,
+        zip_code,
+      };
+      this.addressesService.update(memberId, this.editingAddress.id, data)
+        .subscribe(() => {
+          this.editingAddress = null;
+          this.memberService.fetch(memberId);
+          this.translateService.get('Updated address').subscribe(t2 => {
+            this.alertService.setAlert('updated-address', AlertType.success, null, null, t2, true);
+          });
+        });
+    }
+  }
+
+  submitForm() {
+    if (this.form.valid) {
+      const memberId = this.member.id;
+      const {
+        city,
+        country,
+        line1,
+        line2,
+        line3,
+        line4,
+        zip_code,
+      } = this.form.value;
+      const data: AddressRequest = {
+        city,
+        country,
+        line1,
+        line2,
+        line3,
+        line4,
+        zip_code,
+      };
+      this.addressesService.bind(memberId, data)
+        .subscribe(() => {
+          this.memberService.fetch(memberId);
+          this.translateService.get('Added address').subscribe(t => {
+            this.alertService.setAlert('added-address', AlertType.success, null, null, t, true);
+          });
+        });
+    }
   }
 
 }

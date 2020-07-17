@@ -1,8 +1,9 @@
 import {Link, List} from './common';
 import {I18nModel} from '@worldskills/worldskills-angular-lib';
-import {OrgEntity} from "./entity";
-import {Membership} from "./membership";
-import {Contact} from "./contact";
+import {OrgEntity} from './entity';
+import {Membership} from './membership';
+import {Contact} from './contact';
+import {Address} from './address';
 
 export interface Website {
   id: number;
@@ -26,7 +27,7 @@ export interface PhoneType {
   name: string;
 }
 
-export interface Country {
+export interface PhoneCountry {
   id: number;
   code: string;
   name: I18nModel;
@@ -37,32 +38,7 @@ export interface Phone {
   id: number;
   phone_type: PhoneType;
   phone_number: string;
-  country: Country;
-}
-
-export interface AddressCountryMember {
-  id: number;
-  code: string;
-  name: I18nModel;
-}
-
-export interface AddressCountry {
-  id: number;
-  code: string;
-  name: I18nModel;
-  phone_prefix: string;
-  member: AddressCountryMember;
-}
-
-export interface Address {
-  id: number;
-  line1: string;
-  line2: string;
-  line3: string;
-  line4: string;
-  city: string;
-  zip_code: string;
-  country: AddressCountry;
+  country: PhoneCountry;
 }
 
 export interface SocialNetwork {
