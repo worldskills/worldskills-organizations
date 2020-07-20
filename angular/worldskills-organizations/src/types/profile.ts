@@ -3,7 +3,7 @@ import {Role} from './role';
 import {AuthEntity} from './entity';
 import {I18nModel} from '@worldskills/worldskills-angular-lib';
 import {Website} from './website';
-import {SocialNetwork} from './socialNetwork';
+import {ProfileSocialNetwork as SocialNetwork} from './socialNetwork';
 
 export interface PermittedEntity {
   id: number;

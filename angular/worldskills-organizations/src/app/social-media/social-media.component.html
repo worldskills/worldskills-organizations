@@ -5,12 +5,125 @@
   <app-panel-header title="{{'Social media' | translate}}"></app-panel-header>
   <app-panel title="{{'Social media' | translate}}">
     <div class="container">
-      <app-panel-row>
-        <ng-container left>
+      <div class="row">
+        <div class="col-3 font-weight-bold p-2">
+          {{'Type' | translate}}
+        </div>
+        <div class="col-3 font-weight-bold p-2">
+          {{'Identifier' | translate}}
+        </div>
+        <div class="col-4 font-weight-bold p-2">
+          {{'Link' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          &nbsp;
+        </div>
+      </div>
+      <ng-container *ngIf="member.social_networks.length > 0">
+        <ng-container *ngFor="let s of member.social_networks">
+          <hr class="my-2 mx-0"/>
+          <div *ngIf="s !== editingSocialNetwork" class="row">
+            <div class="col-3 p-2">
+              {{s.social_network.name}}
+            </div>
+            <div class="col-3 p-2">
+              {{s.social_network_identifier}}
+            </div>
+            <div class="col-4 p-2">
+              <a target="_blank" href="{{getLink(s.social_network.id, s.social_network_identifier)}}">
+                {{getLink(s.social_network.id, s.social_network_identifier)}}
+              </a>
+            </div>
+            <div class="col-2 p-2 text-right">
+              <app-panel-row-actions
+                (delete)="unbindSocialNetwork(s)"
+                (edit)="editSocialNetwork(s)"
+              ></app-panel-row-actions>
+            </div>
+          </div>
+          <form *ngIf="s === editingSocialNetwork" class="form-horizontal"
+                [ngClass]="{'was-validated': this.editForm.submitted}" novalidate
+                (ngSubmit)="submitEditForm()" #editForm="ngForm">
+            <div class="row">
+              <div class="col-3 p-2">
+                <ng-select
+                  [wsSelect]="['id', 'name']"
+                  name="social_network"
+                  [ngModel]="s.social_network.id"
+                  placeholder="{{'Type' | translate}}"
+                  [items]="socialNetworkTypes || []"
+                  [disabled]="loading"
+                  required
+                ></ng-select>
+              </div>
+              <div class="col-3 p-2">
+                <input
+                  type="text"
+                  placeholder="{{'Identifier' | translate}}"
+                  class="form-control"
+                  name="social_network_identifier"
+                  [ngModel]="s.social_network_identifier"
+                  required
+                >
+              </div>
+              <div class="col-4 p-2">
+                <a target="_blank" href="{{getLinkFromForm(editForm)}}">
+                  {{getLinkFromForm(editForm)}}
+                </a>
+              </div>
+              <div class="col-2 p-2 text-right">
+                <app-panel-row-actions
+                  (cancel)="cancelEditSocialNetwork()"
+                  (save)="editForm.onSubmit(undefined)"
+                ></app-panel-row-actions>
+              </div>
+            </div>
+          </form>
         </ng-container>
-        <ng-container right>
-        </ng-container>
-      </app-panel-row>
+      </ng-container>
+      <ng-container *ngIf="member.member_of.length === 0">
+        <hr class="my-2 mx-0"/>
+        <div class="row">
+          <div class="col-12 p-2">
+            {{'This member isn\'t member of any other member' | translate}}
+          </div>
+        </div>
+      </ng-container>
+      <hr class="my-2 mx-0"/>
+      <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
+            (ngSubmit)="submitForm()" #form="ngForm">
+        <div class="row">
+          <div class="col-3 p-2">
+            <ng-select
+              [wsSelect]="['id', 'name']"
+              name="social_network"
+              [ngModel]="null"
+              placeholder="{{'Type' | translate}}"
+              [items]="socialNetworkTypes || []"
+              [disabled]="loading"
+              required
+            ></ng-select>
+          </div>
+          <div class="col-3 p-2">
+            <input
+              type="text"
+              placeholder="{{'Identifier' | translate}}"
+              class="form-control"
+              name="social_network_identifier"
+              [ngModel]="null"
+              required
+            >
+          </div>
+          <div class="col-4 p-2">
+            <a target="_blank" href="{{getLinkFromForm(form)}}">
+              {{getLinkFromForm(form)}}
+            </a>
+          </div>
+          <div class="col-2 p-2 text-right">
+            <button class="btn btn-success btn-sm">{{'Add' | translate}}</button>
+          </div>
+        </div>
+      </form>
     </div>
   </app-panel>
 </ng-container>

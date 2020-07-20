@@ -5,6 +5,7 @@ import {Membership} from './membership';
 import {Contact} from './contact';
 import {Address} from './address';
 import {Phone} from './phone';
+import {SocialNetwork} from './socialNetwork';
 
 export interface Website {
   id: number;
@@ -21,17 +22,6 @@ export interface Organization {
   phones: Array<Phone>;
   addresses: Array<Address>;
   links: Array<Link>;
-}
-
-export interface SocialNetwork {
-  id: number;
-  name: string;
-}
-
-export interface MemberSocialNetwork {
-  id: number;
-  social_network: SocialNetwork;
-  social_network_identifier: string;
 }
 
 export interface FlagRequest {
@@ -58,7 +48,7 @@ export interface MemberRequest {
   phones?: Array<Phone>;
   addresses?: Array<Address>;
   contacts?: Array<Contact>;
-  social_networks?: Array<MemberSocialNetwork>;
+  social_networks?: Array<SocialNetwork>;
   flag?: FlagRequest;
 }
 
@@ -74,7 +64,7 @@ export interface Member {
   phones: Array<Phone>;
   addresses: Array<Address>;
   contacts: Array<Contact>;
-  social_networks: Array<MemberSocialNetwork>;
+  social_networks: Array<SocialNetwork>;
   flag: Flag;
   links: Array<Link>;
 }
