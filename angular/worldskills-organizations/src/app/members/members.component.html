@@ -2,6 +2,13 @@
   routerLink="add"
   class="btn btn-success float-right"
 >{{'Add Member' | translate}}</button>
+<button
+  (click)="downloadMembers()"
+  class="btn btn-primary float-right mr-1"
+  [disabled]="exporting"
+><span *ngIf="!exporting">{{'Export to Spreadsheet' | translate}}</span>
+  <ws-spinner *ngIf="exporting"></ws-spinner>
+</button>
 <h2 class="mt-0">{{'Members' | translate}}</h2>
 <div class="clearfix border-bottom"></div>
 

@@ -4,6 +4,8 @@ import {Member, MemberList} from '../../types/member';
 import {isMembersFetchParams, MembersFetchParams, MembersService} from '../../services/members/members.service';
 import {take} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-members',
@@ -15,11 +17,12 @@ export class MembersComponent extends WsComponent implements OnInit {
   memberList: MemberList;
   fetchParams: MembersFetchParams;
   loading = false;
-
+  exporting = false;
   constructor(
     private membersService: MembersService,
     private router: Router,
     private route: ActivatedRoute,
+    private http: HttpClient,
   ) {
     super();
   }
@@ -84,6 +87,20 @@ export class MembersComponent extends WsComponent implements OnInit {
       member.member_of.map(m => m.year_joined)
         .reduce((acc, year) => acc === null ? year : (year < acc) ? year : acc, null)
       : '-';
+  }
+
+  downloadMembers() {
+    this.exporting = true;
+    this.http.get(`${environment.worldskillsApiOrg}/members/export?s=xlsx`, {responseType: 'arraybuffer'})
+      .subscribe(response => {
+        const objectURL = window.URL.createObjectURL(new Blob([response], {type: 'application/octet-stream'}));
+        const downloadLink = document.createElement('a');
+        downloadLink.href = objectURL;
+        downloadLink.setAttribute('download', 'worldskills_members.xlsx');
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        this.exporting = false;
+      });
   }
 
 }
