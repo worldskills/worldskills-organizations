@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {WsComponent} from '@worldskills/worldskills-angular-lib';
+import {UserModel, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member, MemberList} from '../../types/member';
 import {isMembersFetchParams, MembersFetchParams, MembersService} from '../../services/members/members.service';
 import {take} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-members',
@@ -14,11 +15,14 @@ import {HttpClient} from '@angular/common/http';
 })
 export class MembersComponent extends WsComponent implements OnInit {
 
+  authenticatedUser: UserModel;
   memberList: MemberList;
   fetchParams: MembersFetchParams;
   loading = false;
   exporting = false;
+
   constructor(
+    private authService: AuthService,
     private membersService: MembersService,
     private router: Router,
     private route: ActivatedRoute,
@@ -29,6 +33,7 @@ export class MembersComponent extends WsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribe(
+      this.authService.authStatus.subscribe(authStatus => (this.authenticatedUser = authStatus.user)),
       this.membersService.fetchParams.subscribe(fetchParams => {
         this.fetchParams = fetchParams;
         if (this.fetchParams.update) {
@@ -101,6 +106,12 @@ export class MembersComponent extends WsComponent implements OnInit {
         downloadLink.click();
         this.exporting = false;
       });
+  }
+
+  get isAdmin() {
+    return this.authenticatedUser && this.authenticatedUser.roles && this.authenticatedUser.roles.some(
+      role => role.roleApplication.applicationCode === environment.worldskillsAppId && role.name === 'Admin'
+    );
   }
 
 }

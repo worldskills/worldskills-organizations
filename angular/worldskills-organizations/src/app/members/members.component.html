@@ -3,6 +3,7 @@
   class="btn btn-success float-right"
 >{{'Add Member' | translate}}</button>
 <button
+  *ngIf="isAdmin"
   (click)="downloadMembers()"
   class="btn btn-primary float-right mr-1"
   [disabled]="exporting"
