@@ -1,7 +1,7 @@
 import {Link, List} from './common';
 import {I18nModel} from '@worldskills/worldskills-angular-lib';
 import {OrgEntity} from './entity';
-import {Membership} from './membership';
+import {Membership, MembershipRequest} from './membership';
 import {Contact} from './contact';
 import {Address} from './address';
 import {Phone} from './phone';
@@ -28,7 +28,7 @@ export interface MemberRequest {
   name_1058?: I18nModel;
   ws_entity?: OrgEntity;
   organization?: Organization;
-  member_of?: Array<Membership>;
+  member_of?: MembershipRequest;
   websites?: Array<Website>;
   phones?: Array<Phone>;
   addresses?: Array<Address>;

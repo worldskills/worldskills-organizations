@@ -12,6 +12,7 @@ import {AddressesComponent} from './addresses/addresses.component';
 import {WebsitesComponent} from './websites/websites.component';
 import {PhoneNumbersComponent} from './phone-numbers/phone-numbers.component';
 import {SocialMediaComponent} from './social-media/social-media.component';
+import {AddMemberComponent} from './add-member/add-member.component';
 
 function forAppCode(appCode: number, roles: Array<string>) {
   return roles.map(name => ({
@@ -25,6 +26,11 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
+      {
+        path: 'members/add',
+        component: AddMemberComponent,
+        data: {breadcrumb: 'Add Member'},
+      },
       {
         path: 'members',
         children: [

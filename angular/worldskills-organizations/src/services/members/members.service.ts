@@ -82,9 +82,9 @@ export class MembersService extends WsService<MemberList, MembersFetchParams> {
   }
 
   fetch(rOpt?: RequestOptions): Observable<MemberList>;
-  fetch(params: FetchParams, rOpt?: RequestOptions): Observable<MemberList>;
+  fetch(params: MembersFetchParams, rOpt?: RequestOptions): Observable<MemberList>;
   fetch(mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<MemberList>;
-  fetch(params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<MemberList>;
+  fetch(params: MembersFetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<MemberList>;
   fetch(p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<MemberList> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL, DEFAULT_FETCH_PARAMS);
     const params = this.createParamsFromFetchParams(fetchParams, httpParamsFromFetchParams(fetchParams));

@@ -21,7 +21,7 @@ export interface Flag {
   thumbnail?: any;
 }
 
-export interface Member {
+export interface PersonCountryMember {
   id: number;
   code: string;
   name: I18nModel;
@@ -30,11 +30,11 @@ export interface Member {
   flag: Flag;
 }
 
-export interface Country {
+export interface PersonCountry {
   id: number;
   abbreviation: string;
   name: I18nModel;
-  member: Member;
+  member: PersonCountryMember;
   phonePrefix: string;
 }
 
@@ -114,7 +114,7 @@ export interface Person {
   last_name: string;
   date_of_birth?: any;
   gender?: any;
-  country: Country;
+  country: PersonCountry;
   email_addresses: Array<EmailAddress>;
   addresses: Array<any>;
   organizations: Array<PersonMemberOrganization>;

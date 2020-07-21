@@ -38,6 +38,7 @@ import {PanelComponent} from './panel/panel.component';
 import {PanelHeaderComponent} from './panel-header/panel-header.component';
 import {PanelRowComponent} from './panel-row/panel-row.component';
 import {PanelRowActionsComponent} from './panel-row-actions/panel-row-actions.component';
+import {AddMemberComponent} from './add-member/add-member.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -64,6 +65,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     PanelHeaderComponent,
     PanelRowComponent,
     PanelRowActionsComponent,
+    AddMemberComponent,
   ],
   imports: [
     BrowserModule,
