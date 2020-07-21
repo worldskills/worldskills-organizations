@@ -8,7 +8,7 @@ export interface Title {
   text: string;
 }
 
-export interface Organization {
+export interface PersonMemberOrganization {
   id: number;
   name: I18nModel;
   organization?: any;
@@ -26,7 +26,7 @@ export interface Member {
   code: string;
   name: I18nModel;
   entity: AuthEntity;
-  organization: Organization;
+  organization: PersonMemberOrganization;
   flag: Flag;
 }
 
@@ -78,7 +78,7 @@ export interface PersonPositionMember {
   code: string;
   name: I18nModel;
   entity: AuthEntity;
-  organization: Organization;
+  organization: PersonMemberOrganization;
   flag: Flag;
 }
 
@@ -117,7 +117,7 @@ export interface Person {
   country: Country;
   email_addresses: Array<EmailAddress>;
   addresses: Array<any>;
-  organizations: Array<Organization>;
+  organizations: Array<PersonMemberOrganization>;
   positions: Array<PersonPosition>;
   images: Array<PersonImage>;
   training_complete: boolean;

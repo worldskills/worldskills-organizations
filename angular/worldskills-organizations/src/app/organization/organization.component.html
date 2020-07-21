@@ -5,12 +5,116 @@
   <app-panel-header title="{{'Organization' | translate}}"></app-panel-header>
   <app-panel title="{{'Organization' | translate}}">
     <div class="container">
-      <app-panel-row>
-        <ng-container left>
-        </ng-container>
-        <ng-container right>
-        </ng-container>
-      </app-panel-row>
+      <div class="row">
+        <div class="col-4 font-weight-bold p-2">
+          {{'Name' | translate}}
+        </div>
+        <div class="col-4 font-weight-bold p-2">
+          {{'Website' | translate}}
+        </div>
+        <div class="col-4 font-weight-bold p-2">
+          &nbsp;
+        </div>
+      </div>
+      <hr class="my-2 mx-0"/>
+      <ng-container *ngIf="editMode === 0">
+        <div class="row">
+          <ng-container *ngIf="!member.organization">
+            <div class="col-10 p-2">
+              {{'This member doesn\'t belong to any organization' | translate}}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="!!member.organization">
+            <div class="col-4 p-2">
+              {{member.organization.name.text}}
+            </div>
+            <div class="col-4 p-2">
+              {{member.organization.websites.length > 0 ? member.organization.websites[0].url : ''}}
+            </div>
+          </ng-container>
+          <div class="col-4 p-2 text-right">
+            <button class="btn btn-sm btn-warning mr-1" (click)="switchEditMode(1)">
+              {{'New' | translate}}
+            </button>
+            <button class="btn btn-sm btn-warning mr-1" (click)="switchEditMode(2)">
+              {{'Edit' | translate}}
+            </button>
+            <button class="btn btn-sm btn-warning" (click)="switchEditMode(3)">
+              {{'Change' | translate}}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="editMode === 1 || editMode === 2">
+        <form class="form-horizontal"
+              [ngClass]="{'was-validated': this.form.submitted}" novalidate
+              (ngSubmit)="submitForm()" #form="ngForm">
+          <div class="row">
+            <div class="col-4 p-2">
+              <input
+                type="text"
+                placeholder="{{'Name' | translate}}"
+                class="form-control"
+                name="name"
+                [ngModel]="editMode === 2 ? member.organization.name.text : null"
+                required
+              >
+            </div>
+            <div class="col-4 p-2">
+              <input
+                type="text"
+                placeholder="{{'Website' | translate}}"
+                class="form-control"
+                name="url"
+                [ngModel]="editMode === 2 && member.organization.websites.length > 0 ? member.organization.websites[0].url : null"
+                required
+              >
+            </div>
+            <div class="col-4 p-2 text-right">
+              <app-panel-row-actions
+                (cancel)="this.switchEditMode(0)"
+                (save)="form.onSubmit(undefined)"
+              ></app-panel-row-actions>
+            </div>
+          </div>
+        </form>
+      </ng-container>
+      <ng-container *ngIf="editMode === 3">
+        <form class="form-horizontal"
+              [ngClass]="{'was-validated': this.changeForm.submitted}" novalidate
+              (ngSubmit)="submitChangeForm()" #changeForm="ngForm">
+          <div class="row">
+            <div class="col-8 p-2">
+              <ng-select
+                name="id"
+                bindValue="id"
+                bindLabel="name.text"
+                [ngModel]="member.organization ? member.organization.id : null"
+                [items]="organizations"
+                placeholder="{{'Organization' | translate}}"
+                [disabled]="loading"
+                [loading]="loadingOrganizations"
+                (search)="search($event.term)"
+                required
+              >
+                <ng-container *ngIf="showMessage">
+                  <ng-template ng-header-tmp>
+                    <div class="p-1 font-italic">
+                      {{'Type at least 3 letters to start searching' | translate}}
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </ng-select>
+            </div>
+            <div class="col-4 p-2 text-right">
+              <app-panel-row-actions
+                (cancel)="this.switchEditMode(0)"
+                (save)="changeForm.onSubmit(undefined)"
+              ></app-panel-row-actions>
+            </div>
+          </div>
+        </form>
+      </ng-container>
     </div>
   </app-panel>
 </ng-container>

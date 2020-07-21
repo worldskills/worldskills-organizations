@@ -6,23 +6,8 @@ import {Contact} from './contact';
 import {Address} from './address';
 import {Phone} from './phone';
 import {SocialNetwork} from './socialNetwork';
-
-export interface Website {
-  id: number;
-  url: string;
-  name: I18nModel;
-  description: I18nModel;
-}
-
-export interface Organization {
-  id: number;
-  legacyId?: number;
-  name: I18nModel;
-  websites: Array<Website>;
-  phones: Array<Phone>;
-  addresses: Array<Address>;
-  links: Array<Link>;
-}
+import {Organization} from './organization';
+import {OrgWebsite as Website} from './website';
 
 export interface FlagRequest {
   image_id: number;
