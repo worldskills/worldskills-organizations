@@ -1,6 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddressesComponent } from './addresses.component';
+import {AddressesComponent} from './addresses.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule} from '@angular/forms';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {TranslateServiceTestingProvider, TranslationMockPipe} from '../../test';
 
 describe('AddressesComponent', () => {
   let component: AddressesComponent;
@@ -8,9 +13,13 @@ describe('AddressesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddressesComponent ]
+      imports: [HttpClientTestingModule, RouterTestingModule, FormsModule, NgSelectModule],
+      providers: [
+        TranslateServiceTestingProvider,
+      ],
+      declarations: [TranslationMockPipe, AddressesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

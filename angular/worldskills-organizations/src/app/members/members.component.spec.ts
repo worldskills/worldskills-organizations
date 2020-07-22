@@ -1,6 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MembersComponent } from './members.component';
+import {MembersComponent} from './members.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule} from '@angular/forms';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {TranslateServiceTestingProvider, TranslationMockPipe} from '../../test';
+import {AuthService} from 'src/services/auth/auth.service';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;
@@ -8,9 +14,14 @@ describe('MembersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MembersComponent ]
+      imports: [HttpClientTestingModule, RouterTestingModule, FormsModule, NgSelectModule],
+      providers: [
+        TranslateServiceTestingProvider,
+        {provide: AuthService, useValue: {authStatus: {subscribe: () => undefined}}},
+      ],
+      declarations: [TranslationMockPipe, MembersComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

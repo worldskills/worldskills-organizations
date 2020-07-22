@@ -43,5 +43,3 @@ export class TranslationMockPipe implements PipeTransform {
     return value;
   }
 }
-
-
