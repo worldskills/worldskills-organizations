@@ -31,10 +31,9 @@
       <div class="table-responsive-md">
         <table class="table table-striped">
           <colgroup>
-            <col width="20%">
-            <col width="30%">
-            <col width="30%">
-            <col width="20%">
+            <col width="{{isFilteredByMemberOf ? 40 : 50}}%">
+            <col width="{{isFilteredByMemberOf ? 40 : 50}}%">
+            <col *ngIf="isFilteredByMemberOf" width="20%">
           </colgroup>
           <thead>
           <tr>
@@ -52,14 +51,7 @@
                 <ng-container *ngIf="fetchParams.sort !== 'name'">&uarr;</ng-container>
               </a>
             </th>
-            <th class="border-top-0">
-              <a href="#" (click)="$event.preventDefault(); sort('1058')">
-                {{'Name 1058' | translate}}&nbsp;
-                <ng-container *ngIf="fetchParams.sort === '1058'">&darr;</ng-container>
-                <ng-container *ngIf="fetchParams.sort !== '1058'">&uarr;</ng-container>
-              </a>
-            </th>
-            <th class="border-top-0">
+            <th *ngIf="isFilteredByMemberOf" class="border-top-0">
               <a href="#" (click)="$event.preventDefault(); sort('year')">
                 {{'Year joined' | translate}}&nbsp;
                 <ng-container *ngIf="fetchParams.sort === 'year'">&darr;</ng-container>
@@ -81,12 +73,7 @@
                   {{member.name.text}}
                 </a>
               </td>
-              <td>
-                <a routerLink="{{member.id}}">
-                  {{member.name_1058 ? member.name_1058.text : '-'}}
-                </a>
-              </td>
-              <td>
+              <td *ngIf="isFilteredByMemberOf">
                 <a routerLink="{{member.id}}">
                   {{getJoinedYear(member)}}
                 </a>

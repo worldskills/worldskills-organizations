@@ -88,10 +88,7 @@ export class MembersComponent extends WsComponent implements OnInit {
   }
 
   getJoinedYear(member: Member) {
-    return member.member_of && member.member_of.length > 0 ?
-      member.member_of.map(m => m.year_joined)
-        .reduce((acc, year) => acc === null ? year : (year < acc) ? year : acc, null)
-      : '-';
+    return member.member_of.find(m => m.id === this.fetchParams.member_of).year_joined;
   }
 
   downloadMembers() {
@@ -112,6 +109,10 @@ export class MembersComponent extends WsComponent implements OnInit {
     return this.authenticatedUser && this.authenticatedUser.roles && this.authenticatedUser.roles.some(
       role => role.roleApplication.applicationCode === environment.worldskillsAppId && role.name === 'Admin'
     );
+  }
+
+  get isFilteredByMemberOf() {
+    return this.fetchParams && !!this.fetchParams.member_of;
   }
 
 }
