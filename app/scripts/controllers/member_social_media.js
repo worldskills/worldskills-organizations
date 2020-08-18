@@ -35,7 +35,7 @@ angular.module('orgApp')
 		  	  case 3:
 		  		  return 'https://twitter.com/' + id;
 		  	  case 4:
-		  		  return 'https://www.linkedin.com/company/' + id;
+		  		  return 'https://www.linkedin.com/' + id;
 		  	  case 5:
 		  		  return 'https://vine.co/' + id;
 		  	  case 6:
