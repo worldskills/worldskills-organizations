@@ -69,7 +69,7 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
           .subscribe(() => {
             this.memberService.fetch(memberId);
             this.translateService.get('Remove social network').subscribe(t2 => {
-              this.alertService.setAlert('removed-social-network', AlertType.success, null, null, t2, true);
+              this.alertService.setAlert('removed-social-network', AlertType.success, null, t2, true);
             });
           });
       }
@@ -89,7 +89,7 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
           this.editingSocialNetwork = null;
           this.memberService.fetch(memberId);
           this.translateService.get('Updated social network').subscribe(t => {
-            this.alertService.setAlert('updated-social-network', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('updated-social-network', AlertType.success, null, t, true);
           });
         });
     }
@@ -107,7 +107,7 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
         .subscribe(() => {
           this.memberService.fetch(memberId);
           this.translateService.get('Add social network').subscribe(t => {
-            this.alertService.setAlert('added-social-network', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('added-social-network', AlertType.success, null, t, true);
           });
         });
     }

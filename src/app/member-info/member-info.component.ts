@@ -67,7 +67,7 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
       const memberId = this.member.id;
       const complete = () => {
         this.translateService.get('Member data saved').subscribe(t => {
-          this.alertService.setAlert('member-saved', AlertType.success, null, null, t, true);
+          this.alertService.setAlert('member-saved', AlertType.success, null, t, true);
         });
         this.memberService.fetch(memberId);
       };
@@ -118,7 +118,7 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
     const memberId = this.member.id;
     this.memberService.deleteFlag(memberId).subscribe(() => {
       this.translateService.get('Removed member flag').subscribe(t => {
-        this.alertService.setAlert('member-flag-removed', AlertType.success, null, null, t, true);
+        this.alertService.setAlert('member-flag-removed', AlertType.success, null, t, true);
       });
       this.memberService.fetch(memberId);
     });

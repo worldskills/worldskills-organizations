@@ -1,23 +1,23 @@
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 import {List} from './common';
 
 export interface CountryMember {
   id: number;
   code: string;
-  name: I18nModel;
+  name: I18nText;
 }
 
 export interface CountryRequest {
   code: string;
   member: number;
-  name: I18nModel;
+  name: I18nText;
   phone_prefix: string;
 }
 
 export interface Country {
   id: number;
   code: string;
-  name: I18nModel;
+  name: I18nText;
   phone_prefix: string;
   member: CountryMember;
 }

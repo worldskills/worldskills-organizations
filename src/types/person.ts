@@ -1,4 +1,4 @@
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 import {AuthEntity} from './entity';
 import {Link, List} from './common';
 
@@ -10,7 +10,7 @@ export interface Title {
 
 export interface PersonMemberOrganization {
   id: number;
-  name: I18nModel;
+  name: I18nText;
   organization?: any;
   legacy_id?: any;
 }
@@ -24,7 +24,7 @@ export interface Flag {
 export interface PersonCountryMember {
   id: number;
   code: string;
-  name: I18nModel;
+  name: I18nText;
   entity: AuthEntity;
   organization: PersonMemberOrganization;
   flag: Flag;
@@ -33,7 +33,7 @@ export interface PersonCountryMember {
 export interface PersonCountry {
   id: number;
   abbreviation: string;
-  name: I18nModel;
+  name: I18nText;
   member: PersonCountryMember;
   phonePrefix: string;
 }
@@ -58,7 +58,7 @@ export interface BasePositionType {
 export interface BasePosition {
   id: number;
   short_name: string;
-  name: I18nModel;
+  name: I18nText;
   parent?: any;
   type: BasePositionType;
 }
@@ -66,7 +66,7 @@ export interface BasePosition {
 export interface Position {
   id: number;
   short_name: string;
-  name: I18nModel;
+  name: I18nText;
   ws_entity: AuthEntity;
   base_position: BasePosition;
   hidden: boolean;
@@ -76,7 +76,7 @@ export interface Position {
 export interface PersonPositionMember {
   id: number;
   code: string;
-  name: I18nModel;
+  name: I18nText;
   entity: AuthEntity;
   organization: PersonMemberOrganization;
   flag: Flag;

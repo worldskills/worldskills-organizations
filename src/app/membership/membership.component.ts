@@ -66,7 +66,7 @@ export class MembershipComponent extends WsComponent implements OnInit {
           .subscribe(() => {
             this.memberService.fetch(memberId);
             this.translateService.get('Unbound membership').subscribe(t2 => {
-              this.alertService.setAlert('unbound-membership', AlertType.success, null, null, t2, true);
+              this.alertService.setAlert('unbound-membership', AlertType.success, null, t2, true);
             });
           });
       }
@@ -86,7 +86,7 @@ export class MembershipComponent extends WsComponent implements OnInit {
           this.editingMembership = null;
           this.memberService.fetch(memberId);
           this.translateService.get('Updated membership').subscribe(t => {
-            this.alertService.setAlert('updated-membership', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('updated-membership', AlertType.success, null, t, true);
           });
         });
     }
@@ -105,7 +105,7 @@ export class MembershipComponent extends WsComponent implements OnInit {
         .subscribe(() => {
           this.memberService.fetch(memberId);
           this.translateService.get('Bound to new membership').subscribe(t => {
-            this.alertService.setAlert('bound-membership', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('bound-membership', AlertType.success, null, t, true);
           });
         });
     }

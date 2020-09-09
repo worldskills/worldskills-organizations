@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Country, CountryRequest} from '../../types/country';
 import {
   FetchParams,
+  HttpUtil,
   MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
@@ -12,7 +13,7 @@ import {
 } from '@worldskills/worldskills-angular-lib';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {httpParamsFromFetchParams} from '../../utils/http';
+
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 
@@ -43,7 +44,7 @@ export class CountryService extends WsService<Country> {
     p3?: WsServiceRequestP3
   ): Observable<Country> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.put<Country>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/countries/${code}`,
       countryRequest,

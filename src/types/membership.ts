@@ -1,4 +1,4 @@
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 import {OrgEntity} from './entity';
 
 export interface MembershipRequest {
@@ -8,6 +8,6 @@ export interface MembershipRequest {
 }
 
 export interface Membership extends MembershipRequest {
-  name: I18nModel;
+  name: I18nText;
   ws_entity: OrgEntity;
 }

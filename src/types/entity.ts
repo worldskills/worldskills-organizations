@@ -1,4 +1,4 @@
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 import {Link, List} from './common';
 
 export interface AuthEntityRequest {
@@ -6,7 +6,7 @@ export interface AuthEntityRequest {
 }
 
 export interface AuthEntity extends AuthEntityRequest {
-  name: I18nModel;
+  name: I18nText;
   parent_id?: number;
   children?: Array<AuthEntity>;
   links: Array<Link>;
@@ -14,7 +14,7 @@ export interface AuthEntity extends AuthEntityRequest {
 
 export interface OrgEntity {
   id: number;
-  name: I18nModel;
+  name: I18nText;
   parent: OrgEntity;
   links: Array<Link>;
 }

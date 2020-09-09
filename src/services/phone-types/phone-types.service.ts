@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   FetchParams,
   FULL,
+  HttpUtil,
   MulticastOptions,
   RequestOptions,
   WsService,
@@ -11,7 +12,7 @@ import {
 } from '@worldskills/worldskills-angular-lib';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {httpParamsFromFetchParams} from '../../utils/http';
+
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 import {PhoneTypeList} from '../../types/phoneType';
@@ -31,7 +32,7 @@ export class PhoneTypesService extends WsService<PhoneTypeList> {
   fetch(params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<PhoneTypeList>;
   fetch(p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<PhoneTypeList> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.get<PhoneTypeList>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/phone_types`, {params}
     ).pipe(share());

@@ -60,8 +60,8 @@ export class ContactsComponent extends WsComponent implements OnInit {
         this.contactsService.unbind(memberId, contact.id)
           .subscribe(() => {
             this.memberService.fetch(memberId);
-            this.translateService.get('Removed contact').subscribe(t => {
-              this.alertService.setAlert('removed-contact', AlertType.success, null, null, t, true);
+            this.translateService.get('Removed contact').subscribe(t2 => {
+              this.alertService.setAlert('removed-contact', AlertType.success, null, t2, true);
             });
           });
       }
@@ -78,8 +78,8 @@ export class ContactsComponent extends WsComponent implements OnInit {
       this.contactsService.bind(memberId, data)
         .subscribe(() => {
           this.memberService.fetch(memberId);
-          this.translateService.get('Added new contact').subscribe(t => {
-            this.alertService.setAlert('add-contact', AlertType.success, null, null, t, true);
+          this.translateService.get('Added new contact').subscribe(t2 => {
+            this.alertService.setAlert('add-contact', AlertType.success, null, t2, true);
           });
         });
     }

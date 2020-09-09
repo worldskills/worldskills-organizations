@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   FetchParams,
   FULL,
+  HttpUtil,
   MulticastOptions,
   RequestOptions,
   WsService,
@@ -12,7 +13,7 @@ import {
 import {Organization, OrganizationRequest} from '../../types/organization';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {httpParamsFromFetchParams} from '../../utils/http';
+
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 
@@ -31,7 +32,7 @@ export class OrganizationService extends WsService<Organization> {
   fetch(organizationId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Organization>;
   fetch(organizationId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Organization> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.get<Organization>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/${organizationId}`, {params}
     ).pipe(share());
@@ -46,7 +47,7 @@ export class OrganizationService extends WsService<Organization> {
     organization: OrganizationRequest, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3
   ): Observable<Organization> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.post<Organization>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}`, organization, {params}
     ).pipe(share());
@@ -76,7 +77,7 @@ export class OrganizationService extends WsService<Organization> {
     p3?: WsServiceRequestP3
   ): Observable<Organization> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.put<Organization>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/${organizationId}`, organization, {params}
     ).pipe(share());

@@ -1,4 +1,4 @@
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 import {Phone} from './phone';
 import {Address} from './address';
 import {Link, List} from './common';
@@ -9,13 +9,13 @@ export interface MemberOrganizationRequest {
 }
 
 export interface OrganizationRequest {
-  name: I18nModel;
+  name: I18nText;
 }
 
 export interface Organization {
   id: number;
   legacyId?: number;
-  name: I18nModel;
+  name: I18nText;
   websites: Array<Website>;
   phones: Array<Phone>;
   addresses: Array<Address>;

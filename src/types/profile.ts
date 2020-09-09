@@ -1,13 +1,13 @@
 import {Link, List} from './common';
 import {Role} from './role';
 import {AuthEntity} from './entity';
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 import {Website} from './website';
 import {ProfileSocialNetwork as SocialNetwork} from './socialNetwork';
 
 export interface PermittedEntity {
   id: number;
-  name: I18nModel;
+  name: I18nText;
   links: Array<Link>;
 }
 
@@ -25,7 +25,7 @@ export interface AuthProfileRole {
 }
 
 export interface AuthProfileRequest {
-  name: I18nModel;
+  name: I18nText;
   permitted_entities: Array<PermittedEntity>;
   roles: Array<AuthProfileRole>;
 }
@@ -39,8 +39,8 @@ export type AuthProfileList = List<AuthProfile, 'profiles'>;
 
 export interface PeopleProfile {
   id: number;
-  description: I18nModel;
-  quote: I18nModel;
+  description: I18nText;
+  quote: I18nText;
   websites: Array<Website>;
   social_networks: Array<SocialNetwork>;
   links: Array<Link>;

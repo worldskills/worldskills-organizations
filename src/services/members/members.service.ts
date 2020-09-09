@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   FetchParams,
   FULL,
+  HttpUtil,
   MulticastOptions,
   RequestOptions,
   WsService,
@@ -12,7 +13,7 @@ import {
 import {Observable, ReplaySubject} from 'rxjs';
 import {share} from 'rxjs/operators';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {httpParamsFromFetchParams} from '../../utils/http';
+
 import {environment} from '../../environments/environment';
 import {MemberList} from '../../types/member';
 import {Params} from '@angular/router';
@@ -87,7 +88,7 @@ export class MembersService extends WsService<MemberList, MembersFetchParams> {
   fetch(params: MembersFetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<MemberList>;
   fetch(p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<MemberList> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL, DEFAULT_FETCH_PARAMS);
-    const params = this.createParamsFromFetchParams(fetchParams, httpParamsFromFetchParams(fetchParams));
+    const params = this.createParamsFromFetchParams(fetchParams, HttpUtil.objectToParams(fetchParams || {}));
     const observable = this.http.get<MemberList>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/members`, {params}
     ).pipe(share());

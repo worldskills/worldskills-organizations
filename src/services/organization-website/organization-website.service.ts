@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Website, WebsiteRequest} from '../../types/website';
 import {
   FetchParams,
+  HttpUtil,
   MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
@@ -12,7 +13,7 @@ import {
 } from '@worldskills/worldskills-angular-lib';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {httpParamsFromFetchParams} from '../../utils/http';
+
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 
@@ -53,7 +54,7 @@ export class OrganizationWebsiteService extends WsService<Array<Website>> {
     p3?: WsServiceRequestP3
   ): Observable<Array<Website>> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.put<Array<Website>>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/${organizationId}/websites/${websiteId}`,
       memberWebsiteRequest,
@@ -89,7 +90,7 @@ export class OrganizationWebsiteService extends WsService<Array<Website>> {
     p3?: WsServiceRequestP3
   ): Observable<Array<Website>> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.post<Array<Website>>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/${organizationId}/websites`,
       memberWebsiteRequest,

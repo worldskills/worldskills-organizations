@@ -1,15 +1,15 @@
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 
 export interface AddressCountryMember {
   id: number;
   code: string;
-  name: I18nModel;
+  name: I18nText;
 }
 
 export interface AddressCountry {
   id: number;
   code: string;
-  name: I18nModel;
+  name: I18nText;
   phone_prefix: string;
   member: AddressCountryMember;
 }

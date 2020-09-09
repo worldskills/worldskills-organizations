@@ -107,7 +107,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
           this.editMode = EditMode.None;
           this.memberService.fetch(memberId);
           this.translateService.get('Updated member organization').subscribe(t => {
-            this.alertService.setAlert('updated-member-organization', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('updated-member-organization', AlertType.success, null, t, true);
           });
         });
     }
@@ -130,7 +130,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
               this.editMode = EditMode.None;
               this.memberService.fetch(this.member.id);
               this.translateService.get('Created new organization').subscribe(t => {
-                this.alertService.setAlert('created-organization', AlertType.success, null, null, t, true);
+                this.alertService.setAlert('created-organization', AlertType.success, null, t, true);
               });
             });
           });
@@ -140,7 +140,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
           this.editMode = EditMode.None;
           this.memberService.fetch(this.member.id);
           this.translateService.get('Updated organization').subscribe(t => {
-            this.alertService.setAlert('updated-organization', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('updated-organization', AlertType.success, null, t, true);
           });
         };
         const updateWebsiteUrl = () =>

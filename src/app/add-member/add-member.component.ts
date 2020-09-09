@@ -1,15 +1,13 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {WsComponent} from '@worldskills/worldskills-angular-lib';
+import {RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {NgForm} from '@angular/forms';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest} from 'rxjs';
 import {CountriesService} from '../../services/countries/countries.service';
 import {CountryService} from '../../services/country/country.service';
 import {Member, MemberRequest} from '../../types/member';
 import {Country, CountryRequest} from '../../types/country';
 import {MembersService} from '../../services/members/members.service';
 import {Router} from '@angular/router';
-import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-member',
@@ -37,12 +35,11 @@ export class AddMemberComponent extends WsComponent implements OnInit {
     this.subscribe(
       this.membersService.subject.subscribe(members => (this.members = members.members)),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list.filter(c => !c.member))),
-      combineLatest([
-        this.membersService.loading,
-        this.countriesService.loading,
-        this.countryService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      RxjsUtil.loaderSubscriber(
+        this.membersService,
+        this.countriesService,
+        this.countryService,
+      ).subscribe(loading => (this.loading = loading)),
     );
     this.membersService.fetch({editable: true, offset: 0, limit: 9999});
     this.countriesService.fetch({offset: 0, limit: 9999});

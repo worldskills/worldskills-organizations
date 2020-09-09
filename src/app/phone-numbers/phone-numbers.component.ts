@@ -76,7 +76,7 @@ export class PhoneNumbersComponent extends WsComponent implements OnInit {
           .subscribe(() => {
             this.memberService.fetch(memberId);
             this.translateService.get('Removed phone').subscribe(t2 => {
-              this.alertService.setAlert('removed-phone', AlertType.success, null, null, t2, true);
+              this.alertService.setAlert('removed-phone', AlertType.success, null, t2, true);
             });
           });
       }
@@ -101,7 +101,7 @@ export class PhoneNumbersComponent extends WsComponent implements OnInit {
           this.editingPhone = null;
           this.memberService.fetch(memberId);
           this.translateService.get('Updated phone entry').subscribe(t => {
-            this.alertService.setAlert('updated-phone', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('updated-phone', AlertType.success, null, t, true);
           });
         });
     }
@@ -124,7 +124,7 @@ export class PhoneNumbersComponent extends WsComponent implements OnInit {
         .subscribe(() => {
           this.memberService.fetch(memberId);
           this.translateService.get('Add phone entry').subscribe(t => {
-            this.alertService.setAlert('bound-phone', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('bound-phone', AlertType.success, null, t, true);
           });
         });
     }

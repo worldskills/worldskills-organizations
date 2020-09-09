@@ -3,6 +3,7 @@ import {OrganizationList} from '../../types/organization';
 import {
   FetchParams,
   FULL,
+  HttpUtil,
   MulticastOptions,
   RequestOptions,
   WsService,
@@ -12,7 +13,7 @@ import {
 } from '@worldskills/worldskills-angular-lib';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {httpParamsFromFetchParams} from '../../utils/http';
+
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 
@@ -40,7 +41,7 @@ export class OrganizationsService extends WsService<OrganizationList, Organizati
   fetch(params: OrganizationsFetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<OrganizationList>;
   fetch(p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<OrganizationList> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL, DEFAULT_FETCH_PARAMS);
-    let params = httpParamsFromFetchParams(fetchParams);
+    let params = HttpUtil.objectToParams(fetchParams || {});
     if (fetchParams.name) {
       params = params.set('name', fetchParams.name);
     }

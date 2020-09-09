@@ -62,7 +62,7 @@ export class WebsitesComponent extends WsComponent implements OnInit {
           .subscribe(() => {
             this.memberService.fetch(memberId);
             this.translateService.get('Removed website').subscribe(t2 => {
-              this.alertService.setAlert('removed-website', AlertType.success, null, null, t2, true);
+              this.alertService.setAlert('removed-website', AlertType.success, null, t2, true);
             });
           });
       }
@@ -89,7 +89,7 @@ export class WebsitesComponent extends WsComponent implements OnInit {
           this.editingWebsite = null;
           this.memberService.fetch(memberId);
           this.translateService.get('Updated website').subscribe(t => {
-            this.alertService.setAlert('updated-website', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('updated-website', AlertType.success, null, t, true);
           });
         });
     }
@@ -114,7 +114,7 @@ export class WebsitesComponent extends WsComponent implements OnInit {
         .subscribe(() => {
           this.memberService.fetch(memberId);
           this.translateService.get('Added website').subscribe(t => {
-            this.alertService.setAlert('added-website', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('added-website', AlertType.success, null, t, true);
           });
         });
     }

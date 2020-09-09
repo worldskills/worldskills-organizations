@@ -68,8 +68,8 @@ export class AddressesComponent extends WsComponent implements OnInit {
         this.addressesService.unbind(memberId, address.id)
           .subscribe(() => {
             this.memberService.fetch(memberId);
-            this.translateService.get('Removed address').subscribe(t => {
-              this.alertService.setAlert('removed-address', AlertType.success, null, null, t, true);
+            this.translateService.get('Removed address').subscribe(t2 => {
+              this.alertService.setAlert('removed-address', AlertType.success, null, t2, true);
             });
           });
       }
@@ -102,7 +102,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
           this.editingAddress = null;
           this.memberService.fetch(memberId);
           this.translateService.get('Updated address').subscribe(t2 => {
-            this.alertService.setAlert('updated-address', AlertType.success, null, null, t2, true);
+            this.alertService.setAlert('updated-address', AlertType.success, null, t2, true);
           });
         });
     }
@@ -133,7 +133,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
         .subscribe(() => {
           this.memberService.fetch(memberId);
           this.translateService.get('Added address').subscribe(t => {
-            this.alertService.setAlert('added-address', AlertType.success, null, null, t, true);
+            this.alertService.setAlert('added-address', AlertType.success, null, t, true);
           });
         });
     }

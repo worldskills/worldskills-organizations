@@ -1,13 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService, AuthStatus} from '../services/auth/auth.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {combineLatest, Subject} from 'rxjs';
-import {filter} from 'rxjs/operators';
-import {BreadcrumbService} from '@worldskills/worldskills-angular-lib';
+import {ActivatedRoute, Router} from '@angular/router';
+import {combineLatest} from 'rxjs';
+import {
+  BreadcrumbsService,
+  Language,
+  NgAuthService,
+  User,
+  WorldskillsAngularLibService
+} from '@worldskills/worldskills-angular-lib';
 import {LocaleContextService} from '../services/locale-context/locale-context.service';
 import {environment} from '../environments/environment';
-import {ILanguageModel} from '@worldskills/worldskills-angular-lib/lib/models/ilanguage';
 import {TranslateService} from '@ngx-translate/core';
+import {AppService} from '../services/app/app.service';
 
 @Component({
   selector: 'app-root',
@@ -16,57 +20,61 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
 
-  static showBreadcrumbs = new Subject<boolean>();
   date;
-  authStatus: AuthStatus;
+  currentUser: User;
   showBreadcrumb = true;
-  languages: Array<ILanguageModel>;
-  language: ILanguageModel;
+  languages: Array<Language>;
+  language: Language;
   languageLock: boolean;
   isStaging = false;
 
   constructor(
-    private authService: AuthService,
+    private appService: AppService,
+    private authService: NgAuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private breadcrumb: BreadcrumbService,
+    private breadcrumb: BreadcrumbsService,
     private translateService: TranslateService,
     private localeContextService: LocaleContextService,
+    private wsi: WorldskillsAngularLibService,
   ) {
     this.date = new Date();
     this.breadcrumb.homeItemRoute = '/members';
     this.breadcrumb.targetOutlet = 'primary';
-    this.breadcrumb.breadcrumbs = [];
     this.breadcrumb.build(this.route.root);
   }
 
   ngOnInit(): void {
-    AppComponent.showBreadcrumbs.subscribe(showBreadcrumb => setTimeout(() => (this.showBreadcrumb = showBreadcrumb)));
-    this.authService.authStatus.subscribe(authStatus => (this.authStatus = authStatus));
-    combineLatest([
-      this.authService.authStatus,
-      this.router.events.pipe(filter<NavigationEnd>(event => event instanceof NavigationEnd))
-    ]).subscribe(([authStatus, routerEvent]) => {
-      const url = routerEvent.url;
-      const queryParamMap = this.router.parseUrl(url).queryParamMap;
-      const target = queryParamMap.has('returnUrl') ? queryParamMap.get('returnUrl') : undefined;
-      if (url === '/' || target) {
-        if (authStatus.authenticated) {
-          this.router.navigate(['members']);
-        } else if (!authStatus.isLoggedIn) {
-          this.authService.login();
-        }
-      }
-    });
+    this.appService.showBreadcrumbs.subscribe(showBreadcrumb => setTimeout(() => (this.showBreadcrumb = showBreadcrumb)));
     this.languages = this.localeContextService.languages;
-    combineLatest([this.localeContextService.subject, this.localeContextService.lock])
-      .subscribe(([language, lock]) =>
-        setTimeout(() => {
-          this.languageLock = lock;
-          this.language = lock ? this.localeContextService.lockedLanguage : language;
-        })
-      );
-    this.isStaging = !environment.production;
+    this.authService.currentUser.subscribe(currentUser => (this.currentUser = currentUser)),
+      combineLatest([this.localeContextService.subject, this.localeContextService.lock])
+        .subscribe(([language, lock]) =>
+          setTimeout(() => {
+            this.languageLock = lock;
+            this.language = lock ? this.localeContextService.lockedLanguage : language;
+          })
+        );
+    this.isStaging = environment.worldskillsApi.includes('api.worldskills.show');
+
+    this.wsi.authConfigSubject.next({
+      loginUrl: environment.worldskillsAuthorizeUrl,
+      redirectUri: environment.worldskillsAuthorizeRedirect,
+      userinfoEndpoint: environment.worldskillsAuthorizeUserinfoEndpoint,
+      clientId: environment.worldskillsClientId,
+      requireHttps: environment.production,
+      oidc: false
+    });
+
+    this.wsi.httpConfigSubject.next({
+      encoderUriPatterns: [],
+      authUriPatterns: environment.worldskillsAuthUriPatterns
+    });
+
+    this.wsi.serviceConfigSubject.next({
+      appCode: [environment.worldskillsAppId, environment.worldskillsPeopleAppId],
+      apiEndpoint: environment.worldskillsApi
+    });
   }
 
   changeLanguage(language) {

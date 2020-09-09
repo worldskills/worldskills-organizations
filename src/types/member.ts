@@ -1,5 +1,5 @@
 import {Link, List} from './common';
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 import {OrgEntity} from './entity';
 import {Membership, MembershipRequest} from './membership';
 import {Contact} from './contact';
@@ -24,8 +24,8 @@ export interface Flag {
 
 export interface MemberRequest {
   code?: string;
-  name?: I18nModel;
-  name_1058?: I18nModel;
+  name?: I18nText;
+  name_1058?: I18nText;
   ws_entity?: OrgEntity;
   organization?: Organization;
   member_of?: MembershipRequest;
@@ -40,8 +40,8 @@ export interface MemberRequest {
 export interface Member {
   id: number;
   code: string;
-  name: I18nModel;
-  name_1058: I18nModel;
+  name: I18nText;
+  name_1058: I18nText;
   ws_entity: OrgEntity;
   organization: Organization;
   member_of: Array<Membership>;

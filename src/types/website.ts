@@ -1,4 +1,4 @@
-import {I18nModel} from '@worldskills/worldskills-angular-lib';
+import {I18nText} from '@worldskills/worldskills-angular-lib';
 
 export interface WebsiteRequest {
   description?: string;
@@ -12,8 +12,8 @@ export interface Website extends WebsiteRequest {
 }
 
 export interface OrgWebsiteRequest {
-  description?: I18nModel;
-  name?: I18nModel;
+  description?: I18nText;
+  name?: I18nText;
   url: string;
 }
 

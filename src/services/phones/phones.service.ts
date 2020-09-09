@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Phone, PhoneRequest} from '../../types/phone';
 import {
   FetchParams,
+  HttpUtil,
   MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
@@ -12,7 +13,7 @@ import {
 } from '@worldskills/worldskills-angular-lib';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {httpParamsFromFetchParams} from '../../utils/http';
+
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 
@@ -47,7 +48,7 @@ export class PhonesService extends WsService<Array<Phone>> {
     p3?: WsServiceRequestP3
   ): Observable<Array<Phone>> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.post<Array<Phone>>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/members/${memberId}/phones`, memberPhoneRequest, {params}
     ).pipe(share());
@@ -78,7 +79,7 @@ export class PhonesService extends WsService<Array<Phone>> {
     p3?: WsServiceRequestP3
   ): Observable<Array<Phone>> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.put<Array<Phone>>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/members/${memberId}/phones/${phoneId}`,
       memberPhoneRequest,
@@ -101,7 +102,7 @@ export class PhonesService extends WsService<Array<Phone>> {
     p3?: WsServiceRequestP3
   ): Observable<Array<Phone>> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = httpParamsFromFetchParams(fetchParams);
+    const params = HttpUtil.objectToParams(fetchParams || {});
     const observable = this.http.delete<Array<Phone>>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/members/${memberId}/phones/${memberRoleId}`, {params}
     ).pipe(share());
