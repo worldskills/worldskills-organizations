@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {
-  FetchParams,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -27,19 +25,6 @@ export class MemberOrganizationService extends WsService<Organization> {
   }
 
   bind(memberId: number, memberMemberOrganizationRequest: MemberOrganizationRequest, rOpt?: RequestOptions): Observable<Organization>;
-  bind(
-    memberId: number, memberMemberOrganizationRequest: MemberOrganizationRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Organization>;
-  bind(
-    memberId: number, memberMemberOrganizationRequest: MemberOrganizationRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Organization>;
-  bind(
-    memberId: number,
-    memberMemberOrganizationRequest: MemberOrganizationRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Organization>;
   bind(
     memberId: number,
     memberMemberOrganizationRequest: MemberOrganizationRequest,

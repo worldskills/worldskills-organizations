@@ -3,7 +3,6 @@ import {
   FetchParams,
   FULL,
   HttpUtil,
-  MulticastOptions,
   RequestOptions,
   WsService,
   WsServiceRequestP1,
@@ -28,8 +27,6 @@ export class CountriesService extends WsService<CountryList> {
 
   fetch(rOpt?: RequestOptions): Observable<CountryList>;
   fetch(params: FetchParams, rOpt?: RequestOptions): Observable<CountryList>;
-  fetch(mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<CountryList>;
-  fetch(params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<CountryList>;
   fetch(p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<CountryList> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
     const params = HttpUtil.objectToParams(fetchParams || {});

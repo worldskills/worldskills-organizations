@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {SocialNetwork, SocialNetworkRequest} from '../../types/socialNetwork';
 import {NgForm} from '@angular/forms';
 import {SocialNetworkType} from '../../types/socialNetworkType';
@@ -39,12 +37,11 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
     this.subscribe(
       this.memberService.subject.subscribe(member => (this.member = member)),
       this.socialNetworkTypesService.subject.subscribe(socialNetworkTypes => (this.socialNetworkTypes = socialNetworkTypes.socialNetworks)),
-      combineLatest([
-        this.memberService.loading,
-        this.socialNetworkTypesService.loading,
-        this.socialNetworksService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      RxjsUtil.loaderSubscriber(
+        this.memberService,
+        this.socialNetworkTypesService,
+        this.socialNetworksService,
+      ).subscribe(loading => (this.loading = loading)),
     );
     this.socialNetworkTypesService.fetch();
   }

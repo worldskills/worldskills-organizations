@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Website, WebsiteRequest} from '../../types/website';
 import {
-  FetchParams,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -30,23 +28,6 @@ export class OrganizationWebsiteService extends WsService<Array<Website>> {
     organizationId: number, websiteId: number, memberWebsiteRequest: WebsiteRequest, rOpt?: RequestOptions
   ): Observable<Array<Website>>;
   update(
-    organizationId: number, websiteId: number, memberWebsiteRequest: WebsiteRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  update(
-    organizationId: number,
-    websiteId: number,
-    memberWebsiteRequest: WebsiteRequest,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  update(
-    organizationId: number, websiteId: number,
-    memberWebsiteRequest: WebsiteRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  update(
     organizationId: number, websiteId: number,
     memberWebsiteRequest: WebsiteRequest,
     p1: WsServiceRequestP1,
@@ -65,22 +46,6 @@ export class OrganizationWebsiteService extends WsService<Array<Website>> {
 
   create(
     organizationId: number, memberWebsiteRequest: WebsiteRequest, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  create(
-    organizationId: number, memberWebsiteRequest: WebsiteRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  create(
-    organizationId: number,
-    memberWebsiteRequest: WebsiteRequest,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  create(
-    organizationId: number,
-    memberWebsiteRequest: WebsiteRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
   ): Observable<Array<Website>>;
   create(
     organizationId: number,

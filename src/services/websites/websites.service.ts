@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {OrgWebsite as Website, OrgWebsiteRequest as WebsiteRequest} from '../../types/website';
 import {
-  FetchParams,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -28,19 +26,6 @@ export class WebsitesService extends WsService<Array<Website>> {
 
   bind(memberId: number, memberWebsiteRequest: WebsiteRequest, rOpt?: RequestOptions): Observable<Array<Website>>;
   bind(
-    memberId: number, memberWebsiteRequest: WebsiteRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  bind(
-    memberId: number, memberWebsiteRequest: WebsiteRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  bind(
-    memberId: number,
-    memberWebsiteRequest: WebsiteRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  bind(
     memberId: number,
     memberWebsiteRequest: WebsiteRequest,
     p1: WsServiceRequestP1,
@@ -57,19 +42,6 @@ export class WebsitesService extends WsService<Array<Website>> {
 
   update(
     memberId: number, websiteId: number, memberWebsiteRequest: WebsiteRequest, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  update(
-    memberId: number, websiteId: number, memberWebsiteRequest: WebsiteRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  update(
-    memberId: number, websiteId: number, memberWebsiteRequest: WebsiteRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  update(
-    memberId: number, websiteId: number,
-    memberWebsiteRequest: WebsiteRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
   ): Observable<Array<Website>>;
   update(
     memberId: number, websiteId: number,
@@ -89,11 +61,6 @@ export class WebsitesService extends WsService<Array<Website>> {
   }
 
   unbind(memberId: number, memberRoleId: number, rOpt?: RequestOptions): Observable<Array<Website>>;
-  unbind(memberId: number, memberRoleId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Array<Website>>;
-  unbind(memberId: number, memberRoleId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Array<Website>>;
-  unbind(
-    memberId: number, memberRoleId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
   unbind(
     memberId: number,
     memberRoleId: number,

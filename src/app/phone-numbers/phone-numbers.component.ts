@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Phone, PhoneRequest} from '../../types/phone';
 import {NgForm} from '@angular/forms';
 import {PhoneType} from '../../types/phoneType';
@@ -44,13 +42,12 @@ export class PhoneNumbersComponent extends WsComponent implements OnInit {
       this.memberService.subject.subscribe(member => (this.member = member)),
       this.phoneTypesService.subject.subscribe(phoneTypes => (this.phoneTypes = phoneTypes.phone_types)),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
-      combineLatest([
-        this.memberService.loading,
-        this.phoneTypesService.loading,
-        this.countriesService.loading,
-        this.phonesService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      RxjsUtil.loaderSubscriber(
+        this.memberService,
+        this.phoneTypesService,
+        this.countriesService,
+        this.phonesService,
+      ).subscribe(loading => (this.loading = loading)),
     );
     this.countriesService.fetch();
     this.phoneTypesService.fetch();

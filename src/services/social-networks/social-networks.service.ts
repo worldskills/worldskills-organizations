@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SocialNetwork, SocialNetworkRequest} from '../../types/socialNetwork';
 import {
-  FetchParams,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -28,19 +26,6 @@ export class SocialNetworksService extends WsService<Array<SocialNetwork>> {
 
   bind(memberId: number, memberSocialNetworkRequest: SocialNetworkRequest, rOpt?: RequestOptions): Observable<Array<SocialNetwork>>;
   bind(
-    memberId: number, memberSocialNetworkRequest: SocialNetworkRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<SocialNetwork>>;
-  bind(
-    memberId: number, memberSocialNetworkRequest: SocialNetworkRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<SocialNetwork>>;
-  bind(
-    memberId: number,
-    memberSocialNetworkRequest: SocialNetworkRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<SocialNetwork>>;
-  bind(
     memberId: number,
     memberSocialNetworkRequest: SocialNetworkRequest,
     p1: WsServiceRequestP1,
@@ -57,23 +42,6 @@ export class SocialNetworksService extends WsService<Array<SocialNetwork>> {
 
   update(
     memberId: number, socialNetworkId: number, memberSocialNetworkRequest: SocialNetworkRequest, rOpt?: RequestOptions
-  ): Observable<Array<SocialNetwork>>;
-  update(
-    memberId: number, socialNetworkId: number, memberSocialNetworkRequest: SocialNetworkRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<SocialNetwork>>;
-  update(
-    memberId: number,
-    socialNetworkId: number,
-    memberSocialNetworkRequest: SocialNetworkRequest,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<SocialNetwork>>;
-  update(
-    memberId: number, socialNetworkId: number,
-    memberSocialNetworkRequest: SocialNetworkRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
   ): Observable<Array<SocialNetwork>>;
   update(
     memberId: number, socialNetworkId: number,
@@ -93,11 +61,6 @@ export class SocialNetworksService extends WsService<Array<SocialNetwork>> {
   }
 
   unbind(memberId: number, memberRoleId: number, rOpt?: RequestOptions): Observable<Array<SocialNetwork>>;
-  unbind(memberId: number, memberRoleId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Array<SocialNetwork>>;
-  unbind(memberId: number, memberRoleId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Array<SocialNetwork>>;
-  unbind(
-    memberId: number, memberRoleId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<SocialNetwork>>;
   unbind(
     memberId: number,
     memberRoleId: number,

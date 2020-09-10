@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Membership, MembershipRequest} from '../../types/membership';
 import {
-  FetchParams,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -28,19 +26,6 @@ export class MembershipsService extends WsService<Array<Membership>> {
 
   bind(memberId: number, memberMembershipRequest: MembershipRequest, rOpt?: RequestOptions): Observable<Array<Membership>>;
   bind(
-    memberId: number, memberMembershipRequest: MembershipRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Membership>>;
-  bind(
-    memberId: number, memberMembershipRequest: MembershipRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Membership>>;
-  bind(
-    memberId: number,
-    memberMembershipRequest: MembershipRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<Membership>>;
-  bind(
     memberId: number,
     memberMembershipRequest: MembershipRequest,
     p1: WsServiceRequestP1,
@@ -57,19 +42,6 @@ export class MembershipsService extends WsService<Array<Membership>> {
 
   update(
     memberId: number, membershipId: number, memberMembershipRequest: MembershipRequest, rOpt?: RequestOptions
-  ): Observable<Array<Membership>>;
-  update(
-    memberId: number, membershipId: number, memberMembershipRequest: MembershipRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Membership>>;
-  update(
-    memberId: number, membershipId: number, memberMembershipRequest: MembershipRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Membership>>;
-  update(
-    memberId: number, membershipId: number,
-    memberMembershipRequest: MembershipRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
   ): Observable<Array<Membership>>;
   update(
     memberId: number, membershipId: number,
@@ -89,11 +61,6 @@ export class MembershipsService extends WsService<Array<Membership>> {
   }
 
   unbind(memberId: number, memberRoleId: number, rOpt?: RequestOptions): Observable<Array<Membership>>;
-  unbind(memberId: number, memberRoleId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Array<Membership>>;
-  unbind(memberId: number, memberRoleId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Array<Membership>>;
-  unbind(
-    memberId: number, memberRoleId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Membership>>;
   unbind(
     memberId: number,
     memberRoleId: number,

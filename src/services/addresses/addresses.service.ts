@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Address, AddressRequest} from '../../types/address';
 import {
-  FetchParams,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -28,19 +26,6 @@ export class AddressesService extends WsService<Array<Address>> {
 
   bind(memberId: number, memberAddressRequest: AddressRequest, rOpt?: RequestOptions): Observable<Array<Address>>;
   bind(
-    memberId: number, memberAddressRequest: AddressRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Address>>;
-  bind(
-    memberId: number, memberAddressRequest: AddressRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Address>>;
-  bind(
-    memberId: number,
-    memberAddressRequest: AddressRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<Address>>;
-  bind(
     memberId: number,
     memberAddressRequest: AddressRequest,
     p1: WsServiceRequestP1,
@@ -57,19 +42,6 @@ export class AddressesService extends WsService<Array<Address>> {
 
   update(
     memberId: number, addressId: number, memberAddressRequest: AddressRequest, rOpt?: RequestOptions
-  ): Observable<Array<Address>>;
-  update(
-    memberId: number, addressId: number, memberAddressRequest: AddressRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Address>>;
-  update(
-    memberId: number, addressId: number, memberAddressRequest: AddressRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Address>>;
-  update(
-    memberId: number, addressId: number,
-    memberAddressRequest: AddressRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
   ): Observable<Array<Address>>;
   update(
     memberId: number, addressId: number,
@@ -89,11 +61,6 @@ export class AddressesService extends WsService<Array<Address>> {
   }
 
   unbind(memberId: number, memberRoleId: number, rOpt?: RequestOptions): Observable<Array<Address>>;
-  unbind(memberId: number, memberRoleId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Array<Address>>;
-  unbind(memberId: number, memberRoleId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Array<Address>>;
-  unbind(
-    memberId: number, memberRoleId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Address>>;
   unbind(
     memberId: number,
     memberRoleId: number,

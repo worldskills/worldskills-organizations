@@ -81,15 +81,4 @@ export class AppComponent implements OnInit {
     this.localeContextService.changeLanguage(language);
   }
 
-  login() {
-    this.authService.login();
-  }
-
-  logout() {
-    this.authService.logout().subscribe({
-      complete: () => {
-        window.location.reload();
-      }
-    });
-  }
 }

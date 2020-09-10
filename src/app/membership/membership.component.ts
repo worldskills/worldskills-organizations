@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, LOADER_ONLY, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, LOADER_ONLY, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {MembersService} from '../../services/members/members.service';
 import {NgForm} from '@angular/forms';
 import {Membership, MembershipRequest} from '../../types/membership';
@@ -37,11 +35,10 @@ export class MembershipComponent extends WsComponent implements OnInit {
   ngOnInit(): void {
     this.subscribe(
       this.memberService.subject.subscribe(member => (this.member = member)),
-      combineLatest([
-        this.membersService.loading,
-        this.memberService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      RxjsUtil.loaderSubscriber(
+        this.membersService,
+        this.memberService,
+      ).subscribe(loading => (this.loading = loading)),
     );
     this.membersService.fetch(LOADER_ONLY).subscribe(members => (this.members = members.members));
   }

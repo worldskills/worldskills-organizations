@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {
-  FetchParams,
   FULL,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -28,9 +26,6 @@ export class MemberService extends WsService<Member> {
   }
 
   fetch(memberId: number, rOpt?: RequestOptions): Observable<Member>;
-  fetch(memberId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
-  fetch(memberId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  fetch(memberId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
   fetch(memberId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
     const params = HttpUtil.objectToParams(fetchParams || {});
@@ -41,9 +36,6 @@ export class MemberService extends WsService<Member> {
   }
 
   create(member: MemberRequest, rOpt?: RequestOptions): Observable<Member>;
-  create(member: MemberRequest, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
-  create(member: MemberRequest, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  create(member: MemberRequest, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
   create(member: MemberRequest, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);
     const params = HttpUtil.objectToParams(fetchParams || {});
@@ -54,9 +46,6 @@ export class MemberService extends WsService<Member> {
   }
 
   update(memberId: number, member: MemberRequest, rOpt?: RequestOptions): Observable<Member>;
-  update(memberId: number, member: MemberRequest, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
-  update(memberId: number, member: MemberRequest, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  update(memberId: number, member: MemberRequest, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
   update(
     memberId: number,
     member: MemberRequest,
@@ -72,23 +61,7 @@ export class MemberService extends WsService<Member> {
     return this.request(observable, multicastOptions);
   }
 
-  delete(memberId: number, rOpt?: RequestOptions): Observable<Member>;
-  delete(memberId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
-  delete(memberId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  delete(memberId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  delete(memberId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
-    const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = HttpUtil.objectToParams(fetchParams || {});
-    const observable = this.http.delete<Member>(
-      requestOptions.url ?? `${environment.worldskillsApiOrg}/members/${memberId}`, {params}
-    ).pipe(share());
-    return this.request(observable, multicastOptions);
-  }
-
   deleteFlag(memberId: number, rOpt?: RequestOptions): Observable<Member>;
-  deleteFlag(memberId: number, params: FetchParams, rOpt?: RequestOptions): Observable<Member>;
-  deleteFlag(memberId: number, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
-  deleteFlag(memberId: number, params: FetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Member>;
   deleteFlag(memberId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
     const params = HttpUtil.objectToParams(fetchParams || {});

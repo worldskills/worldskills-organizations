@@ -28,19 +28,6 @@ export class PhonesService extends WsService<Array<Phone>> {
 
   bind(memberId: number, memberPhoneRequest: PhoneRequest, rOpt?: RequestOptions): Observable<Array<Phone>>;
   bind(
-    memberId: number, memberPhoneRequest: PhoneRequest, params: FetchParams, rOpt?: RequestOptions
-  ): Observable<Array<Phone>>;
-  bind(
-    memberId: number, memberPhoneRequest: PhoneRequest, mOpt: MulticastOptions, rOpt?: RequestOptions
-  ): Observable<Array<Phone>>;
-  bind(
-    memberId: number,
-    memberPhoneRequest: PhoneRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Array<Phone>>;
-  bind(
     memberId: number,
     memberPhoneRequest: PhoneRequest,
     p1: WsServiceRequestP1,

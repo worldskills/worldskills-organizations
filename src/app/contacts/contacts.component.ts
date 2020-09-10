@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {PeopleService} from '../../services/people/people.service';
 import {Person} from '../../types/person';
 import {Contact, ContactRequest} from '../../types/contact';
@@ -39,11 +37,10 @@ export class ContactsComponent extends WsComponent implements OnInit {
     this.subscribe(
       this.memberService.subject.subscribe(member => (this.member = member)),
       this.peopleService.subject.subscribe(people => (this.people = people.people)),
-      combineLatest([
-        this.memberService.loading,
-        this.contactsService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      RxjsUtil.loaderSubscriber(
+        this.memberService,
+        this.contactsService,
+      ).subscribe(loading => (this.loading = loading)),
     );
   }
 

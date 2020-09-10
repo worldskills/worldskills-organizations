@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {MemberOrganizationService} from '../../services/member-organization/member-organization.service';
@@ -62,13 +60,12 @@ export class OrganizationComponent extends WsComponent implements OnInit {
           }
         });
       }),
-      combineLatest([
-        this.memberService.loading,
-        this.memberOrganizationService.loading,
-        this.organizationService.loading,
-        this.organizationWebsiteService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      RxjsUtil.loaderSubscriber(
+        this.memberService,
+        this.memberOrganizationService,
+        this.organizationService,
+        this.organizationWebsiteService,
+      ).subscribe(loading => (this.loading = loading)),
     );
   }
 

@@ -1,9 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {MemberService} from '../../services/member/member.service';
 import {Member} from '../../types/member';
-import {combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {Address, AddressRequest} from '../../types/address';
 import {NgForm} from '@angular/forms';
 import {CountriesService} from '../../services/countries/countries.service';
@@ -39,12 +37,11 @@ export class AddressesComponent extends WsComponent implements OnInit {
     this.subscribe(
       this.memberService.subject.subscribe(member => (this.member = member)),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
-      combineLatest([
-        this.memberService.loading,
-        this.countriesService.loading,
-        this.addressesService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      RxjsUtil.loaderSubscriber(
+        this.memberService,
+        this.countriesService,
+        this.addressesService,
+      ).subscribe(loading => (this.loading = loading)),
     );
     this.countriesService.fetch();
   }

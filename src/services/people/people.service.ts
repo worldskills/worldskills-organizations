@@ -3,7 +3,6 @@ import {
   FetchParams,
   FULL,
   HttpUtil,
-  MulticastOptions,
   RequestOptions,
   WsService,
   WsServiceRequestP1,
@@ -17,7 +16,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 
-export interface PeopleFetchParams extends FetchParams{
+export interface PeopleFetchParams extends FetchParams {
   name?: string;
   entity?: number;
 }
@@ -33,10 +32,7 @@ export class PeopleService extends WsService<PersonList, PeopleFetchParams> {
     super();
   }
 
-  fetch(rOpt?: RequestOptions): Observable<PersonList>;
   fetch(params: PeopleFetchParams, rOpt?: RequestOptions): Observable<PersonList>;
-  fetch(mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<PersonList>;
-  fetch(params: PeopleFetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<PersonList>;
   fetch(p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<PersonList> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL, DEFAULT_FETCH_PARAMS);
     const params = HttpUtil.objectToParams(fetchParams || {});

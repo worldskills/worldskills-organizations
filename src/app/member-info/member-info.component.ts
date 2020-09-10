@@ -2,8 +2,6 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AlertService, AlertType, UploadService, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member, MemberRequest} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest} from 'rxjs';
-import {map} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {ImageService} from '../../services/image/image.service';
@@ -39,10 +37,7 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
   ngOnInit(): void {
     this.subscribe(
       this.memberService.subject.subscribe(member => (this.member = member)),
-      combineLatest([
-        this.memberService.loading,
-      ]).pipe(map(ls => !ls.every(l => !l)))
-        .subscribe(loading => (this.loading = loading)),
+      this.memberService.loading.subscribe(loading => (this.loading = loading)),
     );
   }
 

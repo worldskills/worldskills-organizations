@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Country, CountryRequest} from '../../types/country';
 import {
-  FetchParams,
   HttpUtil,
-  MulticastOptions,
   NO_SUBJECT,
   RequestOptions,
   WsService,
@@ -27,15 +25,6 @@ export class CountryService extends WsService<Country> {
   }
 
   update(code: string, countryRequest: CountryRequest, rOpt?: RequestOptions): Observable<Country>;
-  update(code: string, countryRequest: CountryRequest, params: FetchParams, rOpt?: RequestOptions): Observable<Country>;
-  update(code: string, countryRequest: CountryRequest, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<Country>;
-  update(
-    code: string,
-    countryRequest: CountryRequest,
-    params: FetchParams,
-    mOpt: MulticastOptions,
-    rOpt?: RequestOptions
-  ): Observable<Country>;
   update(
     code: string,
     countryRequest: CountryRequest,
