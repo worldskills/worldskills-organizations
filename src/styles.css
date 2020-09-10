@@ -8,14 +8,6 @@
   font-weight: 400;
 }
 
-form.was-validated ng-select.ng-invalid .ng-select-container {
-  border-color: #cc2216;
-}
-
-form.was-validated ng-select.ng-valid .ng-select-container {
-  border-color: #379d44;
-}
-
 ul {
   list-style-position: inside;
 }

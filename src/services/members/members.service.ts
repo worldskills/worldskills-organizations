@@ -82,13 +82,28 @@ export class MembersService extends WsService<MemberList, MembersFetchParams> {
     return params;
   }
 
+  // TODO added to lib, can be removed when lib updated
+  stripNullOrUndefined(obj: any, deep = false): any {
+    if (Array.isArray(obj)) {
+      if (deep) {
+        // tslint:disable-next-line:forin
+        for (const k in obj) {
+          obj[k] = this.stripNullOrUndefined(obj[k], true);
+        }
+      }
+    } else if (obj && typeof obj === 'object') {
+      Object.keys(obj).forEach(key => (obj[key] === undefined || obj[key] === null) && delete obj[key]);
+    }
+    return obj;
+  }
+
   fetch(rOpt?: RequestOptions): Observable<MemberList>;
   fetch(params: MembersFetchParams, rOpt?: RequestOptions): Observable<MemberList>;
   fetch(mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<MemberList>;
   fetch(params: MembersFetchParams, mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<MemberList>;
   fetch(p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<MemberList> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL, DEFAULT_FETCH_PARAMS);
-    const params = this.createParamsFromFetchParams(fetchParams, HttpUtil.objectToParams(fetchParams || {}));
+    const params = this.createParamsFromFetchParams(fetchParams, HttpUtil.objectToParams(this.stripNullOrUndefined(fetchParams) || {}));
     const observable = this.http.get<MemberList>(
       requestOptions.url ?? `${environment.worldskillsApiOrg}/members`, {params}
     ).pipe(share());

@@ -10,6 +10,7 @@ import {Contact, ContactRequest} from '../../types/contact';
 import {NgForm} from '@angular/forms';
 import {ContactsService} from '../../services/contacts/contacts.service';
 import {TranslateService} from '@ngx-translate/core';
+import {DEFAULT_FETCH_PARAMS} from '../../services/organizations/organizations.service';
 
 @Component({
   selector: 'app-contacts',
@@ -31,18 +32,15 @@ export class ContactsComponent extends WsComponent implements OnInit {
     private translateService: TranslateService,
   ) {
     super();
+    this.search = this.search.bind(this);
   }
 
   ngOnInit(): void {
     this.subscribe(
-      this.memberService.subject.subscribe(member => {
-        this.member = member;
-        this.peopleService.fetchByEntityId(this.member.id);
-      }),
+      this.memberService.subject.subscribe(member => (this.member = member)),
       this.peopleService.subject.subscribe(people => (this.people = people.people)),
       combineLatest([
         this.memberService.loading,
-        this.peopleService.loading,
         this.contactsService.loading,
       ]).pipe(map(ls => !ls.every(l => !l)))
         .subscribe(loading => (this.loading = loading)),
@@ -50,7 +48,11 @@ export class ContactsComponent extends WsComponent implements OnInit {
   }
 
   get initialized() {
-    return !!this.member && !!this.people;
+    return !!this.member;
+  }
+
+  search(name: string) {
+    return this.peopleService.fetch({...DEFAULT_FETCH_PARAMS, name, entity: this.member.id});
   }
 
   unbindContact(contact: Contact) {

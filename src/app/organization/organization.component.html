@@ -20,7 +20,7 @@
       <ng-container *ngIf="editMode === 0">
         <div class="row">
           <ng-container *ngIf="!member.organization">
-            <div class="col-10 p-2">
+            <div class="col-8 p-2">
               {{'This member doesn\'t belong to any organization' | translate}}
             </div>
           </ng-container>
@@ -86,25 +86,15 @@
           <div class="row">
             <div class="col-8 p-2">
               <ng-select
+                [wsSelect]="['id', 'name.text']"
+                [asyncSearch]="search"
                 name="id"
-                bindValue="id"
-                bindLabel="name.text"
                 [ngModel]="member.organization ? member.organization.id : null"
                 [items]="organizations"
                 placeholder="{{'Organization' | translate}}"
                 [disabled]="loading"
-                [loading]="loadingOrganizations"
-                (search)="search($event.term)"
                 required
-              >
-                <ng-container *ngIf="showMessage">
-                  <ng-template ng-header-tmp>
-                    <div class="p-1 font-italic">
-                      {{'Type at least 3 letters to start searching' | translate}}
-                    </div>
-                  </ng-template>
-                </ng-container>
-              </ng-select>
+              ></ng-select>
             </div>
             <div class="col-4 p-2 text-right">
               <app-panel-row-actions
@@ -115,6 +105,12 @@
           </div>
         </form>
       </ng-container>
+      <hr class="my-2 mx-0"/>
+      <div class="row">
+        <div class="col-12 small">
+          {{'Note: Do not edit this organization\'s details if a new body is representing the Member. Create a new Organization.'}}
+        </div>
+      </div>
     </div>
   </app-panel>
 </ng-container>

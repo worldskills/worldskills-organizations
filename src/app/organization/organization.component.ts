@@ -2,12 +2,12 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertService, AlertType, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
-import {combineLatest, Subject} from 'rxjs';
-import {debounceTime, map} from 'rxjs/operators';
+import {combineLatest} from 'rxjs';
+import {map} from 'rxjs/operators';
 import {NgForm} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {MemberOrganizationService} from '../../services/member-organization/member-organization.service';
-import {OrganizationsFetchParams, OrganizationsService} from '../../services/organizations/organizations.service';
+import {DEFAULT_FETCH_PARAMS, OrganizationsService} from '../../services/organizations/organizations.service';
 import {OrganizationService} from '../../services/organization/organization.service';
 import {MemberOrganizationRequest, Organization, OrganizationRequest} from '../../types/organization';
 import {OrganizationWebsiteService} from '../../services/organization-website/organization-website.service';
@@ -30,10 +30,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
   member: Member;
   organizations: Array<Organization> = [];
   loading = false;
-  loadingOrganizations = false;
   editMode: EditMode = EditMode.None;
-  debouncer = new Subject<OrganizationsFetchParams>();
-  showMessage = true;
   @ViewChild('form') form: NgForm;
   @ViewChild('changeForm') changeForm: NgForm;
 
@@ -47,6 +44,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
     private translateService: TranslateService,
   ) {
     super();
+    this.search = this.search.bind(this);
   }
 
   ngOnInit(): void {
@@ -64,8 +62,6 @@ export class OrganizationComponent extends WsComponent implements OnInit {
           }
         });
       }),
-      this.organizationsService.loading.subscribe(loadingOrganizations => (this.loadingOrganizations = loadingOrganizations)),
-      this.debouncer.pipe(debounceTime(200)).subscribe(fetchParams => this.organizationsService.fetch(fetchParams)),
       combineLatest([
         this.memberService.loading,
         this.memberOrganizationService.loading,
@@ -85,16 +81,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
   }
 
   search(name: string) {
-    if (name.length > 2) {
-      this.showMessage = false;
-      this.debouncer.next({
-        offset: 0,
-        limit: 9999,
-        name,
-      });
-    } else {
-      this.showMessage = true;
-    }
+    return this.organizationsService.fetch({...DEFAULT_FETCH_PARAMS, name});
   }
 
   submitChangeForm() {

@@ -94,11 +94,11 @@
           </form>
         </ng-container>
       </ng-container>
-      <ng-container *ngIf="member.member_of.length === 0">
+      <ng-container *ngIf="member.phones.length === 0">
         <hr class="my-2 mx-0"/>
         <div class="row">
           <div class="col-12 p-2">
-            {{'This member isn\'t member of any other member' | translate}}
+            {{'This member doesn\'t have any phone numbers' | translate}}
           </div>
         </div>
       </ng-container>

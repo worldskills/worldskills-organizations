@@ -16,7 +16,7 @@
               class="form-control"
               name="name"
               placeholder="{{'Name' | translate}}"
-              [ngModel]="member.name.text"
+              [ngModel]="member.name ? member.name.text : ''"
               required
             />
           </ng-container>
@@ -44,7 +44,7 @@
               class="form-control"
               name="name_1058"
               placeholder="{{'Name for 1058 sorting' | translate}}"
-              [ngModel]="member.name_1058.text"
+              [ngModel]="member.name_1058 ? member.name_1058.text : ''"
               required
             />
           </ng-container>
