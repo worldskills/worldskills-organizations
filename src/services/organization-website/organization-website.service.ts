@@ -24,26 +24,6 @@ export class OrganizationWebsiteService extends WsService<Array<Website>> {
     super();
   }
 
-  update(
-    organizationId: number, websiteId: number, memberWebsiteRequest: WebsiteRequest, rOpt?: RequestOptions
-  ): Observable<Array<Website>>;
-  update(
-    organizationId: number, websiteId: number,
-    memberWebsiteRequest: WebsiteRequest,
-    p1: WsServiceRequestP1,
-    p2?: WsServiceRequestP2,
-    p3?: WsServiceRequestP3
-  ): Observable<Array<Website>> {
-    const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
-    const params = HttpUtil.objectToParams(fetchParams || {});
-    const observable = this.http.put<Array<Website>>(
-      requestOptions.url ?? `${environment.worldskillsApiOrg}/${organizationId}/websites/${websiteId}`,
-      memberWebsiteRequest,
-      {params}
-    ).pipe(share());
-    return this.request(observable, multicastOptions);
-  }
-
   create(
     organizationId: number, memberWebsiteRequest: WebsiteRequest, rOpt?: RequestOptions
   ): Observable<Array<Website>>;
@@ -63,5 +43,46 @@ export class OrganizationWebsiteService extends WsService<Array<Website>> {
     ).pipe(share());
     return this.request(observable, multicastOptions);
   }
+
+  update(
+    organizationId: number, websiteId: number, memberWebsiteRequest: WebsiteRequest, rOpt?: RequestOptions
+  ): Observable<Array<Website>>;
+  update(
+    organizationId: number,
+    websiteId: number,
+    memberWebsiteRequest: WebsiteRequest,
+    p1: WsServiceRequestP1,
+    p2?: WsServiceRequestP2,
+    p3?: WsServiceRequestP3
+  ): Observable<Array<Website>> {
+    const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
+    const params = HttpUtil.objectToParams(fetchParams || {});
+    const observable = this.http.put<Array<Website>>(
+      requestOptions.url ?? `${environment.worldskillsApiOrg}/${organizationId}/websites/${websiteId}`,
+      memberWebsiteRequest,
+      {params}
+    ).pipe(share());
+    return this.request(observable, multicastOptions);
+  }
+
+  delete(
+    organizationId: number, websiteId: number, rOpt?: RequestOptions
+  ): Observable<Array<Website>>;
+  delete(
+    organizationId: number,
+    websiteId: number,
+    p1: WsServiceRequestP1,
+    p2?: WsServiceRequestP2,
+    p3?: WsServiceRequestP3
+  ): Observable<Array<Website>> {
+    const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
+    const params = HttpUtil.objectToParams(fetchParams || {});
+    const observable = this.http.delete<Array<Website>>(
+      requestOptions.url ?? `${environment.worldskillsApiOrg}/${organizationId}/websites/${websiteId}`,
+      {params}
+    ).pipe(share());
+    return this.request(observable, multicastOptions);
+  }
+
 
 }

@@ -106,18 +106,21 @@ export class OrganizationComponent extends WsComponent implements OnInit {
           lang_code: 'en',
         },
       };
-      const websiteData: WebsiteRequest = {url};
+      const websiteData: WebsiteRequest = url ? {url} : null;
       if (this.editMode === EditMode.Add) {
         this.organizationService.create(data).subscribe(organization => {
-          this.organizationWebsiteService.create(organization.id, websiteData).subscribe(() => {
-            this.memberOrganizationService.bind(this.member.id, {id: organization.id}).subscribe(() => {
-              this.editMode = EditMode.None;
-              this.memberService.fetch(this.member.id);
-              this.translateService.get('Created new organization').subscribe(t => {
-                this.alertService.setAlert('created-organization', AlertType.success, null, t, true);
-              });
+          const bindToMemberCallback = () => this.memberOrganizationService.bind(this.member.id, {id: organization.id}).subscribe(() => {
+            this.editMode = EditMode.None;
+            this.memberService.fetch(this.member.id);
+            this.translateService.get('Created new organization').subscribe(t => {
+              this.alertService.setAlert('created-organization', AlertType.success, null, t, true);
             });
           });
+          if (websiteData) {
+            this.organizationWebsiteService.create(organization.id, websiteData).subscribe(() => bindToMemberCallback());
+          } else {
+            bindToMemberCallback();
+          }
         });
       } else if (this.editMode === EditMode.Edit) {
         const cleanup = () => {
@@ -127,8 +130,24 @@ export class OrganizationComponent extends WsComponent implements OnInit {
             this.alertService.setAlert('updated-organization', AlertType.success, null, t, true);
           });
         };
-        const updateWebsiteUrl = () =>
-          this.organizationWebsiteService.update(this.member.organization.id, this.member.organization.websites[0].id, websiteData);
+        const updateWebsiteUrl = () => {
+          if (this.member.organization.websites[0]) {
+            if (websiteData) {
+              return this.organizationWebsiteService.update(
+                this.member.organization.id,
+                this.member.organization.websites[0].id,
+                websiteData
+              );
+            } else {
+              return this.organizationWebsiteService.delete(
+                this.member.organization.id,
+                this.member.organization.websites[0].id
+              );
+            }
+          } else if (websiteData) {
+            return this.organizationWebsiteService.create(this.member.organization.id, websiteData);
+          }
+        };
         if (this.member.organization.name.text !== name) {
           this.organizationService.update(this.member.organization.id, data).subscribe(() => {
             updateWebsiteUrl().subscribe(() => cleanup());
