@@ -44,6 +44,8 @@ angular.module('orgApp')
 		  		  return 'https://www.flickr.com/photos/' + id;
 		  	  case 8:
 		  		  return 'https://www.youtube.com/' + id;
+		  	  case 9:
+		  		  return 'https://www.tiktok.com/@' + id;
 		  	  default:
 		  		  return '';
 		  }
