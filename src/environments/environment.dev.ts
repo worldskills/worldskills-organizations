@@ -10,7 +10,7 @@ export const environment = {
   worldskillsApiOrg: 'http://localhost:8090/org',
   worldskillsApiPeople: 'http://localhost:8090/people',
   worldskillsApiImages: 'http://localhost:8080/images',
-  worldskillsClientId: '49775efbb906',
+  worldskillsClientId: '01f623251c02',
   worldskillsAuthorizeUrl: 'http://localhost:8080/auth',
   worldskillsAuthorizeRedirect: 'http://localhost:10600/',
   worldskillsAuthorizeUserinfoEndpoint: 'http://localhost:8080/auth/users/loggedIn',
