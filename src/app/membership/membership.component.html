@@ -1,0 +1,138 @@
+<ng-container *ngIf="loading || !initialized">
+  <ws-spinner></ws-spinner>
+</ng-container>
+<ng-container *ngIf="initialized && !loading">
+  <app-panel-header title="{{'Membership' | translate}}"></app-panel-header>
+  <app-panel title="{{'Membership' | translate}}">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 font-weight-bold p-2">
+          {{'Member of' | translate}}
+        </div>
+        <div class="col-4 font-weight-bold p-2">
+          {{'Status' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          {{'Year joined' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          &nbsp;
+        </div>
+      </div>
+      <ng-container *ngIf="member.member_of.length > 0">
+        <ng-container *ngFor="let m of member.member_of">
+          <hr class="my-2 mx-0"/>
+          <div *ngIf="m !== editingMembership" class="row">
+            <div class="col-4 p-2">
+              {{m.name.text}}
+            </div>
+            <div class="col-4 p-2">
+              {{m.status}}
+            </div>
+            <div class="col-2 p-2">
+              {{m.year_joined}}
+            </div>
+            <div class="col-2 p-2 text-right">
+              <app-panel-row-actions
+                (delete)="unbindMembership(m)"
+                deleteLabel="{{'Unbind' | translate}}"
+                (edit)="editMembership(m)"
+              ></app-panel-row-actions>
+            </div>
+          </div>
+          <form *ngIf="m === editingMembership" class="form-horizontal"
+                [ngClass]="{'was-validated': this.editForm.submitted}" novalidate
+                (ngSubmit)="submitEditForm()" #editForm="ngForm">
+            <div class="row">
+              <div class="col-4 p-2">
+                {{m.name.text}}
+              </div>
+              <div class="col-4 p-2">
+                <select
+                  class="form-control"
+                  name="status"
+                  [ngModel]="m.status"
+                  [disabled]="loading"
+                  required
+                >
+                  <option value="FULL">FULL</option>
+                  <option value="ASSOCIATE">ASSOCIATE</option>
+                  <option value="INACTIVE_FULL">INACTIVE_FULL</option>
+                  <option value="INACTIVE_ASSOCIATE">INACTIVE_ASSOCIATE</option>
+                </select>
+              </div>
+              <div class="col-2 p-2">
+                <input
+                  type="text"
+                  placeholder="{{'Year' | translate}}"
+                  class="form-control"
+                  name="year_joined"
+                  [ngModel]="m.year_joined"
+                  required
+                >
+              </div>
+              <div class="col-2 p-2 text-right">
+                <app-panel-row-actions
+                  (cancel)="cancelEditMembership()"
+                  (save)="editForm.onSubmit(undefined)"
+                ></app-panel-row-actions>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="member.member_of.length === 0">
+        <hr class="my-2 mx-0"/>
+        <div class="row">
+          <div class="col-12 p-2">
+            {{'This member isn\'t member of any other member' | translate}}
+          </div>
+        </div>
+      </ng-container>
+      <hr class="my-2 mx-0"/>
+      <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
+            (ngSubmit)="submitForm()" #form="ngForm">
+        <div class="row">
+          <div class="col-4 p-2">
+            <ng-select
+              [wsSelect]="['id', 'name.text']"
+              name="id"
+              [ngModel]="null"
+              placeholder="{{'Member of' | translate}}"
+              [items]="members || []"
+              [disabled]="loading"
+              required
+            ></ng-select>
+          </div>
+          <div class="col-4 p-2">
+            <select
+              class="form-control"
+              name="status"
+              [ngModel]="'FULL'"
+              [disabled]="loading"
+              required
+            >
+              <option value="FULL">FULL</option>
+              <option value="ASSOCIATE">ASSOCIATE</option>
+              <option value="INACTIVE_FULL">INACTIVE_FULL</option>
+              <option value="INACTIVE_ASSOCIATE">INACTIVE_ASSOCIATE</option>
+            </select>
+          </div>
+          <div class="col-2 p-2">
+            <input
+              type="text"
+              placeholder="{{'Year' | translate}}"
+              class="form-control"
+              name="year_joined"
+              [ngModel]="null"
+              required
+            >
+          </div>
+          <div class="col-2 p-2 text-right">
+            <button class="btn btn-success btn-sm">{{'Add' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </app-panel>
+</ng-container>

@@ -1,0 +1,13 @@
+/* You can add global styles to this file, and also import other style files */
+.component-pager .pagination {
+  margin: 0;
+}
+
+.small .form-control {
+  font-size: 100%;
+  font-weight: 400;
+}
+
+ul {
+  list-style-position: inside;
+}

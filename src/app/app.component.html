@@ -1,0 +1,23 @@
+<ws-staging-banner *ngIf="isStaging"></ws-staging-banner>
+<ws-puppeteer-banner [currentUser]="currentUser"></ws-puppeteer-banner>
+<ws-auth-header [appName]="'Organizations' | translate">
+</ws-auth-header>
+
+<div class="container">
+  <ws-breadcrumbs
+    *ngIf="showBreadcrumb"
+    [showHomeItem]="true"
+    [homeItemText]="'Members' | translate"
+    [homeItemRoute]="'/members'">
+  </ws-breadcrumbs>
+  <div *ngIf="!showBreadcrumb" class="mt-5"></div>
+  <div class="clearfix"></div>
+  <ws-alerts></ws-alerts>
+  <router-outlet></router-outlet>
+</div>
+
+<ws-auth-footer
+  (languageChange)="changeLanguage($event)"
+  [languages]="languages"
+  [selectedLanguage]="language"
+></ws-auth-footer>

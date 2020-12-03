@@ -1,0 +1,7 @@
+<h4 class="my-0">
+  {{title}}
+  <ng-template [ngIf]="editLink">
+    <a class="text-primary small ml-2 font-weight-normal" routerLink="{{editLink}}">{{'edit' | translate}}</a>
+  </ng-template>
+</h4>
+<hr class="mt-1 mb-3">

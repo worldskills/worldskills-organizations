@@ -1,0 +1,8 @@
+<div class="row">
+  <div [ngClass]="{'col-md-3 p-2 font-weight-bold': true, 'text-right': !alignLeftRowLeft}">
+    <ng-content select="[left]"></ng-content>
+  </div>
+  <div [ngClass]="{'col-md-9 p-2': true, 'text-right': alignRightRowRight}">
+    <ng-content select="[right]"></ng-content>
+  </div>
+</div>

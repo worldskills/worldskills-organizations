@@ -1,0 +1,117 @@
+<button
+  routerLink="/members/add"
+  class="btn btn-success float-right"
+>{{'Add Member' | translate}}</button>
+<button
+  *wsUserRole="['Admin']; appId : appId"
+  (click)="downloadMembers()"
+  class="btn btn-primary float-right mr-1"
+  [disabled]="exporting"
+><span *ngIf="!exporting">{{'Export to Spreadsheet' | translate}}</span>
+  <ws-spinner *ngIf="exporting"></ws-spinner>
+</button>
+<h2 class="mt-0">{{'Members' | translate}}</h2>
+<div class="clearfix border-bottom"></div>
+
+<div class="row mt-2">
+  <div class="col-md-9">
+    <ng-template [ngIf]="memberList && fetchParams" [ngIfElse]="uninitialized">
+      <span class="float-left">{{'Total results:' | translate}}&nbsp;{{memberList.total_count}}</span>
+      <ngb-pagination
+        class="float-right component-pager"
+        [collectionSize]="memberList.total_count"
+        [page]="(fetchParams.offset / fetchParams.limit) + 1"
+        [pageSize]="fetchParams.limit"
+        [maxSize]="10"
+        [boundaryLinks]="true"
+        (pageChange)="fetch($event)">
+      </ngb-pagination>
+      <div class="clearfix"></div>
+
+      <div class="table-responsive-md">
+        <table class="table table-striped">
+          <colgroup>
+            <col width="{{isFilteredByMemberOf ? 40 : 50}}%">
+            <col width="{{isFilteredByMemberOf ? 40 : 50}}%">
+            <col *ngIf="isFilteredByMemberOf" width="20%">
+          </colgroup>
+          <thead>
+          <tr>
+            <th class="border-top-0">
+              <a href="#" (click)="$event.preventDefault(); sort('code')">
+                {{'Code' | translate}}&nbsp;
+                <ng-container *ngIf="fetchParams.sort === 'code'">&darr;</ng-container>
+                <ng-container *ngIf="fetchParams.sort !== 'code'">&uarr;</ng-container>
+              </a>
+            </th>
+            <th class="border-top-0">
+              <a href="#" (click)="$event.preventDefault(); sort('name')">
+                {{'Name' | translate}}&nbsp;
+                <ng-container *ngIf="fetchParams.sort === 'name'">&darr;</ng-container>
+                <ng-container *ngIf="fetchParams.sort !== 'name'">&uarr;</ng-container>
+              </a>
+            </th>
+            <th *ngIf="isFilteredByMemberOf" class="border-top-0">
+              <a href="#" (click)="$event.preventDefault(); sort('year')">
+                {{'Year joined' | translate}}&nbsp;
+                <ng-container *ngIf="fetchParams.sort === 'year'">&darr;</ng-container>
+                <ng-container *ngIf="fetchParams.sort !== 'year'">&uarr;</ng-container>
+              </a>
+            </th>
+          </tr>
+          </thead>
+          <ng-template [ngIf]="!loading" [ngIfElse]="loader">
+            <tbody>
+            <tr *ngFor="let member of memberList.members">
+              <td>
+                <a routerLink="{{member.id}}">
+                  {{member.code}}
+                </a>
+              </td>
+              <td>
+                <a routerLink="{{member.id}}">
+                  {{member.name.text}}
+                </a>
+              </td>
+              <td *ngIf="isFilteredByMemberOf">
+                <a routerLink="{{member.id}}">
+                  {{getJoinedYear(member)}}
+                </a>
+              </td>
+            </tr>
+            <tr *ngIf="memberList.members.length === 0">
+              <td colspan="4">{{'No members found.' | translate}}</td>
+            </tr>
+            </tbody>
+          </ng-template>
+          <ng-template #loader>
+            <tbody>
+            <tr>
+              <td colspan="4">
+                <ws-spinner></ws-spinner>
+              </td>
+            </tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+
+      <ngb-pagination
+        class="float-right component-pager"
+        [collectionSize]="memberList.total_count"
+        [page]="(fetchParams.offset / fetchParams.limit) + 1"
+        [pageSize]="fetchParams.limit"
+        [maxSize]="10"
+        [boundaryLinks]="true"
+        (pageChange)="fetch($event)">
+      </ngb-pagination>
+      <div class="clearfix"></div>
+    </ng-template>
+    <ng-template #uninitialized>
+      {{'Use the search form to find Members records.' | translate}}
+    </ng-template>
+  </div>
+  <div class="col-md-3">
+    <app-members-search-form></app-members-search-form>
+  </div>
+</div>

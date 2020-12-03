@@ -1,0 +1,182 @@
+<ng-container *ngIf="loading || !initialized">
+  <ws-spinner></ws-spinner>
+</ng-container>
+<ng-container *ngIf="initialized && !loading">
+  <app-panel-header title="{{'Addresses' | translate}}"></app-panel-header>
+  <app-panel title="{{'Addresses' | translate}}">
+    <div class="container">
+      <ng-container *ngIf="member.addresses.length > 0">
+        <ng-container *ngFor="let a of member.addresses">
+          <div *ngIf="a !== editingAddress" class="row">
+            <div class="col-2 p-2">
+              <strong>{{'Line 1' | translate}}</strong><br/>
+              <strong>{{'Line 2' | translate}}</strong><br/>
+              <strong>{{'Line 3' | translate}}</strong><br/>
+              <strong>{{'Line 4' | translate}}</strong><br/>
+              <strong>{{'City' | translate}}</strong><br/>
+              <strong>{{'Zip Code' | translate}}</strong><br/>
+              <strong>{{'Country' | translate}}</strong>
+            </div>
+            <div class="col-8 p-2">
+              {{a.line1}}<br/>
+              {{a.line2}}<br/>
+              {{a.line3}}<br/>
+              {{a.line4}}<br/>
+              {{a.city}}<br/>
+              {{a.zip_code}}<br/>
+              {{a.country.name.text}}
+            </div>
+            <div class="col-2 p-2 text-right">
+              <app-panel-row-actions
+                (delete)="unbindAddress(a)"
+                deleteLabel="{{'Remove' | translate}}"
+                (edit)="editAddress(a)"
+              ></app-panel-row-actions>
+            </div>
+          </div>
+          <form *ngIf="a === editingAddress" class="form-horizontal"
+                [ngClass]="{'was-validated': this.editForm.submitted}" novalidate
+                (ngSubmit)="submitEditForm()" #editForm="ngForm">
+            <div class="row">
+              <div class="col-10 p-2">
+                <input
+                  type="text"
+                  placeholder="{{'Line 1' | translate}}"
+                  class="form-control mb-1"
+                  name="line1"
+                  [ngModel]="a.line1"
+                  required
+                >
+                <input
+                  type="text"
+                  placeholder="{{'Line 2' | translate}}"
+                  class="form-control mb-1"
+                  name="line2"
+                  [ngModel]="a.line2"
+                >
+                <input
+                  type="text"
+                  placeholder="{{'Line 3' | translate}}"
+                  class="form-control mb-1"
+                  name="line3"
+                  [ngModel]="a.line3"
+                >
+                <input
+                  type="text"
+                  placeholder="{{'Line 4' | translate}}"
+                  class="form-control mb-1"
+                  name="line4"
+                  [ngModel]="a.line4"
+                >
+                <input
+                  type="text"
+                  placeholder="{{'City' | translate}}"
+                  class="form-control mb-1"
+                  name="city"
+                  [ngModel]="a.city"
+                  required
+                >
+                <input
+                  type="text"
+                  placeholder="{{'Zip Code' | translate}}"
+                  class="form-control mb-1"
+                  name="zip_code"
+                  [ngModel]="a.zip_code"
+                  required
+                >
+                <ng-select
+                  [wsSelect]="['code', 'name.text']"
+                  name="country"
+                  [ngModel]="a.country ? a.country.code : null"
+                  placeholder="{{'Country' | translate}}"
+                  [items]="countries || []"
+                  [disabled]="loading"
+                  required
+                ></ng-select>
+              </div>
+              <div class="col-2 p-2 text-right">
+                <app-panel-row-actions
+                  (cancel)="cancelEditAddress()"
+                  (save)="editForm.onSubmit(undefined)"
+                ></app-panel-row-actions>
+              </div>
+            </div>
+          </form>
+          <hr class="my-2 mx-0"/>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="member.addresses.length === 0">
+        <div class="row">
+          <div class="col-12 p-2">
+            {{'This member doesn\'t have any addresses' | translate}}
+          </div>
+        </div>
+        <hr class="my-2 mx-0"/>
+      </ng-container>
+      <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
+            (ngSubmit)="submitForm()" #form="ngForm">
+        <div class="row">
+          <div class="col-10 p-2">
+            <input
+              type="text"
+              placeholder="{{'Line 1' | translate}}"
+              class="form-control mb-1"
+              name="line1"
+              [ngModel]="null"
+              required
+            >
+            <input
+              type="text"
+              placeholder="{{'Line 2' | translate}}"
+              class="form-control mb-1"
+              name="line2"
+              [ngModel]="null"
+            >
+            <input
+              type="text"
+              placeholder="{{'Line 3' | translate}}"
+              class="form-control mb-1"
+              name="line3"
+              [ngModel]="null"
+            >
+            <input
+              type="text"
+              placeholder="{{'Line 4' | translate}}"
+              class="form-control mb-1"
+              name="line4"
+              [ngModel]="null"
+            >
+            <input
+              type="text"
+              placeholder="{{'City' | translate}}"
+              class="form-control mb-1"
+              name="city"
+              [ngModel]="null"
+              required
+            >
+            <input
+              type="text"
+              placeholder="{{'Zip Code' | translate}}"
+              class="form-control mb-1"
+              name="zip_code"
+              [ngModel]="null"
+              required
+            >
+            <ng-select
+              [wsSelect]="['code', 'name.text']"
+              name="country"
+              [ngModel]="null"
+              placeholder="{{'Country' | translate}}"
+              [items]="countries || []"
+              [disabled]="loading"
+              required
+            ></ng-select>
+          </div>
+          <div class="col-2 p-2 text-right">
+            <button class="btn btn-success btn-sm">{{'Add' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </app-panel>
+</ng-container>
