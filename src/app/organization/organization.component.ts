@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, GenericUtil, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
 import {NgForm} from '@angular/forms';
@@ -104,7 +104,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
         name: {
           text: name,
           lang_code: 'en',
-        },
+        }
       };
       const websiteData: WebsiteRequest = url ? {url} : null;
       if (this.editMode === EditMode.Add) {

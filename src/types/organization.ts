@@ -1,4 +1,4 @@
-import {I18nText} from '@worldskills/worldskills-angular-lib';
+import {I18nText, WsEntityModel} from '@worldskills/worldskills-angular-lib';
 import {Phone} from './phone';
 import {Address} from './address';
 import {Link, List} from './common';
@@ -20,6 +20,7 @@ export interface Organization {
   phones: Array<Phone>;
   addresses: Array<Address>;
   links: Array<Link>;
+  wsEntity: WsEntityModel;
 }
 
 export type OrganizationList = List<Organization, 'org_list'>;
