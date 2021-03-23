@@ -92,11 +92,11 @@
                 }
               ]
             },
-            "production": {
+            "prod": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.production.ts"
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -129,8 +129,8 @@
             "port": 11307
           },
           "configurations": {
-            "production": {
-              "browserTarget": "worldskills-organizations:build:production"
+            "prod": {
+              "browserTarget": "worldskills-organizations:build:prod"
             }
           }
         },
@@ -190,8 +190,8 @@
             "staging": {
               "devServerTarget": "worldskills-people:serve:staging"
             },
-            "production": {
-              "devServerTarget": "worldskills-organizations:serve:production"
+            "prod": {
+              "devServerTarget": "worldskills-organizations:serve:prod"
             }
           }
         }
