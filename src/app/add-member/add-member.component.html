@@ -52,11 +52,7 @@
                 {{'Status' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>
-                <select class="form-control" name="status" [ngModel]="'FULL'" [disabled]="loading" required>
-                  <option *ngFor="let membershipStatus of membershipStatuses" value="{{ membershipStatus }}">
-                    {{ membershipStatus }}
-                  </option>
-                </select>
+                <app-membership-select [name]="'status'" [ngModel]="'FULL'" [disabled]="loading"></app-membership-select>
               </ng-container>
             </app-panel-row>
             <app-panel-row>
