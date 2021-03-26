@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 import {Membership, MembershipRequest} from '../../types/membership';
 import {MembershipsService} from '../../services/memberships/memberships.service';
 import {TranslateService} from '@ngx-translate/core';
+import { MembershipStatuses } from '../app-config';
 
 @Component({
   selector: 'app-membership',
@@ -45,6 +46,10 @@ export class MembershipComponent extends WsComponent implements OnInit {
 
   get initialized() {
     return !!this.member && !!this.members;
+  }
+
+  get membershipStatuses() {
+    return MembershipStatuses;
   }
 
   editMembership(membership: Membership) {

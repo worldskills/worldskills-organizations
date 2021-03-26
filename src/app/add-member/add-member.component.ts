@@ -8,6 +8,7 @@ import {Member, MemberRequest} from '../../types/member';
 import {Country, CountryRequest} from '../../types/country';
 import {MembersService} from '../../services/members/members.service';
 import {Router} from '@angular/router';
+import { MembershipStatuses } from '../app-config';
 
 @Component({
   selector: 'app-add-member',
@@ -54,6 +55,10 @@ export class AddMemberComponent extends WsComponent implements OnInit {
       this.form.value &&
       this.form.value.id &&
       this.members.find(m => m.id === parseInt(this.form.value.id)).member_of.length === 0;
+  }
+
+  get membershipStatuses() {
+    return MembershipStatuses;
   }
 
   submitForm() {

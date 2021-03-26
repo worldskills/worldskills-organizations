@@ -11,7 +11,7 @@
     <div class="col-md-3">&nbsp;</div>
     <div class="col-md-9">
       <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
-            (ngSubmit)="submitForm()" #form="ngForm">
+        (ngSubmit)="submitForm()" #form="ngForm">
         <app-panel-header title="{{'Member info' | translate}}"></app-panel-header>
         <app-panel title="{{'Member info' | translate}}">
           <div class="container">
@@ -20,13 +20,8 @@
                 {{'Name' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>
-                <input
-                  class="form-control"
-                  name="name"
-                  placeholder="{{'Name' | translate}}"
-                  [ngModel]="null"
-                  required
-                />
+                <input class="form-control" name="name" placeholder="{{'Name' | translate}}" [ngModel]="null"
+                  required />
               </ng-container>
             </app-panel-row>
             <app-panel-row>
@@ -34,13 +29,7 @@
                 {{'Member code' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>
-                <input
-                  class="form-control"
-                  name="code"
-                  placeholder="{{'XX' | translate}}"
-                  [ngModel]="null"
-                  required
-                />
+                <input class="form-control" name="code" placeholder="{{'XX' | translate}}" [ngModel]="null" required />
               </ng-container>
             </app-panel-row>
           </div>
@@ -53,15 +42,9 @@
                 {{'Member of' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>
-                <ng-select
-                  [wsSelect]="['id', 'name.text']"
-                  name="id"
-                  [ngModel]="null"
-                  placeholder="{{'Member of' | translate}}"
-                  [items]="members || []"
-                  [disabled]="loading"
-                  required
-                ></ng-select>
+                <ng-select [wsSelect]="['id', 'name.text']" name="id" [ngModel]="null"
+                  placeholder="{{'Member of' | translate}}" [items]="members || []" [disabled]="loading" required>
+                </ng-select>
               </ng-container>
             </app-panel-row>
             <app-panel-row>
@@ -69,17 +52,10 @@
                 {{'Status' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>
-                <select
-                  class="form-control"
-                  name="status"
-                  [ngModel]="'FULL'"
-                  [disabled]="loading"
-                  required
-                >
-                  <option value="FULL">FULL</option>
-                  <option value="ASSOCIATE">ASSOCIATE</option>
-                  <option value="INACTIVE_FULL">INACTIVE_FULL</option>
-                  <option value="INACTIVE_ASSOCIATE">INACTIVE_ASSOCIATE</option>
+                <select class="form-control" name="status" [ngModel]="'FULL'" [disabled]="loading" required>
+                  <option *ngFor="let membershipStatus of membershipStatuses" value="{{ membershipStatus }}">
+                    {{ membershipStatus }}
+                  </option>
                 </select>
               </ng-container>
             </app-panel-row>
@@ -88,14 +64,8 @@
                 {{'Year joined' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>
-                <input
-                  type="text"
-                  placeholder="{{'YYYY' | translate}}"
-                  class="form-control"
-                  name="year_joined"
-                  [ngModel]="null"
-                  required
-                >
+                <input type="text" placeholder="{{'YYYY' | translate}}" class="form-control" name="year_joined"
+                  [ngModel]="null" required>
               </ng-container>
             </app-panel-row>
           </div>
@@ -109,24 +79,15 @@
                   {{'Member represents' | translate}}&nbsp;*
                 </ng-container>
                 <ng-container right>
-                  <ng-select
-                    [wsSelect]="['id', 'name.text']"
-                    name="member_country"
-                    [ngModel]="null"
-                    placeholder="{{'Member represents' | translate}}"
-                    [items]="countries || []"
-                    [disabled]="loading"
-                    required
-                  ></ng-select>
+                  <ng-select [wsSelect]="['id', 'name.text']" name="member_country" [ngModel]="null"
+                    placeholder="{{'Member represents' | translate}}" [items]="countries || []" [disabled]="loading"
+                    required></ng-select>
                 </ng-container>
               </app-panel-row>
             </div>
           </app-panel>
         </ng-container>
-        <button
-          type="submit"
-          class="btn btn-success float-right my-1"
-        >
+        <button type="submit" class="btn btn-success float-right my-1">
           {{'Create Member' | translate}}
         </button>
         <div class="clearfix"></div>
