@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, LOADER_ONLY, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import { AlertService, AlertType, LOADER_ONLY, RxjsUtil, WsComponent, GenericUtil } from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
 import {MembersService} from '../../services/members/members.service';
@@ -7,6 +7,7 @@ import {NgForm} from '@angular/forms';
 import {Membership, MembershipRequest} from '../../types/membership';
 import {MembershipsService} from '../../services/memberships/memberships.service';
 import {TranslateService} from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-membership',
@@ -17,6 +18,7 @@ export class MembershipComponent extends WsComponent implements OnInit {
 
   member: Member;
   members: Array<Member>;
+  history: Membership[];
   loading = false;
   editingMembership: Membership = null;
   @ViewChild('form') form: NgForm;
@@ -34,7 +36,10 @@ export class MembershipComponent extends WsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribe(
-      this.memberService.subject.subscribe(member => (this.member = member)),
+      this.memberService.subject.subscribe(member => {
+        this.member = member;
+        this.memberService.getMembership(this.member.id, true).pipe(take(1)).subscribe(data => this.history = data);
+      }),
       RxjsUtil.loaderSubscriber(
         this.membersService,
         this.memberService,
@@ -45,6 +50,26 @@ export class MembershipComponent extends WsComponent implements OnInit {
 
   get initialized() {
     return !!this.member && !!this.members;
+  }
+
+  get currentMemberOf(): Membership[] {
+    if (GenericUtil.isNullOrUndefined(this.member)) {
+      return [];
+    }
+
+    if (GenericUtil.isNullOrUndefined(this.member.member_of)) {
+      return [];
+    }
+
+    return this.member.member_of.filter(x => x.end == null);
+  }
+
+  get historyMemberOf(): Membership[] {
+    if (GenericUtil.isNullOrUndefined(this.history)) {
+      return [];
+    }
+
+    return this.history.filter(x => x.end != null);
   }
 
   editMembership(membership: Membership) {

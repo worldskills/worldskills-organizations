@@ -20,7 +20,7 @@
         </div>
       </div>
       <ng-container *ngIf="member.member_of.length > 0">
-        <ng-container *ngFor="let m of member.member_of">
+        <ng-container *ngFor="let m of currentMemberOf">
           <hr class="my-2 mx-0" />
           <div *ngIf="m !== editingMembership" class="row">
             <div class="col-4 p-2">
@@ -90,4 +90,42 @@
       </form>
     </div>
   </app-panel>
+  <app-panel *ngIf="history" title="{{'Membership history' | translate}}">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 font-weight-bold p-2">
+          {{'Member of' | translate}}
+        </div>
+        <div class="col-4 font-weight-bold p-2">
+          {{'Status' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          {{'Year joined' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          &nbsp;
+        </div>
+      </div>
+      <ng-container *ngIf="member.member_of.length > 0">
+        <ng-container *ngFor="let m of historyMemberOf">
+          <hr class="my-2 mx-0" />
+          <div *ngIf="m !== editingMembership" class="row">
+            <div class="col-4 p-2">
+              {{m.name.text}}
+            </div>
+            <div class="col-4 p-2">
+              {{m.status}}
+            </div>
+            <div class="col-2 p-2">
+              {{m.year_joined}}
+            </div>
+            <div class="col-2 p-2 text-right">
+              &nbsp;
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </app-panel>
 </ng-container>
+

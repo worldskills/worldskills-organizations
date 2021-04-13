@@ -5,6 +5,7 @@ export interface MembershipRequest {
   id?: number;
   status: string;
   year_joined: number;
+  end?: Date;
 }
 
 export interface Membership extends MembershipRequest {

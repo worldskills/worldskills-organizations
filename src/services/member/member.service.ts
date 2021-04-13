@@ -15,6 +15,7 @@ import {Observable} from 'rxjs';
 
 import {share} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
+import { Membership } from '../../types/membership';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,11 @@ export class MemberService extends WsService<Member> {
 
   constructor(private http: HttpClient) {
     super();
+  }
+
+  getMembership(memberId: number, includeHistory: boolean): Observable<Membership[]> {
+    const url = `${environment.worldskillsApiOrg}/members/${memberId}/memberships?include_membership_history=${includeHistory ? 'true' : 'false'}`;
+    return this.http.get<Membership[]>(url);
   }
 
   fetch(memberId: number, rOpt?: RequestOptions): Observable<Member>;
