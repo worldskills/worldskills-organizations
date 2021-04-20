@@ -6,40 +6,58 @@
   <app-panel title="{{'Addresses' | translate}}">
     <div class="container">
       <ng-container *ngIf="member.addresses.length > 0">
+        <div class="row">
+          <div class="col-3 font-weight-bold p-2">
+            {{'Type' | translate}}
+          </div>
+          <div class="col-7 font-weight-bold p-2">
+            {{'Address' | translate}}
+          </div>
+          <div class="col-2 font-weight-bold p-2">
+            &nbsp;
+          </div>
+        </div>
         <ng-container *ngFor="let a of member.addresses">
-          <div *ngIf="a !== editingAddress" class="row">
+          <div class="row" *ngIf="a !== editingAddress">
+            <div class="col-3 p-2">
+              {{a.type}}
+            </div>
+            <div class="col-7 p-2">
+              <div class="row">
+                <div class="col-2 p-2">
+                  <strong>{{'Line 1' | translate}}</strong><br />
+                  <strong>{{'Line 2' | translate}}</strong><br />
+                  <strong>{{'Line 3' | translate}}</strong><br />
+                  <strong>{{'Line 4' | translate}}</strong><br />
+                  <strong>{{'City' | translate}}</strong><br />
+                  <strong>{{'Zip Code' | translate}}</strong><br />
+                  <strong>{{'Country' | translate}}</strong><br />
+                </div>
+                <div class="col-8 p-2">
+                  {{a.line1}}<br />
+                  {{a.line2}}<br />
+                  {{a.line3}}<br />
+                  {{a.line4}}<br />
+                  {{a.city}}<br />
+                  {{a.zip_code}}<br />
+                  {{a.country.name.text}}<br />
+                </div>
+              </div>
+            </div>
             <div class="col-2 p-2">
-              <strong>{{ 'Type' | translate}}</strong><br />
-              <strong>{{'Line 1' | translate}}</strong><br />
-              <strong>{{'Line 2' | translate}}</strong><br />
-              <strong>{{'Line 3' | translate}}</strong><br />
-              <strong>{{'Line 4' | translate}}</strong><br />
-              <strong>{{'City' | translate}}</strong><br />
-              <strong>{{'Zip Code' | translate}}</strong><br />
-              <strong>{{'Country' | translate}}</strong>
-            </div>
-            <div class="col-8 p-2">
-              {{a.type}}<br />
-              {{a.line1}}<br />
-              {{a.line2}}<br />
-              {{a.line3}}<br />
-              {{a.line4}}<br />
-              {{a.city}}<br />
-              {{a.zip_code}}<br />
-              {{a.country.name.text}}
-            </div>
-            <div class="col-2 p-2 text-right">
               <app-panel-row-actions (delete)="unbindAddress(a)" deleteLabel="{{'Remove' | translate}}"
-                (edit)="editAddress(a)"></app-panel-row-actions>
+              (edit)="editAddress(a)"></app-panel-row-actions>
             </div>
           </div>
           <form *ngIf="a === editingAddress" class="form-horizontal"
             [ngClass]="{'was-validated': this.editForm.submitted}" novalidate (ngSubmit)="submitEditForm()"
             #editForm="ngForm">
             <div class="row">
-              <div class="col-10 p-2">
+              <div class="col-3 p-2">
                 <ng-select name="type" [ngModel]="a.type" placeholder="{{'Type' | translate}}"
                   [items]="addressTypes || []" [disabled]="loading" required></ng-select>
+              </div>
+              <div class="col-7 p-2">
                 <input type="text" placeholder="{{'Line 1' | translate}}" class="form-control mb-1" name="line1"
                   [ngModel]="a.line1" required>
                 <input type="text" placeholder="{{'Line 2' | translate}}" class="form-control mb-1" name="line2"
@@ -76,9 +94,11 @@
       <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
         (ngSubmit)="submitForm()" #form="ngForm">
         <div class="row">
-          <div class="col-10 p-2">
+          <div class="col-3 p-2">
             <ng-select name="type" [ngModel]="null" placeholder="{{'Type' | translate}}" [items]="addressTypes || []"
               [disabled]="loading" required></ng-select>
+          </div>
+          <div class="col-7 p-2">
             <input type="text" placeholder="{{'Line 1' | translate}}" class="form-control mb-1" name="line1"
               [ngModel]="null" required>
             <input type="text" placeholder="{{'Line 2' | translate}}" class="form-control mb-1" name="line2"
