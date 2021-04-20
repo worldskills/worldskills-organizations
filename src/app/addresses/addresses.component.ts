@@ -8,6 +8,7 @@ import {CountriesService} from '../../services/countries/countries.service';
 import {Country} from '../../types/country';
 import {AddressesService} from '../../services/addresses/addresses.service';
 import {TranslateService} from '@ngx-translate/core';
+import { AddressType } from 'src/types/address-type';
 
 @Component({
   selector: 'app-addresses',
@@ -20,6 +21,8 @@ export class AddressesComponent extends WsComponent implements OnInit {
   countries: Array<Country>;
   loading = false;
   editingAddress: Address = null;
+  addressType = AddressType;
+  addressTypes: string[];
   @ViewChild('form') form: NgForm;
   @ViewChild('editForm') editForm: NgForm;
 
@@ -34,6 +37,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addressTypes = Object.keys(this.addressType);
     this.subscribe(
       this.memberService.subject.subscribe(member => (this.member = member)),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
@@ -84,6 +88,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line3,
         line4,
         zip_code,
+        type
       } = this.editForm.value;
       const data: AddressRequest = {
         city,
@@ -93,6 +98,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line3,
         line4,
         zip_code,
+        type
       };
       this.addressesService.update(memberId, this.editingAddress.id, data)
         .subscribe(() => {
@@ -116,6 +122,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line3,
         line4,
         zip_code,
+        type,
       } = this.form.value;
       const data: AddressRequest = {
         city,
@@ -125,6 +132,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line3,
         line4,
         zip_code,
+        type
       };
       this.addressesService.bind(memberId, data)
         .subscribe(() => {

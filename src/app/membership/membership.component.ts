@@ -103,7 +103,6 @@ export class MembershipComponent extends WsComponent implements OnInit {
         status,
         year_joined,
       };
-      console.log(data);
       this.membershipsService.update(memberId, this.editingMembership.id, data)
         .subscribe(() => {
           this.editingMembership = null;

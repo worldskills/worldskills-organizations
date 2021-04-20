@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import { AlertService, AlertType, RxjsUtil, WsComponent, GenericUtil } from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../types/member';
 import {MemberService} from '../../services/member/member.service';
 import {PeopleService} from '../../services/people/people.service';
@@ -9,6 +9,7 @@ import {NgForm} from '@angular/forms';
 import {ContactsService} from '../../services/contacts/contacts.service';
 import {TranslateService} from '@ngx-translate/core';
 import {DEFAULT_FETCH_PARAMS} from '../../services/organizations/organizations.service';
+import { ContactType } from 'src/types/contact-type';
 
 @Component({
   selector: 'app-contacts',
@@ -20,7 +21,8 @@ export class ContactsComponent extends WsComponent implements OnInit {
   member: Member;
   people: Array<Person>;
   loading = false;
-  @ViewChild('form') form: NgForm;
+  @ViewChild('generalForm') generalForm: NgForm;
+  @ViewChild('financeForm') financeForm: NgForm;
 
   constructor(
     private memberService: MemberService,
@@ -48,6 +50,30 @@ export class ContactsComponent extends WsComponent implements OnInit {
     return !!this.member;
   }
 
+  get generalContacts(): Contact[] {
+    if (GenericUtil.isNullOrUndefined(this.member)) {
+      return [];
+    }
+
+    if (GenericUtil.isNullOrUndefined(this.member.contacts)) {
+      return [];
+    }
+
+    return this.member.contacts.filter(c => c.type === ContactType.GENERAL);
+  }
+
+  get financeContacts(): Contact[] {
+    if (GenericUtil.isNullOrUndefined(this.member)) {
+      return [];
+    }
+
+    if (GenericUtil.isNullOrUndefined(this.member.contacts)) {
+      return [];
+    }
+
+    return this.member.contacts.filter(c => c.type === ContactType.FINANCE);
+  }
+
   search(name: string) {
     return this.peopleService.fetch({...DEFAULT_FETCH_PARAMS, name, entity: this.member.id});
   }
@@ -67,12 +93,21 @@ export class ContactsComponent extends WsComponent implements OnInit {
     });
   }
 
-  submitForm() {
-    if (this.form.valid) {
+  submitGeneralForm() {
+    this.submitForm(this.generalForm, ContactType.GENERAL);
+  }
+
+  submitFinanceForm() {
+    this.submitForm(this.financeForm, ContactType.FINANCE);
+  }
+
+  submitForm(form: NgForm, type: ContactType) {
+    if (form.valid) {
       const memberId = this.member.id;
-      const {contact} = this.form.value;
+      const {contact} = form.value;
       const data: ContactRequest = {
         contact,
+        type
       };
       this.contactsService.bind(memberId, data)
         .subscribe(() => {

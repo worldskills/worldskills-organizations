@@ -1,4 +1,5 @@
 import {I18nText} from '@worldskills/worldskills-angular-lib';
+import { AddressType } from './address-type';
 
 export interface AddressCountryMember {
   id: number;
@@ -22,6 +23,7 @@ export interface AddressRequest {
   line3: string;
   line4: string;
   zip_code: string;
+  type: AddressType;
 }
 
 export interface Address {
@@ -33,4 +35,5 @@ export interface Address {
   city: string;
   zip_code: string;
   country: AddressCountry;
+  type: AddressType;
 }
