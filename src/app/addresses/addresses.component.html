@@ -20,7 +20,11 @@
         <ng-container *ngFor="let a of member.addresses">
           <div class="row" *ngIf="a !== editingAddress">
             <div class="col-3 p-2">
-              {{a.type}}
+              <div class="row">
+                <div class="col-12 p-2">
+                  {{a.type}}
+                </div>
+              </div>
             </div>
             <div class="col-7 p-2">
               <div class="row">
