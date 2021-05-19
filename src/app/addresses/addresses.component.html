@@ -28,16 +28,18 @@
             </div>
             <div class="col-7 p-2">
               <div class="row">
-                <div class="col-2 p-2">
-                  <strong>{{'Line 1' | translate}}</strong><br />
-                  <strong>{{'Line 2' | translate}}</strong><br />
-                  <strong>{{'Line 3' | translate}}</strong><br />
-                  <strong>{{'Line 4' | translate}}</strong><br />
-                  <strong>{{'City' | translate}}</strong><br />
-                  <strong>{{'Zip Code' | translate}}</strong><br />
-                  <strong>{{'Country' | translate}}</strong><br />
+                <div class="col-3 p-2">
+                  <strong>{{'Attention' | translate}}</strong>:<br />
+                  <strong>{{'Line 1' | translate}}</strong>:<br />
+                  <strong>{{'Line 2' | translate}}</strong>:<br />
+                  <strong>{{'Line 3' | translate}}</strong>:<br />
+                  <strong>{{'Line 4' | translate}}</strong>:<br />
+                  <strong>{{'City' | translate}}</strong>:<br />
+                  <strong>{{'Zip Code' | translate}}</strong>:<br />
+                  <strong>{{'Country' | translate}}</strong>:<br />
                 </div>
-                <div class="col-8 p-2">
+                <div class="col-7 p-2">
+                  {{a.attention}}<br />
                   {{a.line1}}<br />
                   {{a.line2}}<br />
                   {{a.line3}}<br />
@@ -62,6 +64,8 @@
                   [items]="addressTypes || []" [disabled]="loading" required></ng-select>
               </div>
               <div class="col-7 p-2">
+                <input type="text" placeholder="{{'Attention' | translate}}" class="form-control mb-1" name="attention"
+                  [ngModel]="a.attention">
                 <input type="text" placeholder="{{'Line 1' | translate}}" class="form-control mb-1" name="line1"
                   [ngModel]="a.line1" required>
                 <input type="text" placeholder="{{'Line 2' | translate}}" class="form-control mb-1" name="line2"
@@ -103,6 +107,8 @@
               [disabled]="loading" required></ng-select>
           </div>
           <div class="col-7 p-2">
+            <input type="text" placeholder="{{'Attention' | translate}}" class="form-control mb-1" name="attention"
+              [ngModel]="null">
             <input type="text" placeholder="{{'Line 1' | translate}}" class="form-control mb-1" name="line1"
               [ngModel]="null" required>
             <input type="text" placeholder="{{'Line 2' | translate}}" class="form-control mb-1" name="line2"

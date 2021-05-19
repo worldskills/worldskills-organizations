@@ -24,6 +24,7 @@ export interface AddressRequest {
   line4: string;
   zip_code: string;
   type: AddressType;
+  attention: string;
 }
 
 export interface Address {
@@ -36,4 +37,5 @@ export interface Address {
   zip_code: string;
   country: AddressCountry;
   type: AddressType;
+  attention: string;
 }

@@ -88,7 +88,8 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line3,
         line4,
         zip_code,
-        type
+        type,
+        attention
       } = this.editForm.value;
       const data: AddressRequest = {
         city,
@@ -98,7 +99,8 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line3,
         line4,
         zip_code,
-        type
+        type,
+        attention
       };
       this.addressesService.update(memberId, this.editingAddress.id, data)
         .subscribe(() => {
@@ -123,6 +125,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line4,
         zip_code,
         type,
+        attention
       } = this.form.value;
       const data: AddressRequest = {
         city,
@@ -132,7 +135,8 @@ export class AddressesComponent extends WsComponent implements OnInit {
         line3,
         line4,
         zip_code,
-        type
+        type,
+        attention
       };
       this.addressesService.bind(memberId, data)
         .subscribe(() => {
