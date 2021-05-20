@@ -1,6 +1,6 @@
 <ws-staging-banner *ngIf="isStaging"></ws-staging-banner>
 <ws-puppeteer-banner [currentUser]="currentUser"></ws-puppeteer-banner>
-<ws-auth-header [appName]="'Organizations' | translate">
+<ws-auth-header [appName]="'Organizations' | translate" [autoLoginOnLogout]="true">
 </ws-auth-header>
 
 <div class="container">
