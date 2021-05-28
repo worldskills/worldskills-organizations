@@ -12,6 +12,12 @@ export interface OrganizationRequest {
   name: I18nText;
 }
 
+export interface OrganizationRelationRequest {
+  organization: number;
+  entity: number;
+  type: string;
+}
+
 export interface Organization {
   id: number;
   legacyId?: number;
@@ -23,4 +29,31 @@ export interface Organization {
   wsEntity: WsEntityModel;
 }
 
-export type OrganizationList = List<Organization, 'org_list'>;
+export interface OrganizationRelation {
+  id: number;
+  entity: WsEntityModel;
+  type: string;
+}
+
+export interface OrganizationContact {
+  id: number;
+  personId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  type: string;
+}
+
+/*
+  List types
+*/
+
+export interface OrganizationList {
+  org_list: Organization[];
+  total_count: number;
+}
+
+export interface OrganizationContactList {
+  contacts: OrganizationContact[];
+  total_count: number;
+}
