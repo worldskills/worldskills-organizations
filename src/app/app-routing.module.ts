@@ -15,6 +15,7 @@ import {SocialMediaComponent} from './pages/social-media/social-media.component'
 import {AddMemberComponent} from './pages/add-member/add-member.component';
 import {environment} from '../environments/environment';
 import {GuardService} from '@worldskills/worldskills-angular-lib';
+import { OrganizationsComponent } from './pages/organizations/organizations.component';
 
 function forAppCode(appCode: number, roles: Array<string>) {
   return roles.map(name => ({
@@ -29,10 +30,14 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       {
-        path: 'members/add',
-        component: AddMemberComponent,
-        canActivate: [GuardService],
-        data: {breadcrumb: 'Add Member', roles: forAppCode(environment.worldskillsAppId, ['Admin', 'EditMember'])},
+        path: 'organizations',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: OrganizationsComponent,
+          },
+        ]
       },
       {
         path: 'members',
@@ -41,6 +46,12 @@ const routes: Routes = [
             path: '',
             pathMatch: 'full',
             component: MembersComponent,
+          },
+          {
+            path: 'add',
+            component: AddMemberComponent,
+            canActivate: [GuardService],
+            data: {breadcrumb: 'Add Member', roles: forAppCode(environment.worldskillsAppId, ['Admin', 'EditMember'])},
           },
           {
             path: ':memberId',
