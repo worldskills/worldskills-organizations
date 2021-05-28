@@ -4,6 +4,7 @@ import {combineLatest} from 'rxjs';
 import {
   BreadcrumbsService,
   Language,
+  MenuItem,
   NgAuthService,
   User,
   WorldskillsAngularLibService
@@ -12,6 +13,7 @@ import {LocaleContextService} from '../services/locale-context/locale-context.se
 import {environment} from '../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import {AppService} from '../services/app/app.service';
+import { menuConfig } from './app-config';
 
 @Component({
   selector: 'app-root',
@@ -79,6 +81,10 @@ export class AppComponent implements OnInit {
 
   changeLanguage(language) {
     this.localeContextService.changeLanguage(language);
+  }
+
+  get buildMenuItems(): Array<MenuItem> {
+    return menuConfig;
   }
 
 }
