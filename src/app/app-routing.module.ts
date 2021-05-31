@@ -16,6 +16,7 @@ import {AddMemberComponent} from './pages/add-member/add-member.component';
 import {environment} from '../environments/environment';
 import {GuardService} from '@worldskills/worldskills-angular-lib';
 import { OrganizationsComponent } from './pages/organizations/organizations.component';
+import { OrganizationDetailComponent } from './pages/organization-detail/organization-detail.component';
 
 function forAppCode(appCode: number, roles: Array<string>) {
   return roles.map(name => ({
@@ -36,7 +37,19 @@ const routes: Routes = [
             path: '',
             pathMatch: 'full',
             component: OrganizationsComponent,
+            data: {breadcrumb: 'Organizations'},
+
           },
+          {
+            path: ':orgId',
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: OrganizationDetailComponent,
+              },
+            ]
+          }
         ]
       },
       {
@@ -45,6 +58,7 @@ const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
+            data: {breadcrumb: 'Members'},
             component: MembersComponent,
           },
           {

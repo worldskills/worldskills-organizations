@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RedirectHandler} from '@worldskills/worldskills-angular-lib';
 import {ActivatedRoute} from '@angular/router';
+import { homepage } from '../../app-config';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.handler.redirectOrReturn({url: ['/members'], onlyIfExact: this.route})
+    this.handler.redirectOrReturn({url: [homepage], onlyIfExact: this.route})
       .subscribe(() => (this.initialized = true));
   }
 

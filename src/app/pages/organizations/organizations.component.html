@@ -1,1 +1,65 @@
-<p>organizations works!</p>
+<button *wsUserRole="['Admin']; appId : appId" routerLink="/organization/add"
+  class="btn btn-success float-right">{{'Add Organization' | translate}}</button>
+<h2 class="mt-0">{{'Organizations' | translate}}</h2>
+<div class="clearfix border-bottom"></div>
+
+
+<div class="row mt-2">
+  <div class="col-md-9">
+    <ng-template [ngIf]="data" [ngIfElse]="uninitialized">
+      <span class="float-left">{{'Total results:' | translate}}&nbsp;{{data.total_count}}</span>
+      <ngb-pagination class="float-right component-pager" [collectionSize]="data.total_count"
+        [page]="(offset / limit) + 1" [pageSize]="limit" [maxSize]="pageSize" [boundaryLinks]="true"
+        (pageChange)="fetch($event)">
+      </ngb-pagination>
+      <div class="clearfix"></div>
+
+      <div class="table-responsive-md">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="border-top-0">
+                {{'Name' | translate}}
+              </th>
+            </tr>
+          </thead>
+          <ng-template [ngIf]="!loading" [ngIfElse]="loader">
+            <tbody>
+              <tr *ngFor="let org of data.org_list">
+                <td>
+                  <a routerLink="{{org.id}}">
+                    {{org.name.text}}
+                  </a>
+                </td>
+              </tr>
+              <tr *ngIf="isEmpty()">
+                <td colspan="4">{{'No Organizations found.' | translate}}</td>
+              </tr>
+            </tbody>
+          </ng-template>
+          <ng-template #loader>
+            <tbody>
+              <tr>
+                <td colspan="4">
+                  <ws-spinner></ws-spinner>
+                </td>
+              </tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+
+      <ngb-pagination class="float-right component-pager" [collectionSize]="data.total_count"
+        [page]="(offset / limit) + 1" [pageSize]="limit" [maxSize]="pageSize" [boundaryLinks]="true"
+        (pageChange)="fetch($event)">
+      </ngb-pagination>
+      <div class="clearfix"></div>
+    </ng-template>
+    <ng-template #uninitialized>
+      {{'Use the search form to find Organization records.' | translate}}
+    </ng-template>
+  </div>
+  <div class="col-md-3">
+    <app-organization-search-form [loading]="loading" [name]="name" (search)="search($event)"></app-organization-search-form>
+  </div>
+</div>

@@ -10,9 +10,9 @@
 <div class="container">
   <ws-breadcrumbs
     *ngIf="showBreadcrumb"
-    [showHomeItem]="true"
-    [homeItemText]="'Members' | translate"
-    [homeItemRoute]="'/members'">
+    [showHomeItem]="false"
+    [homeItemText]="'Home' | translate"
+    [homeItemRoute]="'/'">
   </ws-breadcrumbs>
   <div *ngIf="!showBreadcrumb" class="mt-5"></div>
   <div class="clearfix"></div>

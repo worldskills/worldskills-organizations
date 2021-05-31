@@ -30,8 +30,8 @@ export class OrganizationService extends WsService<Organization> {
     this.endpoint = environment.worldskillsApiOrg;
   }
 
-  list(offset: number, limit: number): Observable<OrganizationList> {
-    const params = HttpUtil.objectToParams({ offset, limit});
+  list(offset: number, limit: number, name: string): Observable<OrganizationList> {
+    const params = HttpUtil.objectToParams({ offset, limit, name});
     return this.http.get<OrganizationList>(this.endpoint, {params});
   }
 

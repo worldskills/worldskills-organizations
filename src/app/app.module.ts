@@ -34,6 +34,8 @@ import {PanelRowActionsComponent} from './panel-row-actions/panel-row-actions.co
 import {AddMemberComponent} from './pages/add-member/add-member.component';
 import { MembershipSelectComponent } from './controls/membership-select/membership-select.component';
 import { OrganizationsComponent } from './pages/organizations/organizations.component';
+import { OrganizationSearchFormComponent } from './organization-search-form/organization-search-form.component';
+import { OrganizationDetailComponent } from './pages/organization-detail/organization-detail.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -63,6 +65,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddMemberComponent,
     MembershipSelectComponent,
     OrganizationsComponent,
+    OrganizationSearchFormComponent,
+    OrganizationDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -86,5 +86,4 @@ export class AppComponent implements OnInit {
   get buildMenuItems(): Array<MenuItem> {
     return menuConfig;
   }
-
 }
