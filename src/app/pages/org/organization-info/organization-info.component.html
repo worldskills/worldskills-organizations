@@ -1,0 +1,28 @@
+<ng-container *ngIf="loading">
+  <ws-spinner></ws-spinner>
+</ng-container>
+<ng-container *ngIf="!loading">
+    <app-panel-header title="{{'Organization info' | translate}}"></app-panel-header>
+    <app-panel title="{{'Organization info' | translate}}">
+      <div class="container">
+        <app-panel-row>
+          <ng-container left>
+            {{'Name' | translate}}&nbsp;*
+          </ng-container>
+          <ng-container right>
+            <input
+              class="form-control"
+              placeholder="{{'Name' | translate}}"
+              [(ngModel)]="org.name.text"
+              required
+            />
+          </ng-container>
+        </app-panel-row>
+        <app-panel-row [alignRightRowRight]="true">
+          <ng-container right>
+            <button type="button" class="btn btn-success btn-sm" (click)="saveClick()" >{{'Save' | translate}}</button>
+          </ng-container>
+        </app-panel-row>
+      </div>
+    </app-panel>
+</ng-container>

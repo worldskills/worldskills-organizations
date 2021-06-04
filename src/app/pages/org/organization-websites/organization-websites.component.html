@@ -1,0 +1,134 @@
+<ng-container *ngIf="loading">
+  <ws-spinner></ws-spinner>
+</ng-container>
+<ng-container *ngIf="!loading">
+  <app-panel-header title="{{'Websites' | translate}}"></app-panel-header>
+  <app-panel title="{{'Websites' | translate}}">
+    <div class="container">
+      <div class="row">
+        <div class="col-4 font-weight-bold p-2">
+          {{'URL' | translate}}
+        </div>
+        <div class="col-3 font-weight-bold p-2">
+          {{'Name' | translate}}
+        </div>
+        <div class="col-3 font-weight-bold p-2">
+          {{'Description' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          &nbsp;
+        </div>
+      </div>
+      <ng-container *ngIf="websiteList.websites.length > 0">
+        <ng-container *ngFor="let w of websiteList.websites">
+          <hr class="my-2 mx-0"/>
+          <div *ngIf="w !== editingWebsite" class="row">
+            <div class="col-4 p-2">
+              {{w.url}}
+            </div>
+            <div class="col-3 p-2">
+              {{w.name.text}}
+            </div>
+            <div class="col-3 p-2">
+              {{w.description.text}}
+            </div>
+            <div class="col-2 p-2 text-right">
+              <app-panel-row-actions
+                (delete)="unbindWebsite(w)"
+                (edit)="editWebsite(w)"
+              ></app-panel-row-actions>
+            </div>
+          </div>
+          <form *ngIf="w === editingWebsite" class="form-horizontal"
+                [ngClass]="{'was-validated': this.editForm.submitted}" novalidate
+                (ngSubmit)="submitEditForm()" #editForm="ngForm">
+            <div class="row">
+              <div class="col-4 p-2">
+                <input type="hidden" name="id" [ngModel]="w.id" />
+                <input
+                  type="text"
+                  placeholder="{{'URL&nbsp;*' | translate}}"
+                  class="form-control"
+                  name="url"
+                  [ngModel]="w.url"
+                  required
+                >
+              </div>
+              <div class="col-3 p-2">
+                <input
+                  type="text"
+                  placeholder="{{'Name&nbsp;*' | translate}}"
+                  class="form-control"
+                  name="name"
+                  [ngModel]="w.name ? w.name.text : null"
+                  required
+                >
+              </div>
+              <div class="col-3 p-2">
+                <input
+                  type="text"
+                  placeholder="{{'Description' | translate}}"
+                  class="form-control"
+                  name="description"
+                  [ngModel]="w.description ? w.description.text : null"
+                >
+              </div>
+              <div class="col-2 p-2 text-right">
+                <app-panel-row-actions
+                  (cancel)="cancelEditWebsite()"
+                  (save)="editForm.onSubmit(undefined)"
+                ></app-panel-row-actions>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="websiteList.websites.length === 0">
+        <hr class="my-2 mx-0"/>
+        <div class="row">
+          <div class="col-12 p-2">
+            {{'This Organizations doesn\'t have any websites' | translate}}
+          </div>
+        </div>
+      </ng-container>
+      <hr class="my-2 mx-0"/>
+      <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
+            (ngSubmit)="submitForm()" #form="ngForm">
+        <div class="row">
+          <div class="col-4 p-2">
+            <input
+              type="text"
+              placeholder="{{'URL&nbsp;*' | translate}}"
+              class="form-control"
+              name="url"
+              [ngModel]="null"
+              required
+            >
+          </div>
+          <div class="col-3 p-2">
+            <input
+              type="text"
+              placeholder="{{'Name&nbsp;*' | translate}}"
+              class="form-control"
+              name="name"
+              [ngModel]="null"
+              required
+            >
+          </div>
+          <div class="col-3 p-2">
+            <input
+              type="text"
+              placeholder="{{'Description' | translate}}"
+              class="form-control"
+              name="description"
+              [ngModel]="null"
+            >
+          </div>
+          <div class="col-2 p-2 text-right">
+            <button class="btn btn-success btn-sm">{{'Add' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </app-panel>
+</ng-container>

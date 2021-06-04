@@ -33,9 +33,13 @@ import {PanelRowComponent} from './panel-row/panel-row.component';
 import {PanelRowActionsComponent} from './panel-row-actions/panel-row-actions.component';
 import {AddMemberComponent} from './pages/add-member/add-member.component';
 import { MembershipSelectComponent } from './controls/membership-select/membership-select.component';
-import { OrganizationsComponent } from './pages/organizations/organizations.component';
+import { OrganizationsComponent } from './pages/org/organizations/organizations.component';
 import { OrganizationSearchFormComponent } from './organization-search-form/organization-search-form.component';
-import { OrganizationDetailComponent } from './pages/organization-detail/organization-detail.component';
+import { OrganizationDetailComponent } from './pages/org/organization-detail/organization-detail.component';
+import { OrganizationInfoComponent } from './pages/org/organization-info/organization-info.component';
+import { OrganizationMembersComponent } from './pages/org/organization-members/organization-members.component';
+import { OrganizationContactsComponent } from './pages/org/organization-contacts/organization-contacts.component';
+import { OrganizationWebsitesComponent } from './pages/org/organization-websites/organization-websites.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -67,6 +71,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrganizationsComponent,
     OrganizationSearchFormComponent,
     OrganizationDetailComponent,
+    OrganizationInfoComponent,
+    OrganizationMembersComponent,
+    OrganizationContactsComponent,
+    OrganizationWebsitesComponent,
   ],
   imports: [
     BrowserModule,

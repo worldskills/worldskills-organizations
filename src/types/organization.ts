@@ -1,7 +1,7 @@
 import {I18nText, WsEntityModel} from '@worldskills/worldskills-angular-lib';
 import {Phone} from './phone';
 import {Address} from './address';
-import {Link, List} from './common';
+import {Link} from './common';
 import {OrgWebsite as Website} from './website';
 
 export interface MemberOrganizationRequest {
@@ -41,7 +41,6 @@ export interface OrganizationContact {
   firstName: string;
   lastName: string;
   email: string;
-  type: string;
 }
 
 /*

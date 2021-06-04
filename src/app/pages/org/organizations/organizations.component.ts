@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganizationService } from '../../../services/organization/organization.service';
+import { OrganizationService } from '../../../../services/organization/organization.service';
 import { take } from 'rxjs/operators';
-import { OrganizationList } from '../../../types/organization';
+import { OrganizationList } from '../../../../types/organization';
 import { ErrorUtil, GenericUtil } from '@worldskills/worldskills-angular-lib';
-import { defaultErrorMessage } from '../../app-config';
+import { defaultErrorMessage } from '../../../app-config';
 import { environment } from 'src/environments/environment';
 
 @Component({

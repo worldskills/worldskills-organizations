@@ -10,13 +10,15 @@ import {
 } from '@worldskills/worldskills-angular-lib';
 // tslint:disable-next-line:max-line-length
 import { Organization, OrganizationList, OrganizationRequest, OrganizationRelation, OrganizationContactList, OrganizationRelationRequest, OrganizationContact } from '../../types/organization';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 import { Member } from '../../types/member';
 import { Website } from 'src/types/website';
+import { ContactRequest } from '../../types/contact';
+import { WebsiteList, WebsiteRequest, OrgWebsite, OrgWebsiteRequest } from '../../types/website';
 
 @Injectable({
   providedIn: 'root'
@@ -55,9 +57,9 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.get<OrganizationRelation>(url);
   }
 
-  getWebsites(id: number): Observable<Website[]> {
+  getWebsites(id: number): Observable<WebsiteList> {
     const url = `${this.endpoint}/${id}/websites`;
-    return this.http.get<Website[]>(url);
+    return this.http.get<WebsiteList>(url);
   }
 
   getContacts(id: number): Observable<OrganizationContactList> {
@@ -79,20 +81,17 @@ export class OrganizationService extends WsService<Organization> {
 
   createRelation(orgId: number, view: OrganizationRelationRequest): Observable<OrganizationRelation> {
     const url = `${this.endpoint}/${orgId}/relations/`;
-    const params = HttpUtil.objectToParams(view);
-    return this.http.post<OrganizationRelation>(url, {params});
+    return this.http.post<OrganizationRelation>(url, view);
   }
 
-  createWebsite(id: number, view: Website): Observable<Website> {
+  createWebsite(id: number, view: OrgWebsiteRequest): Observable<Website> {
     const url = `${this.endpoint}/${id}/websites`;
-    const params = HttpUtil.objectToParams(view);
-    return this.http.post<Website>(url, {params});
+    return this.http.post<Website>(url, view);
   }
 
-  createContacts(id: number, view: OrganizationContact): Observable<OrganizationContact> {
+  createContacts(id: number, view: ContactRequest): Observable<OrganizationContact> {
     const url = `${this.endpoint}/${id}/contacts`;
-    const params = HttpUtil.objectToParams(view);
-    return this.http.post<OrganizationContact>(url, {params});
+    return this.http.post<OrganizationContact>(url, view);
   }
 
   update(organizationId: number, organization: OrganizationRequest, rOpt?: RequestOptions): Observable<Organization>;
@@ -117,10 +116,9 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.put<OrganizationRelation>(url, {params});
   }
 
-  updateWebsite(orgId: number, websiteId: number, view: Website): Observable<Website> {
+  updateWebsite(orgId: number, websiteId: number, view: OrgWebsite): Observable<Website> {
     const url = `${this.endpoint}/${orgId}/websites/${websiteId}`;
-    const params = HttpUtil.objectToParams(view);
-    return this.http.put<Website>(url, {params});
+    return this.http.put<Website>(url, view);
   }
 
   updateContacts(orgId: number, contactId: number, view: OrganizationContact): Observable<OrganizationContact> {

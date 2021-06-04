@@ -1,0 +1,64 @@
+<h2 class="mt-0">
+  <ng-container *ngIf="loading">{{'Loading, please wait...' | translate}}</ng-container>
+  <ng-container *ngIf="!loading">
+    {{org.name.text}}
+  </ng-container>
+</h2>
+<div class="clearfix"></div>
+
+<div class="row mt-2">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="list-group list-group-flush">
+        <a
+          routerLinkActive="active"
+          routerLink="/organizations/{{ orgId }}" [routerLinkActiveOptions]="{exact: true}"
+          class="list-group-item list-group-item-action">
+          {{'Organization information' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="/organizations/{{ orgId }}/members"
+          class="list-group-item list-group-item-action">
+          {{'Members' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="/organizations/{{ orgId }}/contacts"
+          class="list-group-item list-group-item-action">
+          {{'Contacts' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="/organizations/{{ orgId }}/websites"
+          class="list-group-item list-group-item-action">
+          {{'Websites' | translate}}
+        </a>
+        <a
+          routerLinkActive="active"
+          routerLink="/organizations/{{ orgId }}/phone-numbers"
+          class="list-group-item list-group-item-action">
+          {{'Phone numbers' | translate}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <app-organization-info *ngIf="!loading && viewName && viewName === 'info'"
+      [org]="org" [loading]="loading" (save)="save($event)">
+    </app-organization-info>
+
+    <app-organization-members *ngIf="!loading && viewName && viewName === 'members'"
+      [members]="members" [loading]="loading">
+    </app-organization-members>
+
+    <app-organization-contacts *ngIf="!loading && viewName && viewName === 'contacts'"
+    [contactList]="contactList" [loading]="loading" (save)="saveContact($event)" (delete)="deleteContact($event)">
+    </app-organization-contacts>
+
+    <app-organization-websites *ngIf="!loading && viewName && viewName === 'websites'"
+    [websiteList]="websiteList" [loading]="loading" (save)="saveWebsite($event)" (update)="updateWebsite($event)" (delete)="deleteWebsite($event)">
+
+    </app-organization-websites>
+  </div>
+</div>

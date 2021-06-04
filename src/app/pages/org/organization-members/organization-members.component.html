@@ -1,0 +1,40 @@
+<ng-container *ngIf="loading">
+  <ws-spinner></ws-spinner>
+</ng-container>
+<ng-container *ngIf="!loading">
+  <app-panel-header title="{{'Members' | translate}}"></app-panel-header>
+  <app-panel title="{{'Members' | translate}}">
+    <div class="container">
+      <ng-container>
+        <div class="row">
+          <div class="col-2 font-weight-bold p-2">
+            {{'Code' | translate}}
+          </div>
+          <div class="col-6 font-weight-bold p-2">
+            {{'Name' | translate}}
+          </div>
+          <div class="col-4 font-weight-bold p-2">
+            &nbsp;
+          </div>
+        </div>
+        <hr class="my-2 mx-0"/>
+      </ng-container>
+      <ng-container *ngFor="let member of members">
+        <div class="row">
+          <div class="col-2 p-2">
+            {{ member.code }}
+          </div>
+          <div class="col-6 p-2">
+            {{ member.name.text }}
+          </div>
+          <div class="col-4 p-2">
+            <a href="/members/{{ member.id }}" class="btn btn-sm btn-primary mr-1">
+              {{'View' | translate}}
+            </a>
+          </div>
+        </div>
+        <hr class="my-2 mx-0"/>
+      </ng-container>
+    </div>
+  </app-panel>
+</ng-container>
