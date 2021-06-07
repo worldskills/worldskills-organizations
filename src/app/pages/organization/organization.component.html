@@ -33,11 +33,11 @@
             </div>
           </ng-container>
           <div class="col-4 p-2 text-right">
+            <a class="btn btn-sm btn-primary mr-1" href="/organizations/{{ member.organization.id }}" >
+              {{'View' | translate}}
+            </a>
             <button class="btn btn-sm btn-warning mr-1" (click)="switchEditMode(1)">
               {{'New' | translate}}
-            </button>
-            <button class="btn btn-sm btn-warning mr-1" (click)="switchEditMode(2)">
-              {{'Edit' | translate}}
             </button>
             <button class="btn btn-sm btn-warning" (click)="switchEditMode(3)">
               {{'Change' | translate}}
