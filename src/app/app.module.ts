@@ -40,6 +40,7 @@ import { OrganizationInfoComponent } from './pages/org/organization-info/organiz
 import { OrganizationMembersComponent } from './pages/org/organization-members/organization-members.component';
 import { OrganizationContactsComponent } from './pages/org/organization-contacts/organization-contacts.component';
 import { OrganizationWebsitesComponent } from './pages/org/organization-websites/organization-websites.component';
+import { OrganizationCreateComponent } from './pages/org/organization-create/organization-create.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrganizationMembersComponent,
     OrganizationContactsComponent,
     OrganizationWebsitesComponent,
+    OrganizationCreateComponent,
   ],
   imports: [
     BrowserModule,

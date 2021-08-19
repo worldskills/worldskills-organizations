@@ -18,6 +18,7 @@ import { GuardService } from '@worldskills/worldskills-angular-lib';
 import { OrganizationsComponent } from './pages/org/organizations/organizations.component';
 import { OrganizationDetailComponent } from './pages/org/organization-detail/organization-detail.component';
 import { OrganizationInfoComponent } from './pages/org/organization-info/organization-info.component';
+import { OrganizationCreateComponent } from './pages/org/organization-create/organization-create.component';
 
 function forAppCode(appCode: number, roles: Array<string>) {
   return roles.map(name => ({
@@ -39,6 +40,12 @@ const routes: Routes = [
         pathMatch: 'full',
         data: { breadcrumb: {key: 'organizations', label: 'Organizations'}},
         component: OrganizationsComponent,
+      },
+      {
+        path: 'add',
+        component: OrganizationCreateComponent,
+        canActivate: [GuardService],
+        data: { breadcrumb: 'Add Organization', roles: forAppCode(environment.worldskillsAppId, ['Admin', 'EditOrganization']) },
       },
       {
         path: ':orgId',
