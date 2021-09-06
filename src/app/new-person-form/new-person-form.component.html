@@ -1,0 +1,65 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-sm-6 p-2">
+      Email:
+    </div>
+    <div class="col-sm-6 p-2">
+      <input
+        type="text"
+        placeholder="{{'Email&nbsp;*' | translate}}"
+        class="form-control"
+        name="email"
+        [(ngModel)]="email"
+        required
+      >
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-sm-6 p-2">
+      First Name:
+    </div>
+    <div class="col-sm-6 p-2">
+      <input
+        type="text"
+        placeholder="{{'First Name&nbsp;*' | translate}}"
+        class="form-control"
+        name="firstName"
+        [(ngModel)]="firstName"
+        required
+      >
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 p-2">
+      Last Name:
+    </div>
+    <div class="col-sm-6 p-2">
+      <input
+        type="text"
+        placeholder="{{'Last Name&nbsp;*' | translate}}"
+        class="form-control"
+        name="lastName"
+        [(ngModel)]="lastName"
+        required
+      >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 p-2"></div>
+    <div class="col-sm-6 p-2">
+      <div style="float:right">
+        <button type="button" class="btn btn-warning" (click)="abort()">
+          Cancel
+      </button>
+      &nbsp;
+        <button type="button" class="btn btn-success" (click)="submit()">
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,6 +5,10 @@ export interface AuthEntityRequest {
   id: number;
 }
 
+export interface PersonEntityRequest {
+  ws_entity: AuthEntityRequest;
+}
+
 export interface AuthEntity extends AuthEntityRequest {
   name: I18nText;
   parent_id?: number;

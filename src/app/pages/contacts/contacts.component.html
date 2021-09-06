@@ -52,7 +52,7 @@
       <hr class="my-2 mx-0"/>
       <form class="form-horizontal" [ngClass]="{'was-validated': this.generalForm.submitted}" novalidate
             (ngSubmit)="submitGeneralForm()" #generalForm="ngForm">
-        <div class="row">
+        <div class="row" *ngIf="!toggleGenneralContact">
           <div class="col-10 p-2">
             <ng-select
               [wsSelect]="['id', renderContactName]"
@@ -67,6 +67,13 @@
           </div>
           <div class="col-2 p-2 text-right">
             <button class="btn btn-success btn-sm">{{'Add' | translate}}</button>
+            &nbsp;
+            <button class="btn btn-secondary btn-sm" (click)="toggleGenneralContact = true">{{'New' | translate}}</button>
+          </div>
+        </div>
+        <div class="row" *ngIf="toggleGenneralContact">
+          <div class="col-sm-12">
+            <app-new-person-form (save)="addNewPerson($event, 'general')" (cancel)="cancelNewPerson()"></app-new-person-form>
           </div>
         </div>
       </form>
@@ -123,7 +130,7 @@
       <hr class="my-2 mx-0"/>
       <form class="form-horizontal" [ngClass]="{'was-validated': this.financeForm.submitted}" novalidate
             (ngSubmit)="submitFinanceForm()" #financeForm="ngForm">
-        <div class="row">
+        <div class="row" *ngIf="!toggleFinanceContact">
           <div class="col-10 p-2">
             <ng-select
               [wsSelect]="['id', renderContactName]"
@@ -138,6 +145,13 @@
           </div>
           <div class="col-2 p-2 text-right">
             <button class="btn btn-success btn-sm">{{'Add' | translate}}</button>
+            &nbsp;
+            <button class="btn btn-secondary btn-sm" (click)="toggleFinanceContact = true">{{'New' | translate}}</button>
+          </div>
+        </div>
+        <div class="row" *ngIf="toggleFinanceContact">
+          <div class="col-sm-12">
+            <app-new-person-form (save)="addNewPerson($event, 'finance')" (cancel)="cancelNewPerson()"></app-new-person-form>
           </div>
         </div>
       </form>

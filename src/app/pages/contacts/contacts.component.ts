@@ -3,13 +3,15 @@ import { AlertService, AlertType, RxjsUtil, WsComponent, GenericUtil } from '@wo
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {PeopleService} from '../../../services/people/people.service';
-import {Person} from '../../../types/person';
+import { Person, NewPerson } from '../../../types/person';
 import {Contact, ContactRequest} from '../../../types/contact';
 import {NgForm} from '@angular/forms';
 import {ContactsService} from '../../../services/contacts/contacts.service';
 import {TranslateService} from '@ngx-translate/core';
 import {DEFAULT_FETCH_PARAMS} from '../../../services/organizations/organizations.service';
 import { ContactType } from 'src/types/contact-type';
+import { PersonEntityRequest } from '../../../types/entity';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contacts',
@@ -21,6 +23,8 @@ export class ContactsComponent extends WsComponent implements OnInit {
   member: Member;
   people: Array<Person>;
   loading = false;
+  toggleGenneralContact = false;
+  toggleFinanceContact = false;
   @ViewChild('generalForm') generalForm: NgForm;
   @ViewChild('financeForm') financeForm: NgForm;
 
@@ -93,6 +97,29 @@ export class ContactsComponent extends WsComponent implements OnInit {
     });
   }
 
+  addNewPerson(data: NewPerson, type: string) {
+    const contactType = type === 'general' ? ContactType.GENERAL : ContactType.FINANCE;
+    // ensure the contact is ccreated against this entity
+    const entity: PersonEntityRequest = {
+      ws_entity: { id: this.member.ws_entity.id }
+    };
+    data.entities = [entity];
+
+    this.peopleService.create(data).pipe(take(1)).subscribe(
+      result => {
+        console.log(result);
+        this.attachContact(result.id, ContactType.GENERAL);
+      },
+      error => console.log(error),
+      () => this.cancelNewPerson()
+    );
+  }
+
+  cancelNewPerson() {
+    this.toggleGenneralContact = false;
+    this.toggleFinanceContact = false;
+  }
+
   submitGeneralForm() {
     this.submitForm(this.generalForm, ContactType.GENERAL);
   }
@@ -103,20 +130,24 @@ export class ContactsComponent extends WsComponent implements OnInit {
 
   submitForm(form: NgForm, type: ContactType) {
     if (form.valid) {
-      const memberId = this.member.id;
       const {contact} = form.value;
-      const data: ContactRequest = {
-        contact,
-        type
-      };
-      this.contactsService.bind(memberId, data)
-        .subscribe(() => {
-          this.memberService.fetch(memberId);
-          this.translateService.get('Added new contact').subscribe(t2 => {
-            this.alertService.setAlert('add-contact', AlertType.success, null, t2, true);
-          });
-        });
+      this.attachContact(contact, type);
     }
+  }
+
+  attachContact(contact: number, type: ContactType) {
+    const memberId = this.member.id;
+    const data: ContactRequest = {
+      contact,
+      type
+    };
+    this.contactsService.bind(memberId, data)
+      .subscribe(() => {
+        this.memberService.fetch(memberId);
+        this.translateService.get('Added new contact').subscribe(t2 => {
+          this.alertService.setAlert('add-contact', AlertType.success, null, t2, true);
+        });
+      });
   }
 
   renderContactName(person: Person) {

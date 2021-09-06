@@ -9,7 +9,7 @@ import {
   WsServiceRequestP2,
   WsServiceRequestP3
 } from '@worldskills/worldskills-angular-lib';
-import {PersonList} from '../../types/person';
+import { Person, PersonList, NewPerson } from '../../types/person';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -40,6 +40,11 @@ export class PeopleService extends WsService<PersonList, PeopleFetchParams> {
       requestOptions.url ?? `${environment.worldskillsApiPeople}/person`, {params}
     ).pipe(share());
     return this.request(observable, multicastOptions);
+  }
+
+  create(data: NewPerson): Observable<Person> {
+    const url = `${environment.worldskillsApiPeople}/person`;
+    return this.http.post<Person>(url, data);
   }
 
 }

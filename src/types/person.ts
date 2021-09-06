@@ -1,5 +1,5 @@
 import {I18nText} from '@worldskills/worldskills-angular-lib';
-import {AuthEntity} from './entity';
+import {AuthEntity, AuthEntityRequest, PersonEntityRequest} from './entity';
 import {Link, List} from './common';
 
 export interface Title {
@@ -39,9 +39,9 @@ export interface PersonCountry {
 }
 
 export interface EmailAddressType {
-  id: number;
+  id?: number;
   name: string;
-  primary: boolean;
+  primary?: boolean;
 }
 
 export interface EmailAddress {
@@ -105,6 +105,18 @@ export interface PersonImage {
   thumbnail: string;
   type: string;
   links: Array<Link>;
+}
+
+export interface NewEmailAddress {
+  email_address: string;
+  type?: EmailAddressType;
+}
+
+export interface NewPerson {
+  email_addresses: NewEmailAddress[];
+  first_name: string;
+  last_name: string;
+  entities: PersonEntityRequest[];
 }
 
 export interface Person {
