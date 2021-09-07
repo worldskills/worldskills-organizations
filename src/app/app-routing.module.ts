@@ -17,7 +17,6 @@ import { environment } from '../environments/environment';
 import { GuardService } from '@worldskills/worldskills-angular-lib';
 import { OrganizationsComponent } from './pages/org/organizations/organizations.component';
 import { OrganizationDetailComponent } from './pages/org/organization-detail/organization-detail.component';
-import { OrganizationInfoComponent } from './pages/org/organization-info/organization-info.component';
 import { OrganizationCreateComponent } from './pages/org/organization-create/organization-create.component';
 
 function forAppCode(appCode: number, roles: Array<string>) {
