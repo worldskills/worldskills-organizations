@@ -11,6 +11,7 @@ export class OrganizationInfoComponent implements OnInit {
 
   @Input() loading: boolean;
   @Input() org: Organization;
+  @Input() canEdit = false;
 
   @Output() save: EventEmitter<Organization> = new EventEmitter();
 

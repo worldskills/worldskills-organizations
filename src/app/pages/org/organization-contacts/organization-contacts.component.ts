@@ -17,6 +17,7 @@ import { ContactRequest } from '../../../../types/contact';
 export class OrganizationContactsComponent extends WsComponent implements OnInit {
   @Input() loading: boolean;
   @Input() contactList: OrganizationContactList;
+  @Input() canEdit = false;
   @Output() save: EventEmitter<ContactRequest> = new EventEmitter();
   @Output() delete: EventEmitter<OrganizationContact> = new EventEmitter();
 

@@ -33,7 +33,7 @@
               {{w.description.text}}
             </div>
             <div class="col-2 p-2 text-right">
-              <app-panel-row-actions
+              <app-panel-row-actions *ngIf="canEdit"
                 (delete)="unbindWebsite(w)"
                 (edit)="editWebsite(w)"
               ></app-panel-row-actions>
@@ -93,7 +93,7 @@
       </ng-container>
       <hr class="my-2 mx-0"/>
       <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
-            (ngSubmit)="submitForm()" #form="ngForm">
+            (ngSubmit)="submitForm()" #form="ngForm" *ngIf="canEdit">
         <div class="row">
           <div class="col-4 p-2">
             <input

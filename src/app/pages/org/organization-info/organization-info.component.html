@@ -10,15 +10,16 @@
             {{'Name' | translate}}&nbsp;*
           </ng-container>
           <ng-container right>
-            <input
+            <input *ngIf="canEdit"
               class="form-control"
               placeholder="{{'Name' | translate}}"
               [(ngModel)]="org.name.text"
               required
             />
+            <span *ngIf="!canEdit">{{ org.name.text }}</span>
           </ng-container>
         </app-panel-row>
-        <app-panel-row [alignRightRowRight]="true">
+        <app-panel-row [alignRightRowRight]="true" *ngIf="canEdit">
           <ng-container right>
             <button type="button" class="btn btn-success btn-sm" (click)="saveClick()" >{{'Save' | translate}}</button>
           </ng-container>

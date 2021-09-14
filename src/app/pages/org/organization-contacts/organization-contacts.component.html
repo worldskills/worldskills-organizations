@@ -51,7 +51,7 @@
       </ng-container>
       <hr class="my-2 mx-0"/>
       <form class="form-horizontal" [ngClass]="{'was-validated': this.generalForm.submitted}" novalidate
-            (ngSubmit)="submitGeneralForm()" #generalForm="ngForm">
+            (ngSubmit)="submitGeneralForm()" #generalForm="ngForm" *ngIf="canEdit">
         <div class="row">
           <div class="col-10 p-2">
             <ng-select

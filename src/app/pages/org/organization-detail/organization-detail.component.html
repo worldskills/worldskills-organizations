@@ -44,19 +44,19 @@
   </div>
   <div class="col-md-9">
     <app-organization-info *ngIf="!loading && viewName && viewName === 'info'"
-      [org]="org" [loading]="loading" (save)="save($event)">
+    [canEdit]="canEdit" [org]="org" [loading]="loading" (save)="save($event)">
     </app-organization-info>
 
     <app-organization-members *ngIf="!loading && viewName && viewName === 'members'"
-      [members]="members" [loading]="loading">
+    [canEdit]="canEdit" [members]="members" [loading]="loading">
     </app-organization-members>
 
     <app-organization-contacts *ngIf="!loading && viewName && viewName === 'contacts'"
-    [contactList]="contactList" [loading]="loading" (save)="saveContact($event)" (delete)="deleteContact($event)">
+    [canEdit]="canEdit" [contactList]="contactList" [loading]="loading" (save)="saveContact($event)" (delete)="deleteContact($event)">
     </app-organization-contacts>
 
     <app-organization-websites *ngIf="!loading && viewName && viewName === 'websites'"
-    [websiteList]="websiteList" [loading]="loading" (save)="saveWebsite($event)" (update)="updateWebsite($event)" (delete)="deleteWebsite($event)">
+    [canEdit]="canEdit" [websiteList]="websiteList" [loading]="loading" (save)="saveWebsite($event)" (update)="updateWebsite($event)" (delete)="deleteWebsite($event)">
 
     </app-organization-websites>
   </div>

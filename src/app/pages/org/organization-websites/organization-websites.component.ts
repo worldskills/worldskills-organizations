@@ -11,6 +11,7 @@ export class OrganizationWebsitesComponent implements OnInit {
 
   @Input() websiteList: WebsiteList;
   @Input() loading: boolean;
+  @Input() canEdit = false;
   // TODO: we neeed to improve the wbesite views (starting from the API)
   @Output() save: EventEmitter<OrgWebsiteRequest> = new EventEmitter();
   @Output() update: EventEmitter<OrgWebsite> = new EventEmitter();

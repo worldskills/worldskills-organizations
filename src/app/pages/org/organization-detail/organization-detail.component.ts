@@ -3,12 +3,13 @@ import { Organization, OrganizationRequest, OrganizationContact, OrganizationCon
 import { ActivatedRoute } from '@angular/router';
 import { OrganizationService } from '../../../../services/organization/organization.service';
 import { take } from 'rxjs/operators';
-import { BreadcrumbsService, ErrorUtil, AlertService, AlertType } from '@worldskills/worldskills-angular-lib';
+import { BreadcrumbsService, ErrorUtil, AlertService, AlertType, NgAuthService } from '@worldskills/worldskills-angular-lib';
 import { defaultErrorMessage } from '../../../app-config';
 import { Member } from '../../../../types/member';
 import { ContactRequest } from '../../../../types/contact';
 import { TranslateService } from '@ngx-translate/core';
 import { Website, WebsiteList, WebsiteRequest, OrgWebsiteRequest, OrgWebsite } from '../../../../types/website';
+import { PermissionHelper } from '../../../helpers/permission-helper';
 
 @Component({
   selector: 'app-organization-detail',
@@ -18,6 +19,7 @@ import { Website, WebsiteList, WebsiteRequest, OrgWebsiteRequest, OrgWebsite } f
 export class OrganizationDetailComponent implements OnInit {
 
   // main props
+  canEdit = false;
   viewName: string;
   orgId: number;
   org: Organization;
@@ -30,7 +32,7 @@ export class OrganizationDetailComponent implements OnInit {
   loading = false;
 
   constructor(private breadcrumbs: BreadcrumbsService, private route: ActivatedRoute, private orgs: OrganizationService,
-              private translator: TranslateService, private alerts: AlertService) { }
+              private auth: NgAuthService, private translator: TranslateService, private alerts: AlertService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -49,7 +51,10 @@ export class OrganizationDetailComponent implements OnInit {
   loadOrg() {
     this.loading = true;
     this.orgs.get(this.orgId).pipe(take(1)).subscribe(
-      next => this.org = next,
+      next => {
+        this.org = next;
+        this.canEdit = PermissionHelper.canEditOrg(this.auth.currentUser.value, this.org.wsEntity.id);
+      },
       error => this.handleError(error, 'load-orgs'),
       () => {
         this.loading = false;

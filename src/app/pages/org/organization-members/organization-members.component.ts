@@ -10,6 +10,7 @@ export class OrganizationMembersComponent implements OnInit {
 
   @Input() members: Member[];
   @Input() loading: boolean;
+  @Input() canEdit = false;
   constructor() { }
 
   ngOnInit(): void {
