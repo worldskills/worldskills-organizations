@@ -28,7 +28,7 @@ export class MemberComponent extends WsComponent implements OnInit, OnDestroy {
     this.subscribe(
       this.memberService.subject.subscribe(member => {
         this.member = member;
-        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+        this.canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
       }),
       this.memberService.loading.subscribe(loading => (this.loading = loading)),
       this.route.params.subscribe(({memberId}) => this.memberService.fetch(memberId)),

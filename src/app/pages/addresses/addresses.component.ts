@@ -44,7 +44,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
     this.subscribe(
       this.memberService.subject.subscribe(member => {
         this.member = member;
-        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+        this.canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
       }),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
       RxjsUtil.loaderSubscriber(
