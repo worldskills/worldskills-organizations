@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { AlertService, AlertType, LOADER_ONLY, RxjsUtil, WsComponent, GenericUtil } from '@worldskills/worldskills-angular-lib';
+import { AlertService, AlertType, LOADER_ONLY, RxjsUtil, WsComponent, GenericUtil, NgAuthService } from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {MembersService} from '../../../services/members/members.service';
@@ -8,6 +8,7 @@ import {Membership, MembershipRequest} from '../../../types/membership';
 import {MembershipsService} from '../../../services/memberships/memberships.service';
 import {TranslateService} from '@ngx-translate/core';
 import { take } from 'rxjs/operators';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-membership',
@@ -25,6 +26,7 @@ export class MembershipComponent extends WsComponent implements OnInit {
   @ViewChild('editForm') editForm: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private membersService: MembersService,
     private membershipsService: MembershipsService,
@@ -72,6 +74,13 @@ export class MembershipComponent extends WsComponent implements OnInit {
     return this.history.filter(x => x.end != null);
   }
 
+  canEditMembership(membership: Membership) {
+    if (PermissionHelper.isAdmin(this.auth.currentUser.value)) {
+      return true;
+    }
+    return PermissionHelper.canEditMember(this.auth.currentUser.value, membership.ws_entity.id);
+  }
+
   editMembership(membership: Membership) {
     this.editingMembership = membership;
   }
@@ -111,6 +120,23 @@ export class MembershipComponent extends WsComponent implements OnInit {
             this.alertService.setAlert('updated-membership', AlertType.success, null, t, true);
           });
         });
+    }
+  }
+
+  getMemberSelect() {
+    if (PermissionHelper.isAdmin(this.auth.currentUser.value)) {
+      return this.members || [];
+    } else {
+      if (GenericUtil.isNullOrUndefined(this.members)) {
+        return [];
+      } else {
+        const entities = PermissionHelper.getEditableMemberEntities(this.auth.currentUser.value);
+        if (GenericUtil.isNullOrUndefined(entities) || entities.length === 0) {
+          return [];
+        } else {
+          return this.members.filter(x => entities.includes(x.ws_entity.id));
+        }
+      }
     }
   }
 
