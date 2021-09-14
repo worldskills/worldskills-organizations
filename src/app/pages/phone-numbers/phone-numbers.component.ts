@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {Phone, PhoneRequest} from '../../../types/phone';
@@ -10,6 +10,7 @@ import {PhoneTypesService} from '../../../services/phone-types/phone-types.servi
 import {CountriesService} from '../../../services/countries/countries.service';
 import {TranslateService} from '@ngx-translate/core';
 import {PhonesService} from '../../../services/phones/phones.service';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-phone-numbers',
@@ -23,10 +24,12 @@ export class PhoneNumbersComponent extends WsComponent implements OnInit {
   countries: Array<Country>;
   loading = false;
   editingPhone: Phone = null;
+  canEdit = false;
   @ViewChild('form') form: NgForm;
   @ViewChild('editForm') editForm: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private phoneTypesService: PhoneTypesService,
     private countriesService: CountriesService,
@@ -39,7 +42,10 @@ export class PhoneNumbersComponent extends WsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribe(
-      this.memberService.subject.subscribe(member => (this.member = member)),
+      this.memberService.subject.subscribe(member => {
+        this.member = member;
+        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+      }),
       this.phoneTypesService.subject.subscribe(phoneTypes => (this.phoneTypes = phoneTypes.phone_types)),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
       RxjsUtil.loaderSubscriber(

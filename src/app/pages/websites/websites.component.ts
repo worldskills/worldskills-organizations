@@ -1,11 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {OrgWebsite as Website, OrgWebsiteRequest as WebsiteRequest} from '../../../types/website';
 import {NgForm} from '@angular/forms';
 import {TranslateService} from '@ngx-translate/core';
 import {WebsitesService} from '../../../services/websites/websites.service';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-websites',
@@ -17,10 +18,12 @@ export class WebsitesComponent extends WsComponent implements OnInit {
   member: Member;
   loading = false;
   editingWebsite: Website = null;
+  canEdit = false;
   @ViewChild('form') form: NgForm;
   @ViewChild('editForm') editForm: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private websitesService: WebsitesService,
     private alertService: AlertService,
@@ -31,7 +34,10 @@ export class WebsitesComponent extends WsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribe(
-      this.memberService.subject.subscribe(member => (this.member = member)),
+      this.memberService.subject.subscribe(member => {
+        this.member = member;
+        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+      }),
       RxjsUtil.loaderSubscriber(
         this.memberService,
         this.websitesService,

@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, UploadService, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, NgAuthService, UploadService, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member, MemberRequest} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {NgForm} from '@angular/forms';
@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ImageService} from '../../../services/image/image.service';
 import {HttpEventType} from '@angular/common/http';
 import {Image} from '../../../types/image';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-member-info',
@@ -23,8 +24,10 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
   resourceLoading = false;
   resourceProgress = 0;
   uploadFile: File;
+  canEdit = false;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private alertService: AlertService,
     private translateService: TranslateService,
@@ -36,7 +39,10 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribe(
-      this.memberService.subject.subscribe(member => (this.member = member)),
+      this.memberService.subject.subscribe(member => {
+        this.member = member;
+        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+      }),
       this.memberService.loading.subscribe(loading => (this.loading = loading)),
     );
   }

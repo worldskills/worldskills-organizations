@@ -52,7 +52,7 @@
             </div>
             <div class="col-2 p-2">
               <app-panel-row-actions (delete)="unbindAddress(a)" deleteLabel="{{'Remove' | translate}}"
-              (edit)="editAddress(a)"></app-panel-row-actions>
+              (edit)="editAddress(a)" *ngIf="canEdit"></app-panel-row-actions>
             </div>
           </div>
           <form *ngIf="a === editingAddress" class="form-horizontal"
@@ -100,7 +100,7 @@
         <hr class="my-2 mx-0" />
       </ng-container>
       <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
-        (ngSubmit)="submitForm()" #form="ngForm">
+        (ngSubmit)="submitForm()" #form="ngForm" *ngIf="canEdit">
         <div class="row">
           <div class="col-3 p-2">
             <ng-select name="type" [ngModel]="null" placeholder="{{'Type' | translate}}" [items]="addressTypes || []"

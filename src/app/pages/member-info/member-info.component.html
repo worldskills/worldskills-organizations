@@ -12,13 +12,14 @@
             {{'Name' | translate}}&nbsp;*
           </ng-container>
           <ng-container right>
-            <input
+            <input *ngIf="canEdit"
               class="form-control"
               name="name"
               placeholder="{{'Name' | translate}}"
               [ngModel]="member.name ? member.name.text : ''"
               required
             />
+            <span *ngIf="!canEdit">{{ member.name ? member.name.text : '' }}</span>
           </ng-container>
         </app-panel-row>
         <app-panel-row>
@@ -26,13 +27,14 @@
             {{'Member code' | translate}}&nbsp;*
           </ng-container>
           <ng-container right>
-            <input
+            <input *ngIf="canEdit"
               class="form-control"
               name="code"
               placeholder="{{'Member code' | translate}}"
               [ngModel]="member.code"
               required
             />
+            <span *ngIf="!canEdit">{{ member.code }}</span>
           </ng-container>
         </app-panel-row>
         <app-panel-row>
@@ -40,13 +42,14 @@
             {{'Name for 1058 sorting' | translate}}&nbsp;*
           </ng-container>
           <ng-container right>
-            <input
+            <input *ngIf="canEdit"
               class="form-control"
               name="name_1058"
               placeholder="{{'Name for 1058 sorting' | translate}}"
               [ngModel]="member.name_1058 ? member.name_1058.text : ''"
               required
             />
+            <span *ngIf="!canEdit">{{ member.name_1058 ? member.name_1058.text : '' }}</span>
           </ng-container>
         </app-panel-row>
         <app-panel-row>
@@ -64,7 +67,7 @@
               </div>
             </div>
 
-            <div>
+            <div  *ngIf="canEdit">
               <input
                 #flagInput
                 class="float-left"
@@ -79,7 +82,7 @@
             </div>
           </ng-container>
         </app-panel-row>
-        <app-panel-row [alignRightRowRight]="true">
+        <app-panel-row [alignRightRowRight]="true"  *ngIf="canEdit">
           <ng-container right>
             <button *ngIf="member.flag" type="button" class="btn btn-danger btn-sm mr-1"
                     (click)="deleteFlag()">{{'Remove flag' | translate}}</button>

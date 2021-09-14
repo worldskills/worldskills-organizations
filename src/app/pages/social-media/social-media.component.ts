@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {SocialNetwork, SocialNetworkRequest} from '../../../types/socialNetwork';
@@ -8,6 +8,7 @@ import {SocialNetworkType} from '../../../types/socialNetworkType';
 import {SocialNetworkTypesService} from '../../../services/social-network-types/social-network-types.service';
 import {SocialNetworksService} from '../../../services/social-networks/social-networks.service';
 import {TranslateService} from '@ngx-translate/core';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-social-media',
@@ -20,10 +21,12 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
   socialNetworkTypes: Array<SocialNetworkType>;
   loading = false;
   editingSocialNetwork: SocialNetwork = null;
+  canEdit = false;
   @ViewChild('form') form: NgForm;
   @ViewChild('editForm') editForm: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private socialNetworkTypesService: SocialNetworkTypesService,
     private socialNetworksService: SocialNetworksService,
@@ -35,7 +38,10 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribe(
-      this.memberService.subject.subscribe(member => (this.member = member)),
+      this.memberService.subject.subscribe(member => {
+        this.member = member;
+        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+      }),
       this.socialNetworkTypesService.subject.subscribe(socialNetworkTypes => (this.socialNetworkTypes = socialNetworkTypes.socialNetworks)),
       RxjsUtil.loaderSubscriber(
         this.memberService,

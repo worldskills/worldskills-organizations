@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { AlertService, AlertType, RxjsUtil, WsComponent, GenericUtil } from '@worldskills/worldskills-angular-lib';
+import { AlertService, AlertType, RxjsUtil, WsComponent, GenericUtil, NgAuthService } from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {PeopleService} from '../../../services/people/people.service';
@@ -12,6 +12,7 @@ import {DEFAULT_FETCH_PARAMS} from '../../../services/organizations/organization
 import { ContactType } from 'src/types/contact-type';
 import { PersonEntityRequest } from '../../../types/entity';
 import { take } from 'rxjs/operators';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-contacts',
@@ -25,10 +26,12 @@ export class ContactsComponent extends WsComponent implements OnInit {
   loading = false;
   toggleGenneralContact = false;
   toggleFinanceContact = false;
+  canEdit = false;
   @ViewChild('generalForm') generalForm: NgForm;
   @ViewChild('financeForm') financeForm: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private peopleService: PeopleService,
     private contactsService: ContactsService,
@@ -41,7 +44,10 @@ export class ContactsComponent extends WsComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribe(
-      this.memberService.subject.subscribe(member => (this.member = member)),
+      this.memberService.subject.subscribe(member => {
+        this.member = member;
+        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+      }),
       this.peopleService.subject.subscribe(people => (this.people = people.people)),
       RxjsUtil.loaderSubscriber(
         this.memberService,

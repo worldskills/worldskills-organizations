@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {MemberService} from '../../../services/member/member.service';
 import {Member} from '../../../types/member';
 import {Address, AddressRequest} from '../../../types/address';
@@ -9,6 +9,7 @@ import {Country} from '../../../types/country';
 import {AddressesService} from '../../../services/addresses/addresses.service';
 import {TranslateService} from '@ngx-translate/core';
 import { AddressType } from 'src/types/address-type';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-addresses',
@@ -23,10 +24,12 @@ export class AddressesComponent extends WsComponent implements OnInit {
   editingAddress: Address = null;
   addressType = AddressType;
   addressTypes: string[];
+  canEdit = false;
   @ViewChild('form') form: NgForm;
   @ViewChild('editForm') editForm: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private countriesService: CountriesService,
     private addressesService: AddressesService,
@@ -39,7 +42,10 @@ export class AddressesComponent extends WsComponent implements OnInit {
   ngOnInit(): void {
     this.addressTypes = Object.keys(this.addressType);
     this.subscribe(
-      this.memberService.subject.subscribe(member => (this.member = member)),
+      this.memberService.subject.subscribe(member => {
+        this.member = member;
+        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
+      }),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
       RxjsUtil.loaderSubscriber(
         this.memberService,

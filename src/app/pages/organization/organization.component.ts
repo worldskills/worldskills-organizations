@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {NgForm} from '@angular/forms';
@@ -10,6 +10,7 @@ import {OrganizationService} from '../../../services/organization/organization.s
 import {MemberOrganizationRequest, Organization, OrganizationRequest} from '../../../types/organization';
 import {OrganizationWebsiteService} from '../../../services/organization-website/organization-website.service';
 import {WebsiteRequest} from '../../../types/website';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 enum EditMode {
   None = 0,
@@ -28,11 +29,13 @@ export class OrganizationComponent extends WsComponent implements OnInit {
   member: Member;
   organizations: Array<Organization> = [];
   loading = false;
+  canEdit = false;
   editMode: EditMode = EditMode.None;
   @ViewChild('form') form: NgForm;
   @ViewChild('changeForm') changeForm: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private memberService: MemberService,
     private alertService: AlertService,
     private memberOrganizationService: MemberOrganizationService,
@@ -49,6 +52,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
     this.subscribe(
       this.memberService.subject.subscribe(member => {
         this.member = member;
+        this.canEdit = PermissionHelper.canEdit(this.auth.currentUser.value, member.ws_entity.id);
         if (this.member.organization) {
           this.organizations = [this.member.organization];
         }

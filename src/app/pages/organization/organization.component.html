@@ -32,7 +32,7 @@
               {{member.organization.websites.length > 0 ? member.organization.websites[0].url : ''}}
             </div>
           </ng-container>
-          <div class="col-4 p-2 text-right">
+          <div class="col-4 p-2 text-right" *ngIf="canEdit">
             <a *ngIf="member.organization" class="btn btn-sm btn-primary mr-1" href="/organizations/{{ member.organization.id }}" >
               {{'View' | translate}}
             </a>
@@ -42,6 +42,9 @@
             <button *ngIf="member.organization" class="btn btn-sm btn-warning" (click)="switchEditMode(3)">
               {{'Change' | translate}}
             </button>
+          </div>
+          <div class="col-4 p-2" *ngIf="!canEdit">
+
           </div>
         </div>
       </ng-container>
@@ -105,7 +108,7 @@
         </form>
       </ng-container>
       <hr class="my-2 mx-0"/>
-      <div class="row">
+      <div class="row" *ngIf="canEdit">
         <div class="col-12 small">
           {{'Note: Do not edit this organization\'s details if a new body is representing the Member. Create a new Organization.'}}
         </div>
