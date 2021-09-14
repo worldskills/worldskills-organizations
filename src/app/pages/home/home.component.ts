@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     const memberPage = 'members';
     const user = this.auth.currentUser.value;
     let homepage = orgPage;
-    if (!GenericUtil.isNullOrUndefined(user)) {
+    if (GenericUtil.isNullOrUndefined(user)) {
       homepage = orgPage;
     } else {
       const hasAdminRole = user.roles.filter(x => x.name === 'Admin').length > 0;
