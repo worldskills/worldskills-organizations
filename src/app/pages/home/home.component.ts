@@ -22,16 +22,18 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     const homepage = this.getHomepage();
-
-    this.handler.redirectOrReturn({url: [homepage], onlyIfExact: this.route})
-    .subscribe(() => {
-      if (homepage.length > 0) {
-        this.initialized = true;
-      } else {
-        this.auth.login();
-      }
-    });
-
+    if (homepage === 'not-authorized') {
+      this.router.navigate(['/not-authorized'], { queryParams: { code: 'no-app-access-msg'}});
+    } else {
+      this.handler.redirectOrReturn({url: [homepage], onlyIfExact: this.route})
+      .subscribe(() => {
+        if (homepage.length > 0) {
+          this.initialized = true;
+        } else {
+          this.auth.login();
+        }
+      });
+    }
   }
 
   // when admin then homepage = org
@@ -49,7 +51,7 @@ export class HomeComponent implements OnInit {
     } else {
       // tslint:disable-next-line:max-line-length
       if (user.roles && (user.roles.length === 0 || user.roles.filter(x => x.role_application.application_code === environment.worldskillsAppId).length === 0)) {
-        this.router.navigate(['/not-authorized']);
+        homepage = 'not-authorized';
       } else {
         const hasAdminRole = user.roles.filter(x => x.name === 'Admin').length > 0;
         if (hasAdminRole) {

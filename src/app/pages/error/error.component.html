@@ -1,1 +1,4 @@
 <h2>{{errorMessage | translate}}</h2>
+<div *ngIf="code">
+  <div *ngIf="code == 'no-app-access-msg'">{{ 'no_app_access_msg' | translate }}</div>
+</div>
