@@ -7,7 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {MemberOrganizationService} from '../../../services/member-organization/member-organization.service';
 import {DEFAULT_FETCH_PARAMS, OrganizationsService} from '../../../services/organizations/organizations.service';
 import {OrganizationService} from '../../../services/organization/organization.service';
-import {MemberOrganizationRequest, Organization, OrganizationRequest} from '../../../types/organization';
+import { MemberOrganizationRequest, Organization, OrganizationRequest, OrganizationRelationType } from '../../../types/organization';
 import {OrganizationWebsiteService} from '../../../services/organization-website/organization-website.service';
 import {WebsiteRequest} from '../../../types/website';
 import { PermissionHelper } from '../../helpers/permission-helper';
@@ -104,15 +104,11 @@ export class OrganizationComponent extends WsComponent implements OnInit {
   submitForm() {
     if (this.form.valid) {
       const {name, url} = this.form.value;
-      const data: OrganizationRequest = {
-        name: {
-          text: name,
-          lang_code: 'en',
-        }
-      };
+
+      const data = { relation: OrganizationRelationType.MEMBER, name: { lang_code: 'en', text: name}};
       const websiteData: WebsiteRequest = url ? {url} : null;
       if (this.editMode === EditMode.Add) {
-        this.organizationService.create(data).subscribe(organization => {
+        this.organizationsService.create(data).subscribe(organization => {
           const bindToMemberCallback = () => this.memberOrganizationService.bind(this.member.id, {id: organization.id}).subscribe(() => {
             this.editMode = EditMode.None;
             this.memberService.fetch(this.member.id);
