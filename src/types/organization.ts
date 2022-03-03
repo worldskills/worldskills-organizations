@@ -6,7 +6,7 @@ import {OrgWebsite as Website} from './website';
 
 
 export enum OrganizationRelationType {
-  GLOBAL_PARTNER, SPONSOR, SUPPLIER
+  GLOBAL_PARTNER, SPONSOR, SUPPLIER, MEMBER
 }
 
 export interface OrganiationRelation {
