@@ -74,7 +74,7 @@ export class OrganizationsComponent implements OnInit {
       return '';
     }
 
-    return org.relations.map(x => x.type.toString()).join(', ');
+    return org.relations.map(x => x.type.toString().replace('_', ' ')).join(', ');
   }
 
 }
