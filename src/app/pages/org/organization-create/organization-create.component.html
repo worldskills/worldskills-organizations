@@ -1,1 +1,50 @@
-<p>organization-create works!</p>
+<h2 class="mt-0">
+  <ng-container *ngIf="!initialized">{{'Loading, please wait...' | translate}}</ng-container>
+  <ng-container *ngIf="initialized">
+    {{'Add new Organization' | translate}}
+  </ng-container>
+</h2>
+<div class="clearfix"></div>
+
+<ng-container *ngIf="initialized">
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
+        (ngSubmit)="submitForm()" #form="ngForm">
+        <app-panel title="{{'Organization info' | translate}}">
+          <div class="container">
+            <app-panel-row>
+              <ng-container left>
+                {{'Name' | translate}}&nbsp;*
+              </ng-container>
+              <ng-container right>
+                <input class="form-control" name="name" placeholder="{{'Name' | translate}}"
+                  required  (ngModel)="null" />
+              </ng-container>
+            </app-panel-row>
+            <app-panel-row>
+              <ng-container left>
+                {{'Relationship' | translate}}&nbsp;*
+              </ng-container>
+              <ng-container right>
+                <select class="form-control" name="relation" (ngModel)="null">
+                  <option value="">{{ 'None' | translate }}</option>
+                  <option value="GLOBAL_PARTNER">{{ 'Global Partner' | translate }}</option>
+                  <option value="SPONSOR">{{ 'Sponsor' | translate }}</option>
+                  <option value="SUPPLIER">{{ 'Supplier' | translate }}</option>
+                </select>
+              </ng-container>
+            </app-panel-row>
+          </div>
+        </app-panel>
+        <button type="submit" class="btn btn-success float-right my-1">
+          {{'Create Organization' | translate}}
+        </button>
+        <div class="clearfix"></div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="!initialized">
+  <ws-spinner></ws-spinner>
+</ng-container>

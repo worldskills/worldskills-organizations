@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from '../../../../services/organization/organization.service';
 import { take } from 'rxjs/operators';
-import { OrganizationList } from '../../../../types/organization';
+import { OrganizationList, Organization } from '../../../../types/organization';
 import { ErrorUtil, GenericUtil } from '@worldskills/worldskills-angular-lib';
 import { defaultErrorMessage } from '../../../app-config';
 import { environment } from 'src/environments/environment';
+import { OrganizationSearch } from '../../../organization-search-form/organization-search-form.component';
 
 @Component({
   selector: 'app-organizations',
@@ -22,6 +23,7 @@ export class OrganizationsComponent implements OnInit {
   offset = 0;
   limit = 10;
   name: string;
+  relation: string;
 
   constructor(private orgs: OrganizationService) { }
 
@@ -31,15 +33,17 @@ export class OrganizationsComponent implements OnInit {
 
   loadData() {
     this.loading = true;
-    this.orgs.list(this.offset, this.limit, this.name).pipe(take(1)).subscribe(
+    this.orgs.list(this.offset, this.limit, this.name, this.relation).pipe(take(1)).subscribe(
       next => this.data = next,
       error => this.handleError(error),
       () => this.loading = false
     );
   }
 
-  search(name: string) {
-    this.name = name;
+  search(model: OrganizationSearch) {
+    console.log(model);
+    this.name = model.name;
+    this.relation = model.relation;
     this.offset = 0;
     this.limit = this.pageSize;
     this.loadData();
@@ -63,6 +67,14 @@ export class OrganizationsComponent implements OnInit {
     }
 
     return GenericUtil.isNullOrUndefined(this.data.org_list) ? true : this.data.org_list.length <= 0;
+  }
+
+  getRelationships(org: Organization) {
+    if (GenericUtil.isNullOrUndefined(org.relations)) {
+      return '';
+    }
+
+    return org.relations.map(x => x.type.toString()).join(', ');
   }
 
 }

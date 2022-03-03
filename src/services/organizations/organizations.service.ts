@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {OrganizationList} from '../../types/organization';
+import { OrganizationList, OrganizationCreate, Organization } from '../../types/organization';
 import {
   FetchParams,
   FULL,
@@ -10,7 +10,7 @@ import {
   WsServiceRequestP2,
   WsServiceRequestP3
 } from '@worldskills/worldskills-angular-lib';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {environment} from '../../environments/environment';
@@ -42,6 +42,11 @@ export class OrganizationsService extends WsService<OrganizationList, Organizati
       requestOptions.url ?? `${environment.worldskillsApiOrg}`, {params}
     ).pipe(share());
     return this.request(observable, multicastOptions);
+  }
+
+  create(params: OrganizationCreate): Observable<Organization> {
+    console.log(params);
+    return this.http.post<Organization>(environment.worldskillsApiOrg, params);
   }
 
 }

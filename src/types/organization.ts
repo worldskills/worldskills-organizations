@@ -4,6 +4,17 @@ import {Address} from './address';
 import {Link} from './common';
 import {OrgWebsite as Website} from './website';
 
+
+export enum OrganizationRelationType {
+  GLOBAL_PARTNER, SPONSOR, SUPPLIER
+}
+
+export interface OrganiationRelation {
+  id: number;
+  entity: WsEntityModel;
+  type: OrganizationRelationType;
+}
+
 export interface MemberOrganizationRequest {
   id: number;
 }
@@ -27,6 +38,7 @@ export interface Organization {
   addresses: Array<Address>;
   links: Array<Link>;
   wsEntity: WsEntityModel;
+  relations?: OrganizationRelation[];
 }
 
 export interface OrganizationRelation {
@@ -55,4 +67,10 @@ export interface OrganizationList {
 export interface OrganizationContactList {
   contacts: OrganizationContact[];
   total_count: number;
+}
+
+
+export interface OrganizationCreate {
+  name: I18nText;
+  relation?: OrganizationRelationType;
 }

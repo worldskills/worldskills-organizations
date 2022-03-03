@@ -9,7 +9,7 @@ import {
   WsServiceRequestP3
 } from '@worldskills/worldskills-angular-lib';
 // tslint:disable-next-line:max-line-length
-import { Organization, OrganizationList, OrganizationRequest, OrganizationRelation, OrganizationContactList, OrganizationRelationRequest, OrganizationContact } from '../../types/organization';
+import { Organization, OrganizationList, OrganizationRequest, OrganizationRelation, OrganizationContactList, OrganizationRelationRequest, OrganizationContact, OrganizationRelationType } from '../../types/organization';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -19,6 +19,7 @@ import { Member } from '../../types/member';
 import { Website } from 'src/types/website';
 import { ContactRequest } from '../../types/contact';
 import { WebsiteList, WebsiteRequest, OrgWebsite, OrgWebsiteRequest } from '../../types/website';
+import { GenericUtil } from '@worldskills/worldskills-angular-lib';
 
 @Injectable({
   providedIn: 'root'
@@ -32,8 +33,12 @@ export class OrganizationService extends WsService<Organization> {
     this.endpoint = environment.worldskillsApiOrg;
   }
 
-  list(offset: number, limit: number, name: string): Observable<OrganizationList> {
-    const params = HttpUtil.objectToParams({ offset, limit, name});
+  list(offset: number, limit: number, name: string, relation?: string): Observable<OrganizationList> {
+    let params = HttpUtil.objectToParams({ offset, limit, name});
+    if (!GenericUtil.isNullOrUndefined(relation)) {
+      params = params.set('type', relation);
+    }
+    console.log(params);
     return this.http.get<OrganizationList>(this.endpoint, {params});
   }
 
