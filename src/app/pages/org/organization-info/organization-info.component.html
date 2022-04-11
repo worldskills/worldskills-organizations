@@ -26,4 +26,68 @@
         </app-panel-row>
       </div>
     </app-panel>
+    <app-panel title="{{'Relationships' | translate}}">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Entity</th>
+            <th scope="col" style="width: 100px;"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let relation of org.relations">
+            <td>{{ relation.type }}</td>
+            <td>{{ relation.entity.name.text }}</td>
+            <td>
+              <button *ngIf="canEdit"
+              style="width: 30px; height: 30px"
+              type="button"
+              class="btn btn-danger btn-sm ml-1"
+              (click)="deleteRelation(relation)"
+            >X</button>
+            </td>
+          </tr>
+          <tr *ngIf="showForm && canEdit">
+            <td>
+              <select class="form-control" [(ngModel)]="relation.type" required>
+                <option [ngValue]="null" [disabled]="true">{{ 'Select type' | translate }}</option>
+                <option value="GLOBAL_PARTNER">{{ 'Global Partner' | translate }}</option>
+                <option value="NGO_PARTNER">{{ 'NGO Partner' | translate }}</option>
+                <option value="MEMBER">{{ 'Member' | translate }}</option>
+                <option value="SPONSOR">{{ 'Sponsor' | translate }}</option>
+                <option value="SUPPLIER">{{ 'Supplier' | translate }}</option>
+              </select>
+            </td>
+            <td>
+              <ws-entity-tree-select
+                [ngModel]="relationEntityId"
+                name="treeSelect"
+                [query]="entitySearchParams"
+                [showControls]="false" [showFullPath]="false" [defaultExpand]="false"
+                (change)="onEntityChange($event)"
+                required
+              ></ws-entity-tree-select>
+            </td>
+            <td>
+              <button
+              style="width: 30px; height: 30px"
+              type="button"
+              class="btn btn-danger btn-sm ml-1"
+              (click)="hideForm()"
+            >X</button>
+            <button
+            style="width: 30px; height: 30px"
+            type="button"
+            class="btn btn-success btn-sm ml-1"
+            (click)="createRelation()"
+          >
+            <fa-icon size="xs" [icon]="faSave"></fa-icon>
+          </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <button type="button" class="btn btn-success btn-sm" (click)="prepInsert()" >{{'New' | translate}}</button>
+    </app-panel>
 </ng-container>

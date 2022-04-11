@@ -74,3 +74,9 @@ export interface OrganizationCreate {
   name: I18nText;
   relation?: OrganizationRelationType;
 }
+
+export interface OrganizationRelationCreate {
+  organization: number;
+  entity: number;
+  type: OrganizationRelationType;
+}

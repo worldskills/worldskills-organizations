@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import { OrganizationList, OrganizationCreate, Organization } from '../../types/organization';
+import { OrganizationList, OrganizationCreate, Organization, OrganizationRelationCreate } from '../../types/organization';
 import {
   FetchParams,
   FULL,
@@ -45,8 +45,16 @@ export class OrganizationsService extends WsService<OrganizationList, Organizati
   }
 
   create(params: OrganizationCreate): Observable<Organization> {
-    console.log(params);
     return this.http.post<Organization>(environment.worldskillsApiOrg, params);
   }
 
+  createRelation(params: OrganizationRelationCreate): Observable<any> {
+    const url = `${environment.worldskillsApiOrg}/${params.organization}/relations`;
+    return this.http.post(url, params);
+  }
+
+  deleteRelation(orgId: number, relationId: number): Observable<any> {
+    const url = `${environment.worldskillsApiOrg}/${orgId}/relations/${relationId}`;
+    return this.http.delete(url);
+  }
 }
