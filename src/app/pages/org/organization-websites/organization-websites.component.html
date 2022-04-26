@@ -19,7 +19,7 @@
           &nbsp;
         </div>
       </div>
-      <ng-container *ngIf="websiteList.websites.length > 0">
+      <ng-container *ngIf="websiteList && websiteList.websites && websiteList.websites.length > 0">
         <ng-container *ngFor="let w of websiteList.websites">
           <hr class="my-2 mx-0"/>
           <div *ngIf="w !== editingWebsite" class="row">
