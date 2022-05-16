@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import { AlertService, AlertType, LOADER_ONLY, RxjsUtil, WsComponent, GenericUtil, NgAuthService } from '@worldskills/worldskills-angular-lib';
+import { AlertService, AlertType, LOADER_ONLY, RxjsUtil, WsComponent, GenericUtil, NgAuthService, DateUtil, toDate } from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {MembersService} from '../../../services/members/members.service';
@@ -157,6 +157,15 @@ export class MembershipComponent extends WsComponent implements OnInit {
           });
         });
     }
+  }
+
+  hasUpdatedDate(m: Membership) {
+    console.log(m);
+    if (GenericUtil.isNullOrUndefined(m.updated)) {
+      return false;
+    }
+    m.updated = toDate(m.updated); // cater for safari
+    return true;
   }
 
 }

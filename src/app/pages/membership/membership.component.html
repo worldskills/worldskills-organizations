@@ -96,11 +96,14 @@
         <div class="col-4 font-weight-bold p-2">
           {{'Member of' | translate}}
         </div>
-        <div class="col-4 font-weight-bold p-2">
+        <div class="col-2 font-weight-bold p-2">
           {{'Status' | translate}}
         </div>
         <div class="col-2 font-weight-bold p-2">
           {{'Year joined' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          {{'Updated' | translate}}
         </div>
         <div class="col-2 font-weight-bold p-2">
           &nbsp;
@@ -113,11 +116,15 @@
             <div class="col-4 p-2">
               {{m.name.text}}
             </div>
-            <div class="col-4 p-2">
+            <div class="col-2 p-2">
               {{m.status}}
             </div>
             <div class="col-2 p-2">
               {{m.year_joined}}
+            </div>
+            <div class="col-2 p-2">
+              <span *ngIf="hasUpdatedDate(m)"></span>
+              {{ m.updated | date: 'mediumDate' }}
             </div>
             <div class="col-2 p-2 text-right">
               &nbsp;
