@@ -19,9 +19,46 @@
             <span *ngIf="!canEdit">{{ org.name.text }}</span>
           </ng-container>
         </app-panel-row>
+        <app-panel-row>
+          <ng-container left>
+            {{'Logo' | translate}}
+          </ng-container>
+          <ng-container right>
+            <div class="mb-1 mw-100">
+              <img class="mw-100" *ngIf="org.logo" [src]="org.logo.thumbnail"/>
+              <div
+                *ngIf="!org.logo"
+                class="alert alert-warning"
+              >
+                {{'No logo has been uploaded' | translate}}
+              </div>
+            </div>
+
+            <div  *ngIf="canEdit">
+              <input
+                #logoInput
+                class="float-left"
+                name="logo"
+                type="file"
+                (change)="setFileFromInput($event)"
+              />
+              <button *ngIf="!!uploadFile" class="btn btn-danger btn-sm float-right" (click)="unsetLogo()">
+                {{'Remove image' | translate}}
+              </button>
+              <div class="clearfix"></div>
+            </div>
+          </ng-container>
+        </app-panel-row>
         <app-panel-row [alignRightRowRight]="true" *ngIf="canEdit">
           <ng-container right>
             <button type="button" class="btn btn-success btn-sm" (click)="saveClick()" >{{'Save' | translate}}</button>
+            <p class="my-4" *ngIf="resourceLoading">
+              <ngb-progressbar
+                type="info"
+                [value]="resourceProgress * 100"
+                [striped]="true"
+              ></ngb-progressbar>
+            </p>
           </ng-container>
         </app-panel-row>
       </div>

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {
   FULL,
   HttpUtil,
+  NO_SUBJECT,
   RequestOptions,
   WsService,
   WsServiceRequestP1,
@@ -144,6 +145,16 @@ export class OrganizationService extends WsService<Organization> {
   deleteContacts(orgId: number, contactId: number): Observable<any> {
     const url = `${this.endpoint}/${orgId}/contacts/${contactId}`;
     return this.http.delete(url);
+  }
+
+  deleteFlag(orgId: number, rOpt?: RequestOptions): Observable<Organization>;
+  deleteFlag(orgId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Organization> {
+    const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);
+    const params = HttpUtil.objectToParams(fetchParams || {});
+    const observable = this.http.delete<Organization>(
+      requestOptions.url ?? `${environment.worldskillsApiOrg}/${orgId}/flag`, {params}
+    ).pipe(share());
+    return this.request(observable, multicastOptions);
   }
 
 }

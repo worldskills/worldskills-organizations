@@ -21,6 +21,7 @@ export interface MemberOrganizationRequest {
 
 export interface OrganizationRequest {
   name: I18nText;
+  logo?: Logo;
 }
 
 export interface OrganizationRelationRequest {
@@ -39,6 +40,7 @@ export interface Organization {
   links: Array<Link>;
   wsEntity: WsEntityModel;
   relations?: OrganizationRelation[];
+  logo?: Logo;
 }
 
 export interface OrganizationRelation {
@@ -79,4 +81,17 @@ export interface OrganizationRelationCreate {
   organization: number;
   entity: number;
   type: OrganizationRelationType;
+}
+
+export interface LogoRequest {
+  image_id: number;
+  thumbnail_hash: string;
+}
+
+export interface Logo {
+  id: number;
+  image_id: number;
+  thumbnail_hash: string;
+  thumbnail: string;
+  links: Array<Link>;
 }
