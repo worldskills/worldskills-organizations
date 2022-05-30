@@ -3,7 +3,7 @@ import { Organization, OrganizationRequest, OrganizationContact, OrganizationCon
 import { ActivatedRoute } from '@angular/router';
 import { OrganizationService } from '../../../../services/organization/organization.service';
 import { take } from 'rxjs/operators';
-import { BreadcrumbsService, ErrorUtil, AlertService, AlertType, NgAuthService } from '@worldskills/worldskills-angular-lib';
+import { BreadcrumbsService, ErrorUtil, AlertService, AlertType, NgAuthService, GenericUtil } from '@worldskills/worldskills-angular-lib';
 import { defaultErrorMessage } from '../../../app-config';
 import { Member } from '../../../../types/member';
 import { ContactRequest } from '../../../../types/contact';
@@ -114,7 +114,11 @@ export class OrganizationDetailComponent implements OnInit {
     this.loading = true;
     const update: OrganizationRequest = {
       name: org.name,
-      logo: org.logo
+      logo: {
+        id: org.logo.id,
+        image_id: org.logo.image_id,
+        thumbnail_hash: org.logo.thumbnail,
+      }
     };
     this.orgs.update(this.orgId, update).pipe(take(1)).subscribe(
       next => this.org = next,

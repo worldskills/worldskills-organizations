@@ -42,7 +42,7 @@
                 type="file"
                 (change)="setFileFromInput($event)"
               />
-              <button *ngIf="!!uploadFile" class="btn btn-danger btn-sm float-right" (click)="unsetLogo()">
+              <button *ngIf="org.logo" class="btn btn-danger btn-sm float-right" (click)="unsetLogo()">
                 {{'Remove image' | translate}}
               </button>
               <div class="clearfix"></div>
