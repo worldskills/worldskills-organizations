@@ -92,6 +92,6 @@ export interface Logo {
   id: number;
   image_id: number;
   thumbnail_hash: string;
-  thumbnail: string;
-  links: Array<Link>;
+  thumbnail?: string;
+  links?: Array<Link>;
 }

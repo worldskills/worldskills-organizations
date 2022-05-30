@@ -52,8 +52,6 @@ export class OrganizationInfoComponent implements OnInit {
           id: null,
           image_id,
           thumbnail_hash,
-          thumbnail: null,
-          links: null
         };
         this.save.emit(this.org);
       });

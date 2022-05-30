@@ -57,4 +57,5 @@ export class OrganizationsService extends WsService<OrganizationList, Organizati
     const url = `${environment.worldskillsApiOrg}/${orgId}/relations/${relationId}`;
     return this.http.delete(url);
   }
+
 }
