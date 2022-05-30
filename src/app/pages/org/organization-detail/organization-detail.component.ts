@@ -113,7 +113,8 @@ export class OrganizationDetailComponent implements OnInit {
   save(org: Organization) {
     this.loading = true;
     const update: OrganizationRequest = {
-      name: org.name
+      name: org.name,
+      logo: org.logo
     };
     this.orgs.update(this.orgId, update).pipe(take(1)).subscribe(
       next => this.org = next,
