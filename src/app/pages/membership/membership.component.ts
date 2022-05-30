@@ -160,7 +160,6 @@ export class MembershipComponent extends WsComponent implements OnInit {
   }
 
   hasUpdatedDate(m: Membership) {
-    console.log(m);
     if (GenericUtil.isNullOrUndefined(m.updated)) {
       return false;
     }

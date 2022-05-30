@@ -27,7 +27,6 @@ export class OrganizationInfoComponent implements OnInit {
   constructor(private orgs: OrganizationsService) { }
 
   ngOnInit(): void {
-    console.log(this.org.relations[0].entity.name);
     this.entitySearchParams = {
       // sort: 'name'
     };

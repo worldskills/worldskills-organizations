@@ -38,7 +38,6 @@ export class OrganizationService extends WsService<Organization> {
     if (!GenericUtil.isNullOrUndefined(relation)) {
       params = params.set('type', relation);
     }
-    console.log(params);
     return this.http.get<OrganizationList>(this.endpoint, {params});
   }
 

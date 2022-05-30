@@ -113,7 +113,6 @@ export class ContactsComponent extends WsComponent implements OnInit {
 
     this.peopleService.create(data).pipe(take(1)).subscribe(
       result => {
-        console.log(result);
         this.attachContact(result.id, ContactType.GENERAL);
       },
       error => console.log(error),
