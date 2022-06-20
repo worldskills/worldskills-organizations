@@ -23,7 +23,6 @@ export class OrganizationCreateComponent implements OnInit {
 
   submitForm() {
     if (this.form.valid) {
-      console.log(this.form.value);
       const {name, relation} = this.form.value;
 
       const model = { relation, name: { lang_code: 'en', text: name}};

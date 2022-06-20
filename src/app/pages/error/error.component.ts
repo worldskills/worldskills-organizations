@@ -23,7 +23,6 @@ export class ErrorComponent implements OnInit {
 
     this.route.queryParams.subscribe(
       queryParams => {
-        console.log(queryParams);
         if (queryParams.hasOwnProperty('code')) {
           this.code = queryParams.code;
         }

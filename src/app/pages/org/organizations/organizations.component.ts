@@ -41,7 +41,6 @@ export class OrganizationsComponent implements OnInit {
   }
 
   search(model: OrganizationSearch) {
-    console.log(model);
     this.name = model.name;
     this.relation = model.relation;
     this.offset = 0;
