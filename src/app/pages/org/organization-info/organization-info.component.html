@@ -69,6 +69,7 @@
           <tr>
             <th scope="col">Type</th>
             <th scope="col">Entity</th>
+            <th scope="col">Since</th>
             <th scope="col" style="width: 100px;"></th>
           </tr>
         </thead>
@@ -76,6 +77,7 @@
           <tr *ngFor="let relation of org.relations">
             <td>{{ relation.type }}</td>
             <td>{{ relation.entity.name.text }}</td>
+            <td>{{ relation.since | date: 'shortDate' }}</td>
             <td>
               <button *ngIf="canEdit"
               style="width: 30px; height: 30px"
@@ -107,6 +109,9 @@
                 (change)="onEntityChange($event)"
                 required
               ></ws-entity-tree-select>
+            </td>
+            <td>
+              <input [ngModel]="relation.since | date:'yyyy-MM-dd'" (ngModelChange)="onDateChange($event)" type="date" name="since"/>
             </td>
             <td>
               <button

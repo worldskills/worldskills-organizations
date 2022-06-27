@@ -13,6 +13,7 @@ export interface OrganiationRelation {
   id: number;
   entity: WsEntityModel;
   type: OrganizationRelationType;
+  since?: Date;
 }
 
 export interface MemberOrganizationRequest {
@@ -47,6 +48,7 @@ export interface OrganizationRelation {
   id: number;
   entity: WsEntityModel;
   type: string;
+  since?: Date;
 }
 
 export interface OrganizationContact {
@@ -81,6 +83,7 @@ export interface OrganizationRelationCreate {
   organization: number;
   entity: number;
   type: OrganizationRelationType;
+  since?: Date;
 }
 
 export interface LogoRequest {

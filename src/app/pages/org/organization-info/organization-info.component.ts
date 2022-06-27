@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { Organization, OrganiationRelation, OrganizationRelationCreate } from '../../../../types/organization';
-import { AlertService, AlertType, EntityFetchParams, UploadService } from '@worldskills/worldskills-angular-lib';
+import { AlertService, AlertType, EntityFetchParams, toDate, UploadService } from '@worldskills/worldskills-angular-lib';
 import { OrganizationsService } from 'src/services/organizations/organizations.service';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { OrganizationService } from 'src/services/organization/organization.service';
@@ -86,7 +86,8 @@ export class OrganizationInfoComponent implements OnInit {
     const model: OrganizationRelationCreate = {
       organization: this.org.id,
       type: this.relation.type,
-      entity: this.relationEntityId
+      entity: this.relationEntityId,
+      since: this.relation.since
     };
     this.orgs.createRelation(model).subscribe(
       next => {},
@@ -148,6 +149,10 @@ export class OrganizationInfoComponent implements OnInit {
         this.resourceLoading = false;
         onComplete(image.body);
       });
+  }
+
+  onDateChange(date) {
+    this.relation.since = toDate(date);
   }
 
 }
