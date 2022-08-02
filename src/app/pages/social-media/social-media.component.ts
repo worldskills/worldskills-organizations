@@ -132,6 +132,8 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
         return 'https://www.flickr.com/photos/' + identifier;
       case 8:
         return 'https://www.youtube.com/' + identifier;
+      case 9:
+        return 'https://www.tiktok.com/' + identifier;
       default:
         return 'unknown (' + identifier + ')';
     }
