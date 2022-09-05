@@ -13,6 +13,6 @@ export const notLoggedInCode = '800-101';
 export const authorizationMissingCode = '100-100';
 
 export const menuConfig = [
-  { label: 'Organizations', url: '/organizations', params: [], hidden: false, requireLogin: false, requiredRoles: [] },
+  { label: 'Organizations', url: '/organizations', params: [], hidden: false, requireLogin: false, requiredRoles: [ 'Admin', 'EditOrganization'] },
   { label: 'Members', url: '/members', params: [], hidden: false, requireLogin: false, requiredRoles: [] },
 ];
