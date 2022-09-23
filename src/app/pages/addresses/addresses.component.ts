@@ -44,7 +44,7 @@ export class AddressesComponent extends WsComponent implements OnInit {
     this.subscribe(
       this.memberService.subject.subscribe(member => {
         this.member = member;
-        this.canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
+        this.calculateCanEdit(member);
       }),
       this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
       RxjsUtil.loaderSubscriber(
@@ -54,6 +54,20 @@ export class AddressesComponent extends WsComponent implements OnInit {
       ).subscribe(loading => (this.loading = loading)),
     );
     this.countriesService.fetch();
+  }
+
+  calculateCanEdit(member: Member)
+  {
+    let canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
+    if (!canEdit) {
+      member.member_of.forEach(parent => {
+        if (!canEdit) {
+          canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, parent.ws_entity.id);
+        }
+      });
+    }
+
+    this.canEdit = canEdit;
   }
 
   get initialized() {

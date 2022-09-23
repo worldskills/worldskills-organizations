@@ -78,7 +78,22 @@ export class MembershipComponent extends WsComponent implements OnInit {
     if (PermissionHelper.isAdmin(this.auth.currentUser.value)) {
       return true;
     }
-    return PermissionHelper.canEditMember(this.auth.currentUser.value, membership.ws_entity.id);
+
+    return this.calculateCanEdit(this.member);
+  }
+
+  calculateCanEdit(member: Member)
+  {
+    let canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
+    if (!canEdit) {
+      member.member_of.forEach(parent => {
+        if (!canEdit) {
+          canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, parent.ws_entity.id);
+        }
+      });
+    }
+
+    return canEdit;
   }
 
   editMembership(membership: Membership) {

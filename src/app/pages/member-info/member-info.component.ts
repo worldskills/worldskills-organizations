@@ -50,7 +50,7 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
   calculateCanEdit(member: Member)
   {
     let canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
-    if (!this.canEdit) {
+    if (!canEdit) {
       member.member_of.forEach(parent => {
         if (!canEdit) {
           canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, parent.ws_entity.id);
