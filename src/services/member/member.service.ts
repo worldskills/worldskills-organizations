@@ -67,6 +67,11 @@ export class MemberService extends WsService<Member> {
     return this.request(observable, multicastOptions);
   }
 
+  delete(memberId: number): Observable<any> {
+    const url = `${environment.worldskillsApiOrg}/members/${memberId}`;
+    return this.http.delete(url);
+  }
+
   deleteFlag(memberId: number, rOpt?: RequestOptions): Observable<Member>;
   deleteFlag(memberId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, NO_SUBJECT);

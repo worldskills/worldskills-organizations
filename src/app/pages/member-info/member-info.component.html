@@ -84,6 +84,7 @@
         </app-panel-row>
         <app-panel-row [alignRightRowRight]="true"  *ngIf="canEdit">
           <ng-container right>
+            <button (click)="deleteMember()" *ngIf="canDelete" class="btn btn-success btn-sm">{{'Delete' | translate}}</button>
             <button *ngIf="member.flag" type="button" class="btn btn-danger btn-sm mr-1"
                     (click)="deleteFlag()">{{'Remove flag' | translate}}</button>
             <button type="submit" class="btn btn-success btn-sm">{{'Save' | translate}}</button>

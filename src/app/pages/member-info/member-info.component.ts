@@ -8,6 +8,7 @@ import {ImageService} from '../../../services/image/image.service';
 import {HttpEventType} from '@angular/common/http';
 import {Image} from '../../../types/image';
 import { PermissionHelper } from '../../helpers/permission-helper';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-member-info',
@@ -25,8 +26,10 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
   resourceProgress = 0;
   uploadFile: File;
   canEdit = false;
+  canDelete = false;
 
   constructor(
+    private router: Router,
     private auth: NgAuthService,
     private memberService: MemberService,
     private alertService: AlertService,
@@ -42,6 +45,7 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
       this.memberService.subject.subscribe(member => {
         this.member = member;
         this.calculateCanEdit(member);
+        this.canDelete = PermissionHelper.isAdmin(this.auth.currentUser.value);
       }),
       this.memberService.loading.subscribe(loading => (this.loading = loading)),
     );
@@ -142,5 +146,19 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
   unsetFlag() {
     this.uploadFile = null;
     this.input.nativeElement.value = null;
+  }
+
+  deleteMember() {
+    const memberName = this.member.name.text;
+    this.alertService.remove('member-deleted');
+    this.memberService.delete(this.member.id).subscribe(
+      next => this.alertService.setAlert('member-deleted', AlertType.success, null, `Member ${memberName} Deleted`, true),
+      error => {
+        this.alertService.setAlert('member-deleted', AlertType.error, null, `Unable to delete ${memberName}.`, true)
+      },
+      () => {
+        this.router.navigate(['/members']);
+      }
+    )
   }
 }
