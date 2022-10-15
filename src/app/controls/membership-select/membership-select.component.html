@@ -1,4 +1,4 @@
-<select class="form-control" name="name" [ngModel]="value" [disabled]="disabled" required (change)="writeValue($event.target.value)">
+<select class="form-control" name="name" [ngModel]="value" [disabled]="disabled" required="getRequiredAttr()"  (change)="writeValue($event.target.value)">
   <option *ngFor="let membershipStatus of membershipStatuses" value="{{ membershipStatus }}">
     {{ membershipStatus }}
   </option>

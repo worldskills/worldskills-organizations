@@ -39,29 +39,29 @@
           <div class="container">
             <app-panel-row>
               <ng-container left>
-                {{'Member of' | translate}}&nbsp;*
+                {{'Member of' | translate}}&nbsp;
               </ng-container>
               <ng-container right>
                 <ng-select [wsSelect]="['id', 'name.text']" name="id" [ngModel]="null"
-                  placeholder="{{'Member of' | translate}}" [items]="members || []" [disabled]="loading" required>
+                  placeholder="{{'Member of' | translate}}" [items]="members || []" [disabled]="loading">
                 </ng-select>
               </ng-container>
             </app-panel-row>
             <app-panel-row>
               <ng-container left>
-                {{'Status' | translate}}&nbsp;*
+                {{'Status' | translate}}&nbsp;
               </ng-container>
               <ng-container right>
-                <app-membership-select [name]="'status'" [ngModel]="'FULL'" [disabled]="loading"></app-membership-select>
+                <app-membership-select [required]="false" [name]="'status'" [ngModel]="'FULL'" [disabled]="loading"></app-membership-select>
               </ng-container>
             </app-panel-row>
             <app-panel-row>
               <ng-container left>
-                {{'Year joined' | translate}}&nbsp;*
+                {{'Year joined' | translate}}&nbsp;
               </ng-container>
               <ng-container right>
                 <input type="text" placeholder="{{'YYYY' | translate}}" class="form-control" name="year_joined"
-                  [ngModel]="null" required>
+                  [ngModel]="null">
               </ng-container>
             </app-panel-row>
           </div>

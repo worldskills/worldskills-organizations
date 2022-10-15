@@ -56,8 +56,11 @@ export class ContactsComponent extends WsComponent implements OnInit {
     );
   }
 
-  calculateCanEdit(member: Member)
-  {
+  calculateCanEdit(member: Member) {
+    if (GenericUtil.isNullOrUndefined(this.member.ws_entity)) {
+      this.canEdit = PermissionHelper.isAdmin(this.auth.currentUser.value);
+      return;
+    }
     let canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
     if (!canEdit) {
       member.member_of.forEach(parent => {

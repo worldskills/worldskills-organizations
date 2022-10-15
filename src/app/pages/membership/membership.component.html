@@ -45,7 +45,7 @@
                 {{m.name.text}}
               </div>
               <div class="col-4 p-2">
-                <app-membership-select [name]="'status'" [ngModel]="m.status" [disabled]="loading"></app-membership-select>
+                <app-membership-select [required]="true" [name]="'status'" [ngModel]="m.status" [disabled]="loading"></app-membership-select>
               </div>
               <div class="col-2 p-2">
                 <input type="text" placeholder="{{'Year' | translate}}" class="form-control" name="year_joined"
@@ -77,7 +77,7 @@
             </ng-select>
           </div>
           <div class="col-4 p-2">
-            <app-membership-select [name]="'status'" [ngModel]="'FULL'" [disabled]="loading"></app-membership-select>
+            <app-membership-select [required]="true" [name]="'status'" [ngModel]="'FULL'" [disabled]="loading"></app-membership-select>
           </div>
           <div class="col-2 p-2">
             <input type="text" placeholder="{{'Year' | translate}}" class="form-control" name="year_joined"

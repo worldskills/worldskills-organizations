@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { WsComponent, NgAuthService } from '@worldskills/worldskills-angular-lib';
+import { WsComponent, NgAuthService, GenericUtil } from '@worldskills/worldskills-angular-lib';
 import {MemberService} from '../../../services/member/member.service';
 import {Member} from '../../../types/member';
 import {ActivatedRoute} from '@angular/router';
@@ -37,6 +37,10 @@ export class MemberComponent extends WsComponent implements OnInit, OnDestroy {
 
   calculateCanEdit(member: Member)
   {
+    if (GenericUtil.isNullOrUndefined(this.member.ws_entity)) {
+      this.canEdit = PermissionHelper.isAdmin(this.auth.currentUser.value);
+      return;
+    }
     let canEdit = PermissionHelper.canEditMember(this.auth.currentUser.value, member.ws_entity.id);
     if (!canEdit) {
       member.member_of.forEach(parent => {

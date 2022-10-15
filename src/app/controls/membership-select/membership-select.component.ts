@@ -19,6 +19,8 @@ export class MembershipSelectComponent implements ControlValueAccessor {
   value: string;
   @Input() name: string;
   @Input() disabled: boolean;
+  @Input() required: boolean;
+
   @HostBinding('style.opacity')
   get opacity(): number {
     return this.disabled ? 0.25 : 1;
@@ -34,6 +36,10 @@ export class MembershipSelectComponent implements ControlValueAccessor {
   onTouched = () => {};
 
   constructor() { }
+
+  getRequiredAttr() {
+    return this.required ? 'required' : '';
+  }
 
   writeValue(obj: any): void {
     if (obj && !this.disabled) {
