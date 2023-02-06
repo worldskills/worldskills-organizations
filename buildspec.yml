@@ -6,7 +6,7 @@ environment_variables:
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: 16
     commands:
       - npm install -g @angular/cli
       - npm install
