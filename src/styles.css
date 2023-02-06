@@ -11,3 +11,8 @@
 ul {
   list-style-position: inside;
 }
+
+
+.ng-dropdown-panel {
+  width: auto!important;
+}
