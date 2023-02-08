@@ -112,13 +112,14 @@ export class OrganizationDetailComponent implements OnInit {
 
   save(org: Organization) {
     this.loading = true;
+    const logo = GenericUtil.isNullOrUndefined(org.logo) ? null : {
+      id:  org.logo.id,
+      image_id: org.logo.image_id,
+      thumbnail_hash: org.logo.thumbnail,
+    }
     const update: OrganizationRequest = {
       name: org.name,
-      logo: {
-        id: org.logo.id,
-        image_id: org.logo.image_id,
-        thumbnail_hash: org.logo.thumbnail,
-      }
+      logo
     };
     this.orgs.update(this.orgId, update).pipe(take(1)).subscribe(
       next => this.org = next,
