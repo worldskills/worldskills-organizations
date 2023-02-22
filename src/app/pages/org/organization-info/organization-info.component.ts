@@ -47,12 +47,13 @@ export class OrganizationInfoComponent implements OnInit {
   saveClick() {
     if (this.uploadFile) {
       // tslint:disable-next-line:variable-name
-      this.upload(({id: image_id, thumbnail_hash}) => {
+      this.upload((img) => {
         this.org.logo = {
           id: null,
-          image_id,
-          thumbnail_hash,
-        };
+          image_id: img.id,
+          thumbnail:img.thumbnail,
+          thumbnail_hash: img.thumbnail_hash,
+        }
         this.save.emit(this.org);
       });
     } else {
