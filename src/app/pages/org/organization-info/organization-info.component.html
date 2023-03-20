@@ -69,7 +69,7 @@
           <tr>
             <th scope="col">Type</th>
             <th scope="col">Entity</th>
-            <th scope="col">Since</th>
+            <th scope="col" style="width: 200px">Since</th>
             <th scope="col" style="width: 60px;"></th>
           </tr>
         </thead>
@@ -112,7 +112,22 @@
               ></ws-entity-tree-select>
             </td>
             <td>
-              <input [ngModel]="relation.since | date:'yyyy-MM-dd'" (ngModelChange)="onDateChange($event)" type="date" name="since"/>
+              <div class="col-12">
+                <div class="input-group">
+                  <input
+                    style="width:100px"
+                    placeholder="yyyy-mm-dd"
+                    name="since"
+                    [(ngModel)]="cacheDate"
+                    ngbDatepicker
+                    #dsince="ngbDatepicker"
+                  />
+                  &nbsp;
+                  <button class="btn btn-outline-secondary" style="font-size:20px; padding:0!important; border:0!important"  (click)="dsince.toggle()" type="button">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </div>
+              </div>
             </td>
             <td>
               <button

@@ -8,6 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ImageService } from 'src/services/image/image.service';
 import { Image } from 'src/types/image';
 import { HttpEventType } from '@angular/common/http';
+import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-organization-info',
@@ -34,6 +35,8 @@ export class OrganizationInfoComponent implements OnInit {
   resourceLoading = false;
   resourceProgress = 0;
   uploadFile: File;
+
+  cacheDate: NgbDateStruct;
 
   constructor(private orgs: OrganizationsService, private orgSerice: OrganizationService, private translateService: TranslateService,
               private alertService: AlertService, private uploadService: UploadService, private imageService: ImageService) { }
@@ -88,8 +91,9 @@ export class OrganizationInfoComponent implements OnInit {
       organization: this.org.id,
       type: this.relation.type,
       entity: this.relationEntityId,
-      since: this.relation.since
+      since: toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
     };
+    console.log(model.since);
     this.orgs.createRelation(model).subscribe(
       next => {},
       error => {},
