@@ -44,6 +44,7 @@ export interface Member {
   name_1058: I18nText;
   ws_entity: OrgEntity;
   organization: Organization;
+  orgHistory?: Organization[];
   member_of: Array<Membership>;
   websites: Array<Website>;
   phones: Array<Phone>;

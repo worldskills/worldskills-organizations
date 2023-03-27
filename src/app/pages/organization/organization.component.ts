@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, GenericUtil, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {Member} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {NgForm} from '@angular/forms';
@@ -7,7 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {MemberOrganizationService} from '../../../services/member-organization/member-organization.service';
 import {DEFAULT_FETCH_PARAMS, OrganizationsService} from '../../../services/organizations/organizations.service';
 import {OrganizationService} from '../../../services/organization/organization.service';
-import { MemberOrganizationRequest, Organization, OrganizationRequest, OrganizationRelationType } from '../../../types/organization';
+import { MemberOrganizationRequest, Organization, OrganizationRequest, OrganizationRelationType, OrganizationRelation } from '../../../types/organization';
 import {OrganizationWebsiteService} from '../../../services/organization-website/organization-website.service';
 import {WebsiteRequest} from '../../../types/website';
 import { PermissionHelper } from '../../helpers/permission-helper';
@@ -100,6 +100,41 @@ export class OrganizationComponent extends WsComponent implements OnInit {
         });
     }
   }
+
+  getMemberRelationName(org: Organization): string {
+    const item = this.getMemberRelation(org);
+    return GenericUtil.isNullOrUndefined(item) ? '' : item.entity.name.text;
+  }
+
+  getMemberRelationSince(org: Organization): Date {
+    const item = this.getMemberRelation(org);
+    return GenericUtil.isNullOrUndefined(item) ? null : item.since;
+  }
+
+  getMemberRelationEnd(org: Organization): Date {
+    const item = this.getMemberRelation(org);
+    return GenericUtil.isNullOrUndefined(item) ? null : item.end;
+  }
+
+  getMemberRelation(org: Organization): OrganizationRelation {
+    let relation = null;
+    if (GenericUtil.isNullOrUndefined(org)) {
+      return relation;
+    }
+
+    this.member.orgHistory.forEach(oh => {
+      if (oh.id == org.id) {
+        oh.relations.forEach(r => {
+          if (r.type == OrganizationRelationType.MEMBER && r.entity.id == this.member.ws_entity.id) {
+            relation = r;
+          }
+        });
+      }
+    });
+
+    return relation;
+  }
+
 
   submitForm() {
     if (this.form.valid) {

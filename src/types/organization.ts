@@ -50,6 +50,7 @@ export interface OrganizationRelation {
   entity: WsEntityModel;
   type: string;
   since?: Date;
+  end?: Date;
 }
 
 export interface OrganizationContact {
