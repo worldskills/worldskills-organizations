@@ -129,14 +129,15 @@
           {{'end' | translate}}
         </div>
       </div>
+      <hr class="my-2 mx-0"/>
       <div class="row" *ngFor="let item of member.orgHistory">
-        <div class="col-4 font-weight-bold p-2">
+        <div class="col-4 p-2">
           {{ item.name.text }}
         </div>
-        <div class="col-4 font-weight-bold p-2">
+        <div class="col-4 p-2">
           {{ getMemberRelationSince(item) | date: 'longDate' }}
         </div>
-        <div class="col-4 font-weight-bold p-2">
+        <div class="col-4 p-2">
           {{ getMemberRelationEnd(item) | date: 'longDate' }}
         </div>
       </div>
