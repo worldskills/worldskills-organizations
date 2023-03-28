@@ -134,10 +134,10 @@
           {{ item.name.text }}
         </div>
         <div class="col-4 font-weight-bold p-2">
-          {{ getMemberRelationSince(item) }}
+          {{ getMemberRelationSince(item) | date: 'longDate' }}
         </div>
         <div class="col-4 font-weight-bold p-2">
-          {{ getMemberRelationEnd(item) }}
+          {{ getMemberRelationEnd(item) | date: 'longDate' }}
         </div>
       </div>
     </div>
