@@ -140,7 +140,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
     if (this.form.valid) {
       const {name, url} = this.form.value;
 
-      const data = { relation: OrganizationRelationType.MEMBER, name: { lang_code: 'en', text: name}};
+      const data = { entityId: this.member.ws_entity.id, relation: OrganizationRelationType.MEMBER, name: { lang_code: 'en', text: name}};
       const websiteData: WebsiteRequest = url ? {url} : null;
       if (this.editMode === EditMode.Add) {
         this.organizationsService.create(data).subscribe(organization => {

@@ -77,6 +77,7 @@ export interface OrganizationContactList {
 
 
 export interface OrganizationCreate {
+  entityId?: number;
   name: I18nText;
   relation?: OrganizationRelationType;
 }
