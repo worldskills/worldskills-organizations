@@ -149,11 +149,12 @@ export class OrganizationComponent extends WsComponent implements OnInit {
     if (this.form.valid) {
       const {name, url} = this.form.value;
 
+      const jsDate = new Date(this.cacheDate.year, this.cacheDate.month - 1, this.cacheDate.day);
       const data = {
         entityId: this.member.ws_entity.id,
         relation: OrganizationRelationType.MEMBER,
         name: { lang_code: 'en', text: name},
-        relationSince: `${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`
+        relationSince: jsDate
       };
       const websiteData: WebsiteRequest = url ? {url} : null;
       if (this.editMode === EditMode.Add) {
