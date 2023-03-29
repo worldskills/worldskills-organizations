@@ -80,6 +80,7 @@ export interface OrganizationCreate {
   entityId?: number;
   name: I18nText;
   relation?: OrganizationRelationType;
+  relationSince?: string;
 }
 
 export interface OrganizationRelationCreate {

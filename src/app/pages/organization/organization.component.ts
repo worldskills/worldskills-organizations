@@ -11,6 +11,7 @@ import { MemberOrganizationRequest, Organization, OrganizationRequest, Organizat
 import {OrganizationWebsiteService} from '../../../services/organization-website/organization-website.service';
 import {WebsiteRequest} from '../../../types/website';
 import { PermissionHelper } from '../../helpers/permission-helper';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 enum EditMode {
   None = 0,
@@ -33,6 +34,7 @@ export class OrganizationComponent extends WsComponent implements OnInit {
   editMode: EditMode = EditMode.None;
   @ViewChild('form') form: NgForm;
   @ViewChild('changeForm') changeForm: NgForm;
+  cacheDate: NgbDateStruct;
 
   constructor(
     private auth: NgAuthService,
@@ -78,6 +80,13 @@ export class OrganizationComponent extends WsComponent implements OnInit {
   }
 
   switchEditMode(editMode: EditMode) {
+    const dt = new Date();
+    this.cacheDate = {
+      year: dt.getFullYear(),
+      month: dt.getMonth() + 1,
+      day: dt.getDate()
+    }
+    console.log(this.cacheDate);
     this.editMode = editMode;
   }
 
@@ -140,7 +149,12 @@ export class OrganizationComponent extends WsComponent implements OnInit {
     if (this.form.valid) {
       const {name, url} = this.form.value;
 
-      const data = { entityId: this.member.ws_entity.id, relation: OrganizationRelationType.MEMBER, name: { lang_code: 'en', text: name}};
+      const data = {
+        entityId: this.member.ws_entity.id,
+        relation: OrganizationRelationType.MEMBER,
+        name: { lang_code: 'en', text: name},
+        relationSince: `${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`
+      };
       const websiteData: WebsiteRequest = url ? {url} : null;
       if (this.editMode === EditMode.Add) {
         this.organizationsService.create(data).subscribe(organization => {

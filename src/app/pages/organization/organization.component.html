@@ -79,6 +79,26 @@
               ></app-panel-row-actions>
             </div>
           </div>
+          <div class="row">
+            <div class="col-4 p-2">
+              <div class="input-group">
+                Since:&nbsp;
+                <input
+                  placeholder="yyyy-mm-dd"
+                  name="since"
+                  [(ngModel)]="cacheDate"
+                  ngbDatepicker
+                  #dsince="ngbDatepicker"
+                />
+                &nbsp;
+                <button class="btn btn-outline-secondary" style="font-size:20px; padding:0!important; border:0!important"  (click)="dsince.toggle()" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-4 p-2"></div>
+            <div class="col-4 p-2"></div>
+          </div>
         </form>
       </ng-container>
       <ng-container *ngIf="editMode === 3">
