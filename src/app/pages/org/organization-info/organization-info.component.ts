@@ -90,10 +90,12 @@ export class OrganizationInfoComponent implements OnInit {
     const model: OrganizationRelationCreate = {
       organization: this.org.id,
       type: this.relation.type,
-      entity: this.relationEntityId,
-      since: toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
+      entity: this.relationEntityId
     };
-    console.log(model.since);
+    if (this.cacheDate) {
+      model.since = toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
+    }
+
     this.orgs.createRelation(model).subscribe(
       next => {},
       error => {},
