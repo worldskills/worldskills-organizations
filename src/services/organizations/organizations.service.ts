@@ -58,4 +58,9 @@ export class OrganizationsService extends WsService<OrganizationList, Organizati
     return this.http.delete(url);
   }
 
+  editRelation(orgId: number, relationId: number, params: OrganizationRelationCreate): Observable<any> {
+    const url = `${environment.worldskillsApiOrg}/${orgId}/relations/${relationId}`;
+    return this.http.put(url, params);
+  }
+
 }

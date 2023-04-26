@@ -2,7 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef }
 import { Organization, OrganiationRelation, OrganizationRelationCreate } from '../../../../types/organization';
 import { AlertService, AlertType, EntityFetchParams, toDate, UploadService } from '@worldskills/worldskills-angular-lib';
 import { OrganizationsService } from 'src/services/organizations/organizations.service';
-import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faSave, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { OrganizationService } from 'src/services/organization/organization.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ImageService } from 'src/services/image/image.service';
@@ -29,8 +29,11 @@ export class OrganizationInfoComponent implements OnInit {
   showForm = false;
   relation: OrganiationRelation;
   relationEntityId: number;
+  relationToEdit: OrganiationRelation;
 
   faSave = faSave;
+  faTrash = faTrash;
+  faEdit = faEdit;
 
   resourceLoading = false;
   resourceProgress = 0;
@@ -97,6 +100,39 @@ export class OrganizationInfoComponent implements OnInit {
     }
 
     this.orgs.createRelation(model).subscribe(
+      next => {},
+      error => {},
+      () => {
+        window.location.reload();
+      }
+    );
+  }
+
+  enableRelationEditMode(relation: OrganiationRelation) {
+    this.relationToEdit = relation;
+    if (this.relationToEdit) {
+      if (relation.since) {
+        const dt = toDate(relation.since);
+        this.cacheDate = {
+          year: dt.getFullYear(),
+          month: dt.getMonth() + 1,
+          day: dt.getDate()
+        }
+      }
+    }
+  }
+
+  editRelation() {
+    console.log(this.relationToEdit);
+    const model: OrganizationRelationCreate = {
+      organization: this.org.id,
+      type: this.relationToEdit.type,
+      entity: this.relationToEdit.entity.id
+    };
+    if (this.cacheDate) {
+      model.since = toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
+    }
+    this.orgs.editRelation(this.org.id, this.relationToEdit.id, model).subscribe(
       next => {},
       error => {},
       () => {

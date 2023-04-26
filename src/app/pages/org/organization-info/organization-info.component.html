@@ -2,152 +2,178 @@
   <ws-spinner></ws-spinner>
 </ng-container>
 <ng-container *ngIf="!loading">
-    <app-panel-header title="{{'Organization info' | translate}}"></app-panel-header>
-    <app-panel title="{{'Organization info' | translate}}">
-      <div class="container">
-        <app-panel-row>
-          <ng-container left>
-            {{'Name' | translate}}&nbsp;*
-          </ng-container>
-          <ng-container right>
-            <input *ngIf="canEdit"
-              class="form-control"
-              placeholder="{{'Name' | translate}}"
-              [(ngModel)]="org.name.text"
-              required
-            />
-            <span *ngIf="!canEdit">{{ org.name.text }}</span>
-          </ng-container>
-        </app-panel-row>
-        <app-panel-row>
-          <ng-container left>
-            {{'Logo' | translate}}
-          </ng-container>
-          <ng-container right>
-            <div class="mb-1 mw-100">
-              <img class="mw-100" *ngIf="org.logo" [src]="org.logo.thumbnail" style="width: 50px; height: 50px;"/>
-              <div
-                *ngIf="!org.logo"
-                class="alert alert-warning"
-              >
-                {{'No logo has been uploaded' | translate}}
-              </div>
+  <app-panel-header title="{{'Organization info' | translate}}"></app-panel-header>
+  <app-panel title="{{'Organization info' | translate}}">
+    <div class="container">
+      <app-panel-row>
+        <ng-container left>
+          {{'Name' | translate}}&nbsp;*
+        </ng-container>
+        <ng-container right>
+          <input *ngIf="canEdit" class="form-control" placeholder="{{'Name' | translate}}" [(ngModel)]="org.name.text"
+            required />
+          <span *ngIf="!canEdit">{{ org.name.text }}</span>
+        </ng-container>
+      </app-panel-row>
+      <app-panel-row>
+        <ng-container left>
+          {{'Logo' | translate}}
+        </ng-container>
+        <ng-container right>
+          <div class="mb-1 mw-100">
+            <img class="mw-100" *ngIf="org.logo" [src]="org.logo.thumbnail" style="width: 50px; height: 50px;" />
+            <div *ngIf="!org.logo" class="alert alert-warning">
+              {{'No logo has been uploaded' | translate}}
             </div>
+          </div>
 
-            <div  *ngIf="canEdit">
-              <input
-                #logoInput
-                class="float-left"
-                name="logo"
-                type="file"
-                (change)="setFileFromInput($event)"
-              />
-              <button *ngIf="org.logo" class="btn btn-danger btn-sm float-right" (click)="unsetLogo()">
-                {{'Remove image' | translate}}
-              </button>
-              <div class="clearfix"></div>
-            </div>
-          </ng-container>
-        </app-panel-row>
-        <app-panel-row [alignRightRowRight]="true" *ngIf="canEdit">
-          <ng-container right>
-            <button type="button" class="btn btn-success btn-sm" (click)="saveClick()" >{{'Save' | translate}}</button>
-            <p class="my-4" *ngIf="resourceLoading">
-              <ngb-progressbar
-                type="info"
-                [value]="resourceProgress * 100"
-                [striped]="true"
-              ></ngb-progressbar>
-            </p>
-          </ng-container>
-        </app-panel-row>
-      </div>
-    </app-panel>
-    <app-panel title="{{'Relationships' | translate}}">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Type</th>
-            <th scope="col">Entity</th>
-            <th scope="col" style="width: 200px">Since</th>
-            <th scope="col" style="width: 60px;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let relation of org.relations">
-            <td>{{ relation.type }}</td>
-            <td>{{ relation.entity.name.text }}</td>
-            <td>{{ relation.since | date: 'longDate' }}</td>
-            <td>
-              <button *ngIf="canEdit"
-              style="width: 30px; height: 30px"
-              type="button"
-              class="btn btn-danger btn-sm ml-1"
-              (click)="deleteRelation(relation)"
-            >X</button>
-            </td>
-          </tr>
-          <tr *ngIf="showForm && canEdit">
-            <td>
-              <select class="form-control" [(ngModel)]="relation.type" required>
-                <option [ngValue]="null" [disabled]="true">{{ 'Select type' | translate }}</option>
-                <option value="GLOBAL_PARTNER">{{ 'Global Partner' | translate }}</option>
-                <option value="HOST">{{ 'Host' | translate }}</option>
-                <option value="NGO_PARTNER">{{ 'NGO Partner' | translate }}</option>
-                <option value="MEMBER">{{ 'Member' | translate }}</option>
-                <option value="POTENTIAL_MEMBER">{{ 'Potenial Member' | translate }}</option>
-                <option value="SPONSOR">{{ 'Sponsor' | translate }}</option>
-                <option value="SUPPLIER">{{ 'Supplier' | translate }}</option>
-                <option value="SUPPORTER">{{ 'Supporter' | translate }}</option>
-              </select>
-            </td>
-            <td>
-              <ws-entity-tree-select
-                [ngModel]="relationEntityId"
-                name="treeSelect"
-                [query]="entitySearchParams"
-                [showControls]="false" [showFullPath]="false" [defaultExpand]="false"
-                (change)="onEntityChange($event)"
-                required
-              ></ws-entity-tree-select>
-            </td>
-            <td>
-              <div class="col-12">
-                <div class="input-group">
-                  <input
-                    style="width:100px"
-                    placeholder="yyyy-mm-dd"
-                    name="since"
-                    [(ngModel)]="cacheDate"
-                    ngbDatepicker
-                    #dsince="ngbDatepicker"
-                  />
-                  &nbsp;
-                  <button class="btn btn-outline-secondary" style="font-size:20px; padding:0!important; border:0!important"  (click)="dsince.toggle()" type="button">
-                    <i class="fa fa-calendar"></i>
-                  </button>
-                </div>
+          <div *ngIf="canEdit">
+            <input #logoInput class="float-left" name="logo" type="file" (change)="setFileFromInput($event)" />
+            <button *ngIf="org.logo" class="btn btn-danger btn-sm float-right" (click)="unsetLogo()">
+              {{'Remove image' | translate}}
+            </button>
+            <div class="clearfix"></div>
+          </div>
+        </ng-container>
+      </app-panel-row>
+      <app-panel-row [alignRightRowRight]="true" *ngIf="canEdit">
+        <ng-container right>
+          <button type="button" class="btn btn-success btn-sm" (click)="saveClick()">{{'Save' | translate}}</button>
+          <p class="my-4" *ngIf="resourceLoading">
+            <ngb-progressbar type="info" [value]="resourceProgress * 100" [striped]="true"></ngb-progressbar>
+          </p>
+        </ng-container>
+      </app-panel-row>
+    </div>
+  </app-panel>
+  <app-panel title="{{'Relationships' | translate}}">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Entity</th>
+          <th scope="col" style="width: 200px">Since</th>
+          <th scope="col" style="width: 100px;"></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let relation of org.relations">
+        <tr *ngIf="!(relationToEdit && relationToEdit.id == relation.id)">
+          <td>{{ relation.type }}</td>
+          <td>{{ relation.entity.name.text }}</td>
+          <td>{{ relation.since | date: 'longDate' }}</td>
+          <td>
+            <button *ngIf="canEdit" style="width: 30px; height: 30px" type="button" class="btn btn-primary btn-sm ml-1"
+              (click)="enableRelationEditMode(relation)">
+              <fa-icon size="xs" [icon]="faEdit"></fa-icon>
+            </button>
+            <button *ngIf="canEdit" style="width: 30px; height: 30px" type="button" class="btn btn-danger btn-sm ml-1"
+              (click)="deleteRelation(relation)">
+              <fa-icon size="xs" [icon]="faTrash"></fa-icon>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="relationToEdit && relationToEdit.id == relation.id">
+          <td>
+            <select class="form-control" [(ngModel)]="relationToEdit.type" required>
+              <option [ngValue]="null" [disabled]="true">{{ 'Select type' | translate }}</option>
+              <option value="GLOBAL_PARTNER">{{ 'Global Partner' | translate }}</option>
+              <option value="HOST">{{ 'Host' | translate }}</option>
+              <option value="NGO_PARTNER">{{ 'NGO Partner' | translate }}</option>
+              <option value="MEMBER">{{ 'Member' | translate }}</option>
+              <option value="POTENTIAL_MEMBER">{{ 'Potenial Member' | translate }}</option>
+              <option value="SPONSOR">{{ 'Sponsor' | translate }}</option>
+              <option value="SUPPLIER">{{ 'Supplier' | translate }}</option>
+              <option value="SUPPORTER">{{ 'Supporter' | translate }}</option>
+            </select>
+          </td>
+          <td>
+            <ws-entity-tree-select [ngModel]="relationToEdit.entity.id" name="treeSelect" [query]="entitySearchParams"
+              [showControls]="false" [showFullPath]="false" [defaultExpand]="false" (change)="onEntityChange($event)"
+              required></ws-entity-tree-select>
+          </td>
+          <td>
+            <div class="col-12">
+              <div class="input-group">
+                <input style="width:100px" placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheDate" ngbDatepicker
+                  #dsince="ngbDatepicker" />
+                &nbsp;
+                <button class="btn btn-outline-secondary"
+                  style="font-size:20px; padding:0!important; border:0!important" (click)="dsince.toggle()"
+                  type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
               </div>
-            </td>
-            <td>
-              <button
-              style="width: 30px; height: 30px"
-              type="button"
-              class="btn btn-danger btn-sm ml-1"
-              (click)="hideForm()"
-            >X</button>
-            <button
-            style="width: 30px; height: 30px"
-            type="button"
-            class="btn btn-success btn-sm ml-1"
-            (click)="createRelation()"
-          >
-            <fa-icon size="xs" [icon]="faSave"></fa-icon>
-          </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <button type="button" class="btn btn-success btn-sm" (click)="prepInsert()" >{{'New' | translate}}</button>
-    </app-panel>
+            </div>
+          </td>
+          <td>
+            <button style="width: 30px; height: 30px" type="button" class="btn btn-success btn-sm ml-1"
+              (click)="editRelation()">
+              <fa-icon size="xs" [icon]="faSave"></fa-icon>
+            </button>
+            <button style="width: 30px; height: 30px" type="button" class="btn btn-danger btn-sm ml-1"
+              (click)="enableRelationEditMode(null)">
+              <fa-icon size="xs" [icon]="faTrash"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table" *ngIf="showForm && canEdit">
+      <thead>
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Entity</th>
+          <th scope="col" style="width: 200px">Since</th>
+          <th scope="col" style="width: 100px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select class="form-control" [(ngModel)]="relation.type" required>
+              <option [ngValue]="null" [disabled]="true">{{ 'Select type' | translate }}</option>
+              <option value="GLOBAL_PARTNER">{{ 'Global Partner' | translate }}</option>
+              <option value="HOST">{{ 'Host' | translate }}</option>
+              <option value="NGO_PARTNER">{{ 'NGO Partner' | translate }}</option>
+              <option value="MEMBER">{{ 'Member' | translate }}</option>
+              <option value="POTENTIAL_MEMBER">{{ 'Potenial Member' | translate }}</option>
+              <option value="SPONSOR">{{ 'Sponsor' | translate }}</option>
+              <option value="SUPPLIER">{{ 'Supplier' | translate }}</option>
+              <option value="SUPPORTER">{{ 'Supporter' | translate }}</option>
+            </select>
+          </td>
+          <td>
+            <ws-entity-tree-select [ngModel]="relationEntityId" name="treeSelect" [query]="entitySearchParams"
+              [showControls]="false" [showFullPath]="false" [defaultExpand]="false" (change)="onEntityChange($event)"
+              required></ws-entity-tree-select>
+          </td>
+          <td>
+            <div class="col-12">
+              <div class="input-group">
+                <input style="width:100px" placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheDate" ngbDatepicker
+                  #dsince="ngbDatepicker" />
+                &nbsp;
+                <button class="btn btn-outline-secondary"
+                  style="font-size:20px; padding:0!important; border:0!important" (click)="dsince.toggle()"
+                  type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+          <td>
+            <button style="width: 30px; height: 30px" type="button" class="btn btn-danger btn-sm ml-1"
+              (click)="hideForm()">
+              <fa-icon size="xs" [icon]="faTrash"></fa-icon>
+            </button>
+            <button style="width: 30px; height: 30px" type="button" class="btn btn-success btn-sm ml-1"
+              (click)="createRelation()">
+              <fa-icon size="xs" [icon]="faSave"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn btn-success btn-sm" (click)="prepInsert()">{{'New' | translate}}</button>
+  </app-panel>
 </ng-container>
