@@ -127,7 +127,7 @@ export class OrganizationInfoComponent implements OnInit {
     const model: OrganizationRelationCreate = {
       organization: this.org.id,
       type: this.relationToEdit.type,
-      entity: this.relationToEdit.entity.id
+      entity: this.relationEntityId
     };
     if (this.cacheDate) {
       model.since = toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
