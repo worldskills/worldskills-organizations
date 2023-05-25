@@ -21,6 +21,7 @@ import { Website } from 'src/types/website';
 import { ContactRequest } from '../../types/contact';
 import { WebsiteList, WebsiteRequest, OrgWebsite, OrgWebsiteRequest } from '../../types/website';
 import { GenericUtil } from '@worldskills/worldskills-angular-lib';
+import { Address, AddressRequest } from '../../types/address';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,12 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.get<OrganizationContactList>(url);
   }
 
+  getAddressess(id: number): Observable<Address[]> {
+    const url = `${this.endpoint}/${id}/addresses`;
+    return this.http.get<Address[]>(url);
+  }
+
+
   create(organization: OrganizationRequest, rOpt?: RequestOptions): Observable<Organization>;
   create(
     organization: OrganizationRequest, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3
@@ -97,6 +104,11 @@ export class OrganizationService extends WsService<Organization> {
   createContacts(id: number, view: ContactRequest): Observable<OrganizationContact> {
     const url = `${this.endpoint}/${id}/contacts`;
     return this.http.post<OrganizationContact>(url, view);
+  }
+
+  createAddress(id: number, params: AddressRequest): Observable<Organization> {
+    const url = `${this.endpoint}/${id}/addresses`;
+    return this.http.post<Organization>(url, params);
   }
 
   update(organizationId: number, organization: OrganizationRequest, rOpt?: RequestOptions): Observable<Organization>;
@@ -132,6 +144,11 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.put<OrganizationContact>(url, {params});
   }
 
+  updateAddress(id: number, addressId: number, params: AddressRequest): Observable<Address> {
+    const url = `${this.endpoint}/${id}/addresses${addressId}}`;
+    return this.http.put<Address>(url, params);
+  }
+
   deleteRelation(orgId: number, relationId: number, view: OrganizationRelationRequest): Observable<any> {
     const url = `${this.endpoint}/${orgId}/relations/${relationId}`;
     return this.http.delete(url);
@@ -146,6 +163,12 @@ export class OrganizationService extends WsService<Organization> {
     const url = `${this.endpoint}/${orgId}/contacts/${contactId}`;
     return this.http.delete(url);
   }
+
+  deleteAddress(id: number, addressId): Observable<any> {
+    const url = `${this.endpoint}/${id}/addresses/${addressId}`;
+    return this.http.delete(url);
+  }
+
 
   deleteFlag(orgId: number, rOpt?: RequestOptions): Observable<Organization>;
   deleteFlag(orgId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Organization> {

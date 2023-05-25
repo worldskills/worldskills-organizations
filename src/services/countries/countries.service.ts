@@ -35,4 +35,22 @@ export class CountriesService extends WsService<CountryList> {
     ).pipe(share());
     return this.request(observable, multicastOptions);
   }
+
+  // this will eventually replace the fetch methods as we plan to remove teh WSService
+  getCountries(params: FetchParams): Observable<CountryList> {
+    let url = `${environment.worldskillsApiOrg}/countries`;
+    if (params.sort) {
+      url = `${url}?sort=${params.sort}`;
+    }
+    if (params.offset) {
+      url = `${url}&offset=${params.offset}`;
+    }
+    if (params.limit) {
+      url = `${url}&limit=${params.limit}`;
+    }
+    if (params.l) {
+      url = `${url}&l=${params.l}`;
+    }
+    return this.http.get<CountryList>(url);
+  }
 }

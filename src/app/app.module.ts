@@ -42,6 +42,7 @@ import { OrganizationContactsComponent } from './pages/org/organization-contacts
 import { OrganizationWebsitesComponent } from './pages/org/organization-websites/organization-websites.component';
 import { OrganizationCreateComponent } from './pages/org/organization-create/organization-create.component';
 import { NewPersonFormComponent } from './new-person-form/new-person-form.component';
+import { OrganizationAddressComponent } from './pages/org/organization-address/organization-address.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -79,6 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrganizationWebsitesComponent,
     OrganizationCreateComponent,
     NewPersonFormComponent,
+    OrganizationAddressComponent,
   ],
   imports: [
     BrowserModule,

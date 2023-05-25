@@ -15,6 +15,11 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {share} from 'rxjs/operators';
 
+/*
+  * TODO: this actuallt belongs in the member service as there is no address service on the API
+  * major refactor required
+*/
+
 @Injectable({
   providedIn: 'root'
 })
