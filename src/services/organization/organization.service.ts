@@ -22,6 +22,7 @@ import { ContactRequest } from '../../types/contact';
 import { WebsiteList, WebsiteRequest, OrgWebsite, OrgWebsiteRequest } from '../../types/website';
 import { GenericUtil } from '@worldskills/worldskills-angular-lib';
 import { Address, AddressRequest } from '../../types/address';
+import { Phone, PhoneRequest } from 'src/types/phone';
 
 @Injectable({
   providedIn: 'root'
@@ -111,6 +112,11 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.post<Organization>(url, params);
   }
 
+  createPhone(id: number, params: PhoneRequest): Observable<Organization> {
+    const url = `${this.endpoint}/${id}/phones`;
+    return this.http.post<Organization>(url, params);
+  }
+
   update(organizationId: number, organization: OrganizationRequest, rOpt?: RequestOptions): Observable<Organization>;
   update(
     organizationId: number,
@@ -149,6 +155,11 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.put<Address>(url, params);
   }
 
+  updatePhone(id: number, phoneId: number, params: PhoneRequest): Observable<Phone> {
+    const url = `${this.endpoint}/${id}/phones/${phoneId}`;
+    return this.http.post<Phone>(url, params);
+  }
+
   deleteRelation(orgId: number, relationId: number, view: OrganizationRelationRequest): Observable<any> {
     const url = `${this.endpoint}/${orgId}/relations/${relationId}`;
     return this.http.delete(url);
@@ -169,6 +180,10 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.delete(url);
   }
 
+  deletePhone(id: number, phoneId: number): Observable<Phone> {
+    const url = `${this.endpoint}/${id}/phones/${phoneId}`;
+    return this.http.delete<Phone>(url);
+  }
 
   deleteFlag(orgId: number, rOpt?: RequestOptions): Observable<Organization>;
   deleteFlag(orgId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Organization> {

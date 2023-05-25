@@ -1,0 +1,151 @@
+<ng-container *ngIf="loading || !initialized">
+  <ws-spinner></ws-spinner>
+</ng-container>
+<ng-container *ngIf="initialized && !loading">
+  <app-panel-header title="{{'Phone numbers' | translate}}"></app-panel-header>
+  <app-panel title="{{'Phone numbers' | translate}}">
+    <div class="container">
+      <div class="row">
+        <div class="col-3 font-weight-bold p-2">
+          {{'Country' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          {{'Prefix' | translate}}
+        </div>
+        <div class="col-3 font-weight-bold p-2">
+          {{'Number' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          {{'Type' | translate}}
+        </div>
+        <div class="col-2 font-weight-bold p-2">
+          &nbsp;
+        </div>
+      </div>
+      <ng-container *ngIf="org.phones.length > 0">
+        <ng-container *ngFor="let p of org.phones">
+          <hr class="my-2 mx-0"/>
+          <div *ngIf="p !== editingPhone" class="row">
+            <div class="col-3 p-2">
+              {{p.country ? p.country.name.text : ''}}
+            </div>
+            <div class="col-2 p-2">
+              {{p.country ? '+' + p.country.prefix : ''}}
+            </div>
+            <div class="col-3 p-2">
+              {{p.phone_number}}
+            </div>
+            <div class="col-2 p-2">
+              {{p.phone_type ? p.phone_type.name : ''}}
+            </div>
+            <div class="col-2 p-2 text-right">
+              <app-panel-row-actions
+                (delete)="unbindPhone(p)"
+                (edit)="editPhone(p)"
+              ></app-panel-row-actions>
+            </div>
+          </div>
+          <form *ngIf="p === editingPhone" class="form-horizontal"
+                [ngClass]="{'was-validated': this.editForm.submitted}" novalidate
+                (ngSubmit)="submitEditForm()" #editForm="ngForm">
+            <div class="row">
+              <div class="col-3 p-2">
+                <ng-select
+                  [wsSelect]="['id', 'name.text']"
+                  name="country"
+                  [ngModel]="p.country ? p.country.id : null"
+                  placeholder="{{'Country' | translate}}"
+                  [items]="countries || []"
+                  [disabled]="loading"
+                  required
+                ></ng-select>
+              </div>
+              <div class="col-2 p-2">
+                {{getPrefixFromForm(editForm)}}
+              </div>
+              <div class="col-3 p-2">
+                <input
+                  type="text"
+                  placeholder="{{'Phone Number' | translate}}"
+                  class="form-control"
+                  name="phone_number"
+                  [ngModel]="p.phone_number"
+                  required
+                >
+              </div>
+              <div class="col-2 p-2">
+                <ng-select
+                  [wsSelect]="['id', 'name']"
+                  name="type"
+                  [ngModel]="p.phone_type ? p.phone_type.id : null"
+                  placeholder="{{'Phone Type' | translate}}"
+                  [items]="phoneTypes || []"
+                  [disabled]="loading"
+                  required
+                ></ng-select>
+              </div>
+              <div class="col-2 p-2 text-right">
+                <app-panel-row-actions
+                  (cancel)="cancelEditPhone()"
+                  (save)="editForm.onSubmit(undefined)"
+                ></app-panel-row-actions>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="org.phones.length === 0">
+        <hr class="my-2 mx-0"/>
+        <div class="row">
+          <div class="col-12 p-2">
+            {{'This org doesn\'t have any phone numbers' | translate}}
+          </div>
+        </div>
+      </ng-container>
+      <hr class="my-2 mx-0"/>
+      <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
+            (ngSubmit)="submitForm()" #form="ngForm" *ngIf="canEdit">
+        <div class="row">
+          <div class="col-3 p-2">
+            <ng-select
+              [wsSelect]="['id', 'name.text']"
+              name="country"
+              [ngModel]="null"
+              placeholder="{{'Country' | translate}}"
+              [items]="countries || []"
+              [disabled]="loading"
+              required
+            ></ng-select>
+          </div>
+          <div class="col-2 p-2">
+            {{getPrefixFromForm(form)}}
+          </div>
+          <div class="col-3 p-2">
+            <input
+              type="text"
+              placeholder="{{'Phone Number' | translate}}"
+              class="form-control"
+              name="phone_number"
+              [ngModel]="null"
+              required
+            >
+          </div>
+          <div class="col-2 p-2">
+            <ng-select
+              [wsSelect]="['id', 'name']"
+              name="type"
+              [ngModel]="null"
+              placeholder="{{'Phone Type' | translate}}"
+              [items]="phoneTypes || []"
+              [disabled]="loading"
+              required
+            ></ng-select>
+          </div>
+          <div class="col-2 p-2 text-right">
+            <button class="btn btn-success btn-sm">{{'Add' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </app-panel>
+</ng-container>
