@@ -34,7 +34,7 @@ export class AddMemberComponent extends WsComponent implements OnInit {
   ngOnInit(): void {
     this.subscribe(
       this.membersService.subject.subscribe(members => (this.members = members.members)),
-      this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list.filter(c => !c.member))),
+      this.countriesService.subject.subscribe(countries => (this.countries = countries.country_list)),
       RxjsUtil.loaderSubscriber(
         this.membersService,
         this.countriesService,
