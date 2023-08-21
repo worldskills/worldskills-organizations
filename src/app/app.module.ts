@@ -44,9 +44,12 @@ import { NewPersonFormComponent } from './new-person-form/new-person-form.compon
 import { OrganizationAddressComponent } from './pages/org/organization-address/organization-address.component';
 import { OrganizationPhoneComponent } from './pages/org/organization-phone/organization-phone.component';
 
+export const cacheVersionn = '202308211643';
+
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json?v=' + cacheVersionn);
 }
+
 
 @NgModule({
   declarations: [
