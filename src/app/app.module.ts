@@ -15,7 +15,6 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {DatePipe} from '@angular/common';
 import {HttpInterceptorService} from '../services/http-interceptor/http-interceptor.service';
-import {WsSpinnerComponent} from './ws-spinner/ws-spinner.component';
 import {MembersComponent} from './pages/members/members.component';
 import {MembersSearchFormComponent} from './members-search-form/members-search-form.component';
 import {MemberComponent} from './pages/member/member.component';
@@ -54,7 +53,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomeComponent,
     ErrorComponent,
-    WsSpinnerComponent,
     MembersComponent,
     MembersSearchFormComponent,
     MemberComponent,
