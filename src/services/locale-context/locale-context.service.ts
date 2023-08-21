@@ -46,15 +46,15 @@ export class LocaleContextService {
 
   get languages(): Array<Language> {
     return [
-      {code: 'en', name: 'English'},
-      {code: 'de', name: 'German'},
-      {code: 'fr', name: 'French'},
-      {code: 'fi', name: 'Finnish'},
-      {code: 'pt_BR', name: 'Brazilian'},
-      {code: 'ar_AE', name: 'Arabic'},
-      {code: 'ru_RU', name: 'Russian'},
-      {code: 'tt_RU', name: 'Tatar'},
-      {code: 'zh_CN', name: 'Chinese'},
+      {code: 'en', name: 'English', alt: []},
+      {code: 'de', name: 'German', alt: []},
+      {code: 'fr', name: 'French', alt: []},
+      {code: 'fi', name: 'Finnish', alt: []},
+      {code: 'pt_BR', name: 'Brazilian', alt: []},
+      {code: 'ar_AE', name: 'Arabic', alt: []},
+      {code: 'ru_RU', name: 'Russian', alt: []},
+      {code: 'tt_RU', name: 'Tatar', alt: []},
+      {code: 'zh_CN', name: 'Chinese', alt: []},
     ];
   }
 
