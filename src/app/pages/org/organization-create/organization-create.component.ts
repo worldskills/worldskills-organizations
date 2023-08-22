@@ -29,7 +29,6 @@ export class OrganizationCreateComponent implements OnInit {
       const {name, relation, entity} = this.form.value;
 
       const model = { relation, name: { lang_code: 'en', text: name}, entityId: entity};
-      console.log(model);
       this.orgs.create(model).subscribe(
         result => {},
         error => {
@@ -41,7 +40,6 @@ export class OrganizationCreateComponent implements OnInit {
   }
 
   onEntityChange(event: number) {
-    console.log(event);
   }
 
 }
