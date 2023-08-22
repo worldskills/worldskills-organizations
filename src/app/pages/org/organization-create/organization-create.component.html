@@ -39,6 +39,16 @@
                 </select>
               </ng-container>
             </app-panel-row>
+            <app-panel-row>
+              <ng-container left>
+                {{ 'Related To' | translate}}&nbsp;*
+              </ng-container>
+              <ng-container right>
+                <ws-entity-tree-select [ngModel]="null" name="entity" [query]="entitySearchParams"
+                [showControls]="false" [showFullPath]="false" [defaultExpand]="false" (change)="onEntityChange($event)"
+                required></ws-entity-tree-select>
+              </ng-container>
+            </app-panel-row>
           </div>
         </app-panel>
         <button type="submit" class="btn btn-success float-right my-1">
