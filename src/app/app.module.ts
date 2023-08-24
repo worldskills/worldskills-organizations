@@ -43,6 +43,7 @@ import { OrganizationCreateComponent } from './pages/org/organization-create/org
 import { NewPersonFormComponent } from './new-person-form/new-person-form.component';
 import { OrganizationAddressComponent } from './pages/org/organization-address/organization-address.component';
 import { OrganizationPhoneComponent } from './pages/org/organization-phone/organization-phone.component';
+import { MemberAwardsComponent } from './pages/member-awards/member-awards.component';
 
 export const cacheVersionn = '202308211643';
 
@@ -84,6 +85,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewPersonFormComponent,
     OrganizationAddressComponent,
     OrganizationPhoneComponent,
+    MemberAwardsComponent,
   ],
   imports: [
     BrowserModule,

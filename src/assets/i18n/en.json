@@ -1,3 +1,11 @@
 {
-  "no_app_access_msg": "You do not have access to this application, please contact your member organization."
+  "no_app_access_msg": "You do not have access to this application, please contact your member organization.",
+  "action": "Action",
+  "add_award": "Add award",
+  "award": "Award",
+  "awards_and_recognition": "Awards and recognition",
+  "delete_member_award_confirm": "Are you sure you want to delete this award from the Member?",
+  "extra_information": "Extra information",
+  "no_awards_on_the_list": "No Awards on the list",
+  "presented_at": "Presented at"
 }

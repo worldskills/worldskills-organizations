@@ -1,0 +1,9 @@
+<ws-recipient-award-list
+  [canCreate]="canEdit"
+  [canDelete]="canEdit"
+  [canUpdate]="canEdit"
+  [recipientAwards]="memberAwards"
+  (create)="saveMemberAward($event, 'create')"
+  (update)="saveMemberAward($event, 'update')"
+  (delete)="deleteMemberAward($event)"
+></ws-recipient-award-list>

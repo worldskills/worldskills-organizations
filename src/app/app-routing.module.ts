@@ -18,6 +18,7 @@ import { GuardService } from '@worldskills/worldskills-angular-lib';
 import { OrganizationsComponent } from './pages/org/organizations/organizations.component';
 import { OrganizationDetailComponent } from './pages/org/organization-detail/organization-detail.component';
 import { OrganizationCreateComponent } from './pages/org/organization-create/organization-create.component';
+import { MemberAwardsComponent } from "./pages/member-awards/member-awards.component";
 
 function forAppCode(appCode: number, roles: Array<string>) {
   return roles.map(name => ({
@@ -126,6 +127,11 @@ const routes: Routes = [
             path: 'social-media',
             component: SocialMediaComponent,
             data: { breadcrumb: 'Social media' },
+          },
+          {
+            path: 'awards',
+            component: MemberAwardsComponent,
+            data: { breadcrumb: 'Awards and recognition' },
           },
         ],
       },
