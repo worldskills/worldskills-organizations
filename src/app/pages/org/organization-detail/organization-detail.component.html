@@ -51,6 +51,12 @@
         class="list-group-item list-group-item-action">
         {{'Phone Numbers' | translate}}
       </a>
+        <a
+          routerLinkActive="active"
+          routerLink="/organizations/{{ orgId }}/awards"
+          class="list-group-item list-group-item-action">
+          {{'awards_and_recognition' | translate}}
+        </a>
       </div>
     </div>
   </div>
@@ -78,6 +84,9 @@
     <app-organization-phone *ngIf="!loading && viewName && viewName === 'phones'"
     [canEdit]="canEdit" [org]="org" [loading]="loading">
     </app-organization-phone>
+
+    <app-organization-awards *ngIf="!loading && viewName && viewName === 'awards'">
+    </app-organization-awards>
 
   </div>
 </div>
