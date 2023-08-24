@@ -7,6 +7,7 @@ export const environment = {
   worldskillsAppId: 800,
   worldskillsPeopleAppId: 600,
   worldskillsApi: 'http://localhost:8080',
+  worldskillsApiAwards: 'http://localhost:8090/awards',
   worldskillsApiOrg: 'http://localhost:8090/org',
   worldskillsApiPeople: 'http://localhost:8090/people',
   worldskillsApiImages: 'http://localhost:8080/images',

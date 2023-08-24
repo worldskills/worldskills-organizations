@@ -3,6 +3,7 @@ export const environment = {
   worldskillsAppId: 800,
   worldskillsPeopleAppId: 600,
   worldskillsApi: 'https://api.worldskills.org',
+  worldskillsApiAwards: 'https://api.worldskills.org/awards',
   worldskillsApiOrg: 'https://api.worldskills.org/org',
   worldskillsApiPeople: 'https://api.worldskills.org/people',
   worldskillsApiImages: 'https://api.worldskills.org/images',
