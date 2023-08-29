@@ -99,7 +99,7 @@ export class ContactsComponent extends WsComponent implements OnInit {
   }
 
   search(name: string) {
-    return this.peopleService.fetch({...DEFAULT_FETCH_PARAMS, name, entity: this.member.id});
+    return this.peopleService.fetch({...DEFAULT_FETCH_PARAMS, name, entity: null});
   }
 
   unbindContact(contact: Contact) {
