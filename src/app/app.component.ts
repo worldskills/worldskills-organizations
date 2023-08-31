@@ -7,11 +7,11 @@ import {
   MenuItem,
   NgAuthService,
   User,
-  WorldskillsAngularLibService
+  WorldskillsAngularLibService,
+  WsiTranslateService
 } from '@worldskills/worldskills-angular-lib';
 import {LocaleContextService} from '../services/locale-context/locale-context.service';
 import {environment} from '../environments/environment';
-import {TranslateService} from '@ngx-translate/core';
 import {AppService} from '../services/app/app.service';
 import { menuConfig } from './app-config';
 
@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private breadcrumb: BreadcrumbsService,
-    private translateService: TranslateService,
+    private wsiTranslator: WsiTranslateService,
     private localeContextService: LocaleContextService,
     private wsi: WorldskillsAngularLibService,
   ) {
