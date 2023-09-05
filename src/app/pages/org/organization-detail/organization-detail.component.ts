@@ -107,6 +107,9 @@ export class OrganizationDetailComponent implements OnInit {
       case 'websites':
         this.loadWebsites();
         break;
+      case 'awards':
+        // let the awards component handle this
+        break;
     }
   }
 

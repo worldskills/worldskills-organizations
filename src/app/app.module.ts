@@ -31,18 +31,20 @@ import {PanelHeaderComponent} from './panel-header/panel-header.component';
 import {PanelRowComponent} from './panel-row/panel-row.component';
 import {PanelRowActionsComponent} from './panel-row-actions/panel-row-actions.component';
 import {AddMemberComponent} from './pages/add-member/add-member.component';
-import { MembershipSelectComponent } from './controls/membership-select/membership-select.component';
-import { OrganizationsComponent } from './pages/org/organizations/organizations.component';
-import { OrganizationSearchFormComponent } from './organization-search-form/organization-search-form.component';
-import { OrganizationDetailComponent } from './pages/org/organization-detail/organization-detail.component';
-import { OrganizationInfoComponent } from './pages/org/organization-info/organization-info.component';
-import { OrganizationMembersComponent } from './pages/org/organization-members/organization-members.component';
-import { OrganizationContactsComponent } from './pages/org/organization-contacts/organization-contacts.component';
-import { OrganizationWebsitesComponent } from './pages/org/organization-websites/organization-websites.component';
-import { OrganizationCreateComponent } from './pages/org/organization-create/organization-create.component';
-import { NewPersonFormComponent } from './new-person-form/new-person-form.component';
-import { OrganizationAddressComponent } from './pages/org/organization-address/organization-address.component';
-import { OrganizationPhoneComponent } from './pages/org/organization-phone/organization-phone.component';
+import {MembershipSelectComponent} from './controls/membership-select/membership-select.component';
+import {OrganizationsComponent} from './pages/org/organizations/organizations.component';
+import {OrganizationSearchFormComponent} from './organization-search-form/organization-search-form.component';
+import {OrganizationDetailComponent} from './pages/org/organization-detail/organization-detail.component';
+import {OrganizationInfoComponent} from './pages/org/organization-info/organization-info.component';
+import {OrganizationMembersComponent} from './pages/org/organization-members/organization-members.component';
+import {OrganizationContactsComponent} from './pages/org/organization-contacts/organization-contacts.component';
+import {OrganizationWebsitesComponent} from './pages/org/organization-websites/organization-websites.component';
+import {OrganizationCreateComponent} from './pages/org/organization-create/organization-create.component';
+import {NewPersonFormComponent} from './new-person-form/new-person-form.component';
+import {OrganizationAddressComponent} from './pages/org/organization-address/organization-address.component';
+import {OrganizationPhoneComponent} from './pages/org/organization-phone/organization-phone.component';
+import {MemberAwardsComponent} from './pages/member-awards/member-awards.component';
+import {OrganizationAwardsComponent} from './pages/org/organization-awards/organization-awards.component';
 
 export const cacheVersionn = '202308211643';
 
@@ -84,6 +86,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NewPersonFormComponent,
     OrganizationAddressComponent,
     OrganizationPhoneComponent,
+    MemberAwardsComponent,
+    OrganizationAwardsComponent
   ],
   imports: [
     BrowserModule,
