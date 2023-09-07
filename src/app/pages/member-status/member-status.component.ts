@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Member, MemberList } from '../../../types/member';
 import { environment } from '../../../environments/environment';
 import { MembersFetchParams, MembersService } from '../../../services/members/members.service';
-import { error } from 'console';
+
 
 
 @Component({
