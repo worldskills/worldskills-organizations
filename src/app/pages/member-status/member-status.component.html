@@ -29,15 +29,13 @@
         <tbody *ngIf="memberList">
           <tr *ngFor="let member of memberList.members">
             <td>
-                {{member.code}}
+              {{member.code}}
             </td>
             <td>
-                {{member.name.text}}
+              {{member.name.text}}
             </td>
             <td>
-              <a routerLink="{{member.id}}">
-                {{ getJoinedYear(member) }}
-              </a>
+              {{ getJoinedYear(member) }}
             </td>
             <td>
               {{ getMemberStatus(member) }}
@@ -61,9 +59,10 @@
         <fieldset [disabled]="loading">
           <div class="form-group row">
             <div class="col-sm-12">
-              <ng-select *ngIf="allMembers && allMembers.members" [wsSelect]="['id', 'name.text']" name="member_of" [ngModel]="membersFilter.member_of"
-                placeholder="{{'Member of' | translate}}" [items]="allMembers.members || []"
-                [disabled]="loading"></ng-select>
+              <ng-select *ngIf="allMembers && allMembers.members" [wsSelect]="['id', 'name.text']" name="member_of"
+
+                [(ngModel)]="membersFilter.member_of" placeholder="{{'Member of' | translate}}"
+                [items]="allMembers.members || []" [disabled]="loading"></ng-select>
             </div>
           </div>
           <div class="form-group row mb-0">
