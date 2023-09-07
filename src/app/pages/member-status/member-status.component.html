@@ -29,14 +29,10 @@
         <tbody *ngIf="memberList">
           <tr *ngFor="let member of memberList.members">
             <td>
-              <a routerLink="{{member.id}}">
                 {{member.code}}
-              </a>
             </td>
             <td>
-              <a routerLink="{{member.id}}">
                 {{member.name.text}}
-              </a>
             </td>
             <td>
               <a routerLink="{{member.id}}">
