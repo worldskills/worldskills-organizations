@@ -65,8 +65,8 @@
         <fieldset [disabled]="loading">
           <div class="form-group row">
             <div class="col-sm-12">
-              <ng-select [wsSelect]="['id', 'name.text']" name="member_of" [ngModel]="fetchParams.member_of"
-                placeholder="{{'Member of' | translate}}" [items]="memberList.members || []"
+              <ng-select *ngIf="allMembers && allMembers.members" [wsSelect]="['id', 'name.text']" name="member_of" [ngModel]="membersFilter.member_of"
+                placeholder="{{'Member of' | translate}}" [items]="allMembers.members || []"
                 [disabled]="loading"></ng-select>
             </div>
           </div>

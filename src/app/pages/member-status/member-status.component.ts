@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Member, MemberList } from '../../../types/member';
 import { environment } from '../../../environments/environment';
 import { MembersFetchParams, MembersService } from '../../../services/members/members.service';
+import { error } from 'console';
 
 
 @Component({
@@ -10,8 +11,14 @@ import { MembersFetchParams, MembersService } from '../../../services/members/me
   styleUrls: ['./member-status.component.css']
 })
 export class MemberStatusComponent {
+  // used for filter
+  allMembers: MemberList;
+  allMembersFilter: MembersFetchParams;
+
+  // used for status list
   memberList: MemberList;
-  fetchParams: MembersFetchParams;
+  membersFilter: MembersFetchParams;
+
   loading = false;
   exporting = false;
   appId = environment.worldskillsAppId;
@@ -21,18 +28,34 @@ export class MemberStatusComponent {
   }
 
   ngOnInit(): void {
-    this.fetchParams = {
+    this.allMembersFilter = {
       limit: 9999,
       offset: 0,
-      editable: true,
+      editable: false,
+      sort: 'code',
+    };
+
+    this.membersFilter = {
+      limit: 9999,
+      offset: 0,
+      editable: false,
       sort: 'code',
       member_of: 1 // default WSI
     };
+
+    this.loading = true;
+    this.members.getMemberList(this.allMembersFilter).subscribe(
+      (allMembers) => {
+        this.allMembers = allMembers;
+      },
+      error => this.loading = false,
+      () => this.loadMemberList()
+    );
   }
 
   loadMemberList() {
     this.loading = true;
-    this.members.getMemberList(this.fetchParams).subscribe(
+    this.members.getMemberList(this.membersFilter).subscribe(
       (memberList) => {
       this.memberList = memberList;
       this.loading = false;}
@@ -40,11 +63,11 @@ export class MemberStatusComponent {
   }
 
   getJoinedYear(member: Member) {
-    return member.member_of.find(m => m.id === this.fetchParams.member_of).year_joined;
+    return member.member_of.find(m => m.id === this.membersFilter.member_of).year_joined;
   }
 
   getMemberStatus(member: Member) {
-    return member.member_of.find(m => m.id === this.fetchParams.member_of).status;
+    return member.member_of.find(m => m.id === this.membersFilter.member_of).status;
   }
 
 }
