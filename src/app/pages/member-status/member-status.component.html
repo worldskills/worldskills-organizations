@@ -1,0 +1,104 @@
+
+<h2 class="mt-0">{{'Members Status' | translate}}</h2>
+<div class="clearfix border-bottom"></div>
+
+<div class="row mt-2">
+  <div class="col-md-9">
+    <ng-template ngIf="memberList">
+      <span class="float-left">{{'Total results:' | translate}}&nbsp;{{ memberList.total_count }}</span>
+      <div class="clearfix"></div>
+
+      <div class="table-responsive-md">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th class="border-top-0">
+              {{ 'Code' | translate }}
+            </th>
+            <th class="border-top-0">
+              {{ 'Name' | translate }}
+            </th>
+            <th class="border-top-0">
+              {{ 'Year joined' | translate }}
+            </th>
+            <th class="border-top-0">
+              {{ 'Status' | translate }}
+            </th>
+            </tr>
+          </thead>
+          <ng-template [ngIf]="!loading" [ngIfElse]="loader">
+            <tbody>
+            <tr *ngFor="let member of memberList.members">
+              <td>
+                <a routerLink="{{member.id}}">
+                  {{member.code}}
+                </a>
+              </td>
+              <td>
+                <a routerLink="{{member.id}}">
+                  {{member.name.text}}
+                </a>
+              </td>
+              <td>
+                <a routerLink="{{member.id}}">
+                  {{ getJoinedYear(member) }}
+                </a>
+              </td>
+              <td>
+                {{ getMemberStatus(member) }}
+              </td>
+            </tr>
+            <tr *ngIf="memberList.members.length === 0">
+              <td colspan="4">{{'No members found.' | translate}}</td>
+            </tr>
+            </tbody>
+          </ng-template>
+          <ng-template #loader>
+            <tbody>
+            <tr>
+              <td colspan="4">
+                <ws-spinner></ws-spinner>
+              </td>
+            </tr>
+            </tbody>
+          </ng-template>
+        </table>
+      </div>
+    </ng-template>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <h5 class="card-header m-0">{{'Search Members' | translate}}</h5>
+      <div class="card-body">
+        <fieldset [disabled]="loading">
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <ng-select
+                [wsSelect]="['id', 'name.text']"
+                name="member_of"
+                [ngModel]="fetchParams.member_of"
+                placeholder="{{'Member of' | translate}}"
+                [items]="memberList.members || []"
+                [disabled]="loading"
+              ></ng-select>
+            </div>
+          </div>
+          <div class="form-group row mb-0">
+            <div class="col-sm-12 text-right">
+              <button
+                (click)="loadMemberList()"
+                type="button"
+                class="btn btn-primary btn-sm" id="saveCentre" [disabled]="loading">
+                <ng-container *ngIf="!loading">{{'Search' | translate}}</ng-container>
+                <ng-container *ngIf="loading">
+                  <ws-spinner></ws-spinner>
+                </ng-container>
+              </button>&nbsp;
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+</div>

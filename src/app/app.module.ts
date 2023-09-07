@@ -45,6 +45,7 @@ import {OrganizationAddressComponent} from './pages/org/organization-address/org
 import {OrganizationPhoneComponent} from './pages/org/organization-phone/organization-phone.component';
 import {MemberAwardsComponent} from './pages/member-awards/member-awards.component';
 import {OrganizationAwardsComponent} from './pages/org/organization-awards/organization-awards.component';
+import { MemberStatusComponent } from './pages/member-status/member-status.component';
 
 export const cacheVersionn = '202308211643';
 
@@ -87,7 +88,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     OrganizationAddressComponent,
     OrganizationPhoneComponent,
     MemberAwardsComponent,
-    OrganizationAwardsComponent
+    OrganizationAwardsComponent,
+    MemberStatusComponent
   ],
   imports: [
     BrowserModule,

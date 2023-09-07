@@ -30,6 +30,9 @@ export function isMembersFetchParams(object: any): object is MembersFetchParams 
 }
 
 const DEFAULT_FETCH_PARAMS: MembersFetchParams = {limit: 500, offset: 0};
+/*
+  TODO: We need to remove the need for WsService
+*/
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +100,18 @@ export class MembersService extends WsService<MemberList, MembersFetchParams> {
     return obj;
   }
 
+  getMemberList(parms: MembersFetchParams): Observable<MemberList> {
+    const params = this.createParamsFromFetchParams(parms, HttpUtil.objectToParams(this.stripNullOrUndefined(parms) || {}));
+    return this.http.get<MemberList>(
+      `${environment.worldskillsApiOrg}/members`, {params}
+    ).pipe(share());
+
+  }
+
+
+  /*
+    We need to look at removing this and replace these methods with something that's easier to read and follow
+  */
   fetch(rOpt?: RequestOptions): Observable<MemberList>;
   fetch(params: MembersFetchParams, rOpt?: RequestOptions): Observable<MemberList>;
   fetch(mOpt: MulticastOptions, rOpt?: RequestOptions): Observable<MemberList>;

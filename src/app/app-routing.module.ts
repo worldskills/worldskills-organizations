@@ -19,6 +19,7 @@ import { OrganizationsComponent } from './pages/org/organizations/organizations.
 import { OrganizationDetailComponent } from './pages/org/organization-detail/organization-detail.component';
 import { OrganizationCreateComponent } from './pages/org/organization-create/organization-create.component';
 import { MemberAwardsComponent } from "./pages/member-awards/member-awards.component";
+import { MemberStatusComponent } from './pages/member-status/member-status.component';
 
 function forAppCode(appCode: number, roles: Array<string>) {
   return roles.map(name => ({
@@ -74,6 +75,12 @@ const routes: Routes = [
         pathMatch: 'full',
         data: { breadcrumb: 'Members' },
         component: MembersComponent,
+      },
+      {
+        path: 'members-status',
+        pathMatch: 'full',
+        data: { breadcrumb: 'Members Status' },
+        component: MemberStatusComponent
       },
       {
         path: 'add',
