@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { OrganizationRelationType } from 'src/types/organization';
+import { OrgRelations } from '../app-config';
 
 @Component({
   selector: 'app-organization-search-form',
@@ -24,9 +25,15 @@ export class OrganizationSearchFormComponent implements OnInit {
     });
   }
 
+  get orgRelations() {
+    return OrgRelations;
+  }
+
 }
 
 export interface OrganizationSearch {
   name: string;
   relation?: string;
 }
+
+

@@ -4,6 +4,7 @@ import { OrganizationsService } from 'src/services/organizations/organizations.s
 import { Router } from '@angular/router';
 import { OrganizationRelationType } from '../../../../types/organization';
 import { EntityFetchParams } from '@worldskills/worldskills-angular-lib';
+import { OrgRelations } from '../../../../app/app-config';
 
 @Component({
   selector: 'app-organization-create',
@@ -40,6 +41,10 @@ export class OrganizationCreateComponent implements OnInit {
   }
 
   onEntityChange(event: number) {
+  }
+
+  get orgRelations() {
+    return OrgRelations;
   }
 
 }

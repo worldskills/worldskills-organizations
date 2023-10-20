@@ -9,6 +9,7 @@ import { ImageService } from 'src/services/image/image.service';
 import { Image } from 'src/types/image';
 import { HttpEventType } from '@angular/common/http';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { OrgRelations } from '../../../../app/app-config';
 
 @Component({
   selector: 'app-organization-info',
@@ -89,6 +90,10 @@ export class OrganizationInfoComponent implements OnInit {
     this.relationEntityId = event;
   }
 
+  get orgRelations() {
+    return OrgRelations;
+  }
+
   createRelation() {
     const model: OrganizationRelationCreate = {
       organization: this.org.id,
@@ -123,11 +128,10 @@ export class OrganizationInfoComponent implements OnInit {
   }
 
   editRelation() {
-    console.log(this.relationToEdit);
     const model: OrganizationRelationCreate = {
       organization: this.org.id,
       type: this.relationToEdit.type,
-      entity: this.relationEntityId
+      entity: this.relationToEdit.entity.id
     };
     if (this.cacheDate) {
       model.since = toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
