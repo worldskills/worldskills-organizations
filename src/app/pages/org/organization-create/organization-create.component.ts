@@ -27,9 +27,14 @@ export class OrganizationCreateComponent implements OnInit {
 
   submitForm() {
     if (this.form.valid) {
-      const {name, relation, entity} = this.form.value;
+      const {name, description, relation, entity} = this.form.value;
 
-      const model = { relation, name: { lang_code: 'en', text: name}, entityId: entity};
+      const model = {
+        relation,
+        name: { lang_code: 'en', text: name},
+        description: { lang_code: 'en', text: description },
+        entityId: entity
+      };
       this.orgs.create(model).subscribe(
         result => {},
         error => {

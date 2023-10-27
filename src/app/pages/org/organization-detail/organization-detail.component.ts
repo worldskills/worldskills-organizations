@@ -53,6 +53,9 @@ export class OrganizationDetailComponent implements OnInit {
     this.orgs.get(this.orgId).pipe(take(1)).subscribe(
       next => {
         this.org = next;
+        if (GenericUtil.isNullOrUndefined(this.org.description)) {
+          this.org.description = { lang_code: 'en', text: '' };
+        }
         this.canEdit = PermissionHelper.canEditOrg(this.auth.currentUser.value, this.org.wsEntity.id);
       },
       error => this.handleError(error, 'load-orgs'),
@@ -122,10 +125,16 @@ export class OrganizationDetailComponent implements OnInit {
     }
     const update: OrganizationRequest = {
       name: org.name,
-      logo
+      logo,
+      description: org.description
     };
     this.orgs.update(this.orgId, update).pipe(take(1)).subscribe(
-      next => this.org = next,
+      next => {
+        this.org = next;
+        if (GenericUtil.isNullOrUndefined(this.org.description)) {
+          this.org.description = { lang_code: 'en', text: '' };
+        }
+      },
       error => this.handleError(error, 'save-org'),
       () => this.loading = false
     );

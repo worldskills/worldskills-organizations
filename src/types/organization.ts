@@ -23,6 +23,7 @@ export interface MemberOrganizationRequest {
 
 export interface OrganizationRequest {
   name: I18nText;
+  description?: I18nText;
   logo?: Logo;
 }
 
@@ -36,6 +37,7 @@ export interface Organization {
   id: number;
   legacyId?: number;
   name: I18nText;
+  description?: I18nText;
   websites: Array<Website>;
   phones: Array<Phone>;
   addresses: Array<Address>;
@@ -79,6 +81,7 @@ export interface OrganizationContactList {
 export interface OrganizationCreate {
   entityId?: number;
   name: I18nText;
+  description?: I18nText;
   relation?: OrganizationRelationType;
   relationSince?: Date;
 }

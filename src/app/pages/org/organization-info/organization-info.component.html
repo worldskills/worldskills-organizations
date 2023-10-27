@@ -17,6 +17,16 @@
       </app-panel-row>
       <app-panel-row>
         <ng-container left>
+          {{'Description' | translate}}&nbsp;*
+        </ng-container>
+        <ng-container right>
+          <input *ngIf="canEdit" class="form-control" placeholder="{{'Description' | translate}}" [(ngModel)]="org.description.text"
+            required />
+          <span *ngIf="!canEdit">{{ org.description }}</span>
+        </ng-container>
+      </app-panel-row>
+      <app-panel-row>
+        <ng-container left>
           {{'Logo' | translate}}
         </ng-container>
         <ng-container right>

@@ -24,6 +24,15 @@
             </app-panel-row>
             <app-panel-row>
               <ng-container left>
+                {{'Description' | translate}}
+              </ng-container>
+              <ng-container right>
+                <input class="form-control" name="description" placeholder="{{'Description' | translate}}"
+                  required  (ngModel)="null" />
+              </ng-container>
+            </app-panel-row>
+            <app-panel-row>
+              <ng-container left>
                 {{'Relationship' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>
