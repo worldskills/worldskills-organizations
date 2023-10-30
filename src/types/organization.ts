@@ -10,13 +10,6 @@ export enum OrganizationRelationType {
   SUPPLIER = 'SUPPLIER', MEMBER = 'MEMBER', NGO_PARTNER = 'NGO_PARTNER', POTENTIAL_MEMBER = 'POTENTIAL_MEMBER'
 }
 
-export interface OrganiationRelation {
-  id: number;
-  entity: WsEntityModel;
-  type: OrganizationRelationType;
-  since?: Date;
-}
-
 export interface MemberOrganizationRequest {
   id: number;
 }
@@ -50,7 +43,7 @@ export interface Organization {
 export interface OrganizationRelation {
   id: number;
   entity: WsEntityModel;
-  type: string;
+  type: OrganizationRelationType;
   since?: Date;
   end?: Date;
 }

@@ -56,7 +56,7 @@
       </app-panel-row>
     </div>
   </app-panel>
-  <app-panel title="{{'Relationships' | translate}}">
+  <app-panel title="{{'Outbound Relationships' | translate}}">
     <table class="table">
       <thead>
         <tr>
@@ -174,5 +174,25 @@
       </tbody>
     </table>
     <button type="button" class="btn btn-success btn-sm" (click)="prepInsert()">{{'New' | translate}}</button>
+  </app-panel>
+
+
+  <app-panel title="{{'Inbound Relationships' | translate}}" *ngIf="inboundRelations">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Type</th>
+          <th scope="col">Entity</th>
+          <th scope="col" style="width: 200px">Since</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let relation of inboundRelations">
+        <tr>
+          <td>{{ relation.type }}</td>
+          <td>{{ relation.entity.name.text }}</td>
+          <td>{{ relation.since | date: 'longDate' }}</td>
+        </tr>
+      </tbody>
+    </table>
   </app-panel>
 </ng-container>

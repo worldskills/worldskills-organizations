@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Organization, OrganiationRelation, OrganizationRelationCreate } from '../../../../types/organization';
+import { Organization, OrganizationRelation, OrganizationRelationCreate } from '../../../../types/organization';
 import { AlertService, AlertType, EntityFetchParams, toDate, UploadService } from '@worldskills/worldskills-angular-lib';
 import { OrganizationsService } from 'src/services/organizations/organizations.service';
 import { faSave, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -28,9 +28,10 @@ export class OrganizationInfoComponent implements OnInit {
 
   entitySearchParams: EntityFetchParams;
   showForm = false;
-  relation: OrganiationRelation;
+  relation: OrganizationRelation;
   relationEntityId: number;
-  relationToEdit: OrganiationRelation;
+  relationToEdit: OrganizationRelation;
+  inboundRelations: OrganizationRelation[];
 
   faSave = faSave;
   faTrash = faTrash;
@@ -46,9 +47,19 @@ export class OrganizationInfoComponent implements OnInit {
               private alertService: AlertService, private uploadService: UploadService, private imageService: ImageService) { }
 
   ngOnInit(): void {
+    this.inboundRelations = [];
     this.entitySearchParams = {
       // sort: 'name'
     };
+    this.loadInboundRelations();
+  }
+
+  loadInboundRelations() {
+    this.orgSerice.getInboundRelations(this.org.id).subscribe(
+      next => {
+        this.inboundRelations = next;
+      }
+    );
   }
 
   saveClick() {
@@ -113,7 +124,7 @@ export class OrganizationInfoComponent implements OnInit {
     );
   }
 
-  enableRelationEditMode(relation: OrganiationRelation) {
+  enableRelationEditMode(relation: OrganizationRelation) {
     this.relationToEdit = relation;
     if (this.relationToEdit) {
       if (relation.since) {
@@ -145,7 +156,7 @@ export class OrganizationInfoComponent implements OnInit {
     );
   }
 
-  deleteRelation(relation: OrganiationRelation) {
+  deleteRelation(relation: OrganizationRelation) {
     this.orgs.deleteRelation(this.org.id, relation.id).subscribe(
       next => {},
       error => {},

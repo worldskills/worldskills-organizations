@@ -59,6 +59,11 @@ export class OrganizationService extends WsService<Organization> {
     return this.http.get<OrganizationRelation[]>(url);
   }
 
+  getInboundRelations(id: number): Observable<OrganizationRelation[]> {
+    const url = `${this.endpoint}/${id}/relations_inbound`;
+    return this.http.get<OrganizationRelation[]>(url);
+  }
+
   getRelation(id: number, relationId: number): Observable<OrganizationRelation> {
     const url = `${this.endpoint}/${id}/relations/${relationId}`;
     return this.http.get<OrganizationRelation>(url);
