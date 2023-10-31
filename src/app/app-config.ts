@@ -8,14 +8,14 @@ export const MembershipStatuses = [
 
 export const OrgRelations = [
   { value : '', label: 'Any Relationship' },
-  { value: 'Child', label: 'Child' },
+  { value: 'CHILD', label: 'Child' },
   { value: 'GLOBAL_PARTNER', label: 'Global Partner' },
   { value: 'HOST', label: 'Host' },
   { value: 'NGO_PARTNER', label: 'NGO Partner' },
   { value: 'MEMBER', label: 'Member' },
   { value: 'MEMBER_PARTNER', label: 'Member Partner' },
   { value: 'POTENTIAL_MEMBER', label: 'Potential Member' },
-  { value: 'Parent', label: 'Parent' },
+  { value: 'PARENT', label: 'Parent' },
   { value: 'SPONSOR', label: 'Sponsor' },
   { value: 'SUPPLIER', label: 'Supplier' },
   { value: 'SUPPORTER', label: 'Supporter' },
