@@ -121,7 +121,8 @@ export class OrganizationDetailComponent implements OnInit {
     const logo = GenericUtil.isNullOrUndefined(org.logo) ? null : {
       id:  org.logo.id,
       image_id: org.logo.image_id,
-      thumbnail_hash: org.logo.thumbnail,
+      thumbnail: org.logo.thumbnail,
+      thumbnail_hash: org.logo.thumbnail_hash,
     }
     const update: OrganizationRequest = {
       name: org.name,
