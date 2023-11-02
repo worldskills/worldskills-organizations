@@ -11,6 +11,7 @@ export const OrgRelations = [
   { value: 'CHILD', label: 'Child' },
   { value: 'GLOBAL_PARTNER', label: 'Global Partner' },
   { value: 'HOST', label: 'Host' },
+  { value: 'OBSERVER', label: 'Observer' },
   { value: 'NGO_PARTNER', label: 'NGO Partner' },
   { value: 'MEMBER', label: 'Member' },
   { value: 'MEMBER_PARTNER', label: 'Member Partner' },
