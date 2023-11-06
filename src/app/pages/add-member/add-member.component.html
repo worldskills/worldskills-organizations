@@ -32,6 +32,28 @@
                 <input class="form-control" name="code" placeholder="{{'XX' | translate}}" [ngModel]="null" required />
               </ng-container>
             </app-panel-row>
+            <app-panel-row>
+              <ng-container left>
+                {{'Organization' | translate}}&nbsp;*
+              </ng-container>
+              <ng-container right>
+                <div>
+                  <input type="radio" name="existingOrg" value="false" (change)="existingOrg = false" [checked]="!existingOrg" />&nbsp;<span [ngStyle]="{'font-weight': existingOrg ? 'normal' : 'bold' }">{{'New organization' | translate}}</span>
+                  &nbsp;
+                  <input type="radio" name="existingOrg" value="true" (change)="existingOrg = true" [checked]="existingOrg" />&nbsp;<span [ngStyle]="{'font-weight': existingOrg ? 'bold' : 'normal' }">{{'Existing organization' | translate}}</span>
+                </div>
+                <hr style="margin-top: 5px; margin-bottom: 5px;" />
+                <div *ngIf="!existingOrg">
+                  <em>A new organization entity will be created.</em>
+                </div>
+                <div *ngIf="existingOrg">
+                  Please select an existing organization entity:
+                  <ng-select [wsSelect]="['id', 'name.text']" name="organization" [ngModel]="null"
+                    placeholder="{{'Organization' | translate}}" [items]="organizations || []" [disabled]="loading"
+                    required></ng-select>
+                </div>
+              </ng-container>
+            </app-panel-row>
           </div>
         </app-panel>
         <app-panel-header title="{{'Membership' | translate}}"></app-panel-header>

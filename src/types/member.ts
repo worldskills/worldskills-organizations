@@ -27,7 +27,7 @@ export interface MemberRequest {
   name?: I18nText;
   name_1058?: I18nText;
   ws_entity?: OrgEntity;
-  organization?: Organization;
+  organization?: number;
   member_of?: MembershipRequest;
   websites?: Array<Website>;
   phones?: Array<Phone>;
