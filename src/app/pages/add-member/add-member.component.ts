@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {APIError, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {NgForm} from '@angular/forms';
 import {MemberService} from '../../../services/member/member.service';
 import {CountriesService} from '../../../services/countries/countries.service';
@@ -8,6 +8,8 @@ import {Member, MemberRequest} from '../../../types/member';
 import {Country, CountryRequest} from '../../../types/country';
 import {MembersService} from '../../../services/members/members.service';
 import {Router} from '@angular/router';
+import { Organization } from '../../../types/organization';
+import { OrganizationService } from '../../../services/organization/organization.service';
 
 @Component({
   selector: 'app-add-member',
@@ -18,7 +20,9 @@ export class AddMemberComponent extends WsComponent implements OnInit {
 
   members: Array<Member>;
   countries: Array<Country>;
-  loading = false;
+  loading: boolean = false;
+  existingOrg: boolean = false;
+  organizations: Organization[] = [];
   @ViewChild('form') form: NgForm;
 
   constructor(
@@ -27,6 +31,7 @@ export class AddMemberComponent extends WsComponent implements OnInit {
     private countriesService: CountriesService,
     private countryService: CountryService,
     private router: Router,
+    private organizationService: OrganizationService,
   ) {
     super();
   }
@@ -39,10 +44,28 @@ export class AddMemberComponent extends WsComponent implements OnInit {
         this.membersService,
         this.countriesService,
         this.countryService,
-      ).subscribe(loading => (this.loading = loading)),
+      ).subscribe(
+        loading => {
+          this.loading = loading;
+          this.loadOrganizations();
+        }
+      ),
     );
     this.membersService.fetch({editable: true, offset: 0, limit: 9999});
     this.countriesService.fetch({offset: 0, limit: 9999});
+  }
+
+  loadOrganizations() {
+    this.loading = true;
+    this.organizationService.list(0, 9999, '').subscribe(
+      next => {
+        if (next && next.org_list) {
+          this.organizations = next.org_list;
+        }
+      },
+      error => this.loading = false,
+      () => this.loading = false
+    );
   }
 
   get initialized() {
@@ -59,29 +82,42 @@ export class AddMemberComponent extends WsComponent implements OnInit {
   submitForm() {
     if (this.form.valid) {
       const {code, name, id, status, year_joined, member_country} = this.form.value;
+
       const data: MemberRequest = {
         code,
         member_of: {id, status, year_joined},
         name: {lang_code: 'en', text: name},
         name_1058: {lang_code: 'en', text: name},
+        organization: this.existingOrg ?  this.form.form.get('organization').value : null
       };
-      this.memberService.create(data).subscribe(member => {
-        if (member_country) {
-          // tslint:disable-next-line:no-shadowed-variable
-          const country = this.countries.find(c => member_country === c.id);
-          const countryData: CountryRequest = {
-            code: country.code,
-            phone_prefix: country.phone_prefix,
-            member: member.id,
-            name: country.name,
-          };
-          this.countryService.update(country.code, countryData).subscribe(
-            () => this.router.navigate(['members', member.id])
-          );
-        } else {
-          this.router.navigate(['members', member.id]);
+
+      this.memberService.create(data).subscribe(
+        member => {
+          if (member_country) {
+            // tslint:disable-next-line:no-shadowed-variable
+            const country = this.countries.find(c => member_country === c.id);
+            const countryData: CountryRequest = {
+              code: country.code,
+              phone_prefix: country.phone_prefix,
+              member: member.id,
+              name: country.name,
+            };
+            this.countryService.update(country.code, countryData).subscribe(
+              () => this.router.navigate(['members', member.id])
+            );
+          } else {
+            this.router.navigate(['members', member.id]);
+          }
+        },
+        error => {
+          if (error.error) {
+            const apiError = error.error as APIError;
+            alert(apiError.dev_msg);
+          } else {
+            alert('An unknown error occurred');
+          }
         }
-      });
+      );
     }
   }
 
