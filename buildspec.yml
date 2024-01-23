@@ -16,4 +16,4 @@ phases:
   post_build:
     commands:
       - aws s3 sync dist/ s3://$BUCKET
-      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT --paths /index.html
+      - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT --paths /index.html /assets/i18n/*
