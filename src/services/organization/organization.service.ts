@@ -156,7 +156,7 @@ export class OrganizationService extends WsService<Organization> {
   }
 
   updateAddress(id: number, addressId: number, params: AddressRequest): Observable<Address> {
-    const url = `${this.endpoint}/${id}/addresses${addressId}}`;
+    const url = `${this.endpoint}/${id}/addresses/${addressId}}`;
     return this.http.put<Address>(url, params);
   }
 
