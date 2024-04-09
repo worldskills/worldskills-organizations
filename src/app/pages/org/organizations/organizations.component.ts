@@ -24,8 +24,6 @@ export class OrganizationsComponent implements OnInit {
   name: string;
   relation: string;
 
-  linkedRelations = [OrganizationRelationType.PARENT, OrganizationRelationType.CHILD];
-
   constructor(private orgs: OrganizationService) {}
 
   ngOnInit(): void {
@@ -85,7 +83,7 @@ export class OrganizationsComponent implements OnInit {
 
   getRelationText(relation: OrganizationRelation) {
     let result = relation.type.toString().replace('_', ' ');
-    if (this.linkedRelations.includes(relation.type)) {
+    if (relation.type == OrganizationRelationType.PARENT || relation.type == OrganizationRelationType.CHILD) {
       result += ` - ${relation.organizationName}`;
     } else {
       result += ` - ${relation.entity.name.text}`;
