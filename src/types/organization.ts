@@ -7,7 +7,8 @@ import {OrgWebsite as Website} from './website';
 
 export enum OrganizationRelationType {
   GLOBAL_PARTNER = 'GLOBAL_PARTNER', HOST = 'HOST', SPONSOR = 'SPONSOR', SUPPORTER = 'SUPPORTER',
-  SUPPLIER = 'SUPPLIER', MEMBER = 'MEMBER', NGO_PARTNER = 'NGO_PARTNER', POTENTIAL_MEMBER = 'POTENTIAL_MEMBER'
+  SUPPLIER = 'SUPPLIER', MEMBER = 'MEMBER', NGO_PARTNER = 'NGO_PARTNER', POTENTIAL_MEMBER = 'POTENTIAL_MEMBER',
+  PARENT = 'PARENT', CHILD = 'CHILD'
 }
 
 export interface MemberOrganizationRequest {

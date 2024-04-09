@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from '../../../../services/organization/organization.service';
 import { take } from 'rxjs/operators';
-import { OrganizationList, Organization } from '../../../../types/organization';
+import { OrganizationList, Organization, OrganizationRelationType } from '../../../../types/organization';
 import { ErrorUtil, GenericUtil } from '@worldskills/worldskills-angular-lib';
 import { defaultErrorMessage } from '../../../app-config';
 import { environment } from 'src/environments/environment';
@@ -10,10 +10,9 @@ import { OrganizationSearch } from '../../../organization-search-form/organizati
 @Component({
   selector: 'app-organizations',
   templateUrl: './organizations.component.html',
-  styleUrls: ['./organizations.component.css']
+  styleUrls: ['./organizations.component.css'],
 })
 export class OrganizationsComponent implements OnInit {
-
   appId = environment.worldskillsAppId;
   loading = false;
   data: OrganizationList;
@@ -25,7 +24,7 @@ export class OrganizationsComponent implements OnInit {
   name: string;
   relation: string;
 
-  constructor(private orgs: OrganizationService) { }
+  constructor(private orgs: OrganizationService) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -33,11 +32,14 @@ export class OrganizationsComponent implements OnInit {
 
   loadData() {
     this.loading = true;
-    this.orgs.list(this.offset, this.limit, this.name, this.relation).pipe(take(1)).subscribe(
-      next => this.data = next,
-      error => this.handleError(error),
-      () => this.loading = false
-    );
+    this.orgs
+      .list(this.offset, this.limit, this.name, this.relation)
+      .pipe(take(1))
+      .subscribe(
+        (next) => (this.data = next),
+        (error) => this.handleError(error),
+        () => (this.loading = false)
+      );
   }
 
   search(model: OrganizationSearch) {
@@ -49,7 +51,7 @@ export class OrganizationsComponent implements OnInit {
   }
 
   fetch(page) {
-    if ((this.offset / this.limit) !== (page - 1)) {
+    if (this.offset / this.limit !== page - 1) {
       this.offset = this.limit ? this.limit * (page - 1) : 0;
       this.loadData();
     }
@@ -65,15 +67,31 @@ export class OrganizationsComponent implements OnInit {
       return true;
     }
 
-    return GenericUtil.isNullOrUndefined(this.data.org_list) ? true : this.data.org_list.length <= 0;
+    return GenericUtil.isNullOrUndefined(this.data.org_list)
+      ? true
+      : this.data.org_list.length <= 0;
   }
 
   getRelationships(org: Organization) {
+    let result = '';
     if (GenericUtil.isNullOrUndefined(org.relations)) {
-      return '';
+      return result;
     }
 
-    return org.relations.map(x => x.type.toString().replace('_', ' ')).join(', ');
-  }
+    const linkedRelations = [OrganizationRelationType.PARENT, OrganizationRelationType.CHILD];
 
+    org.relations.forEach((relation, index) => {
+      if (index > 0) {
+        result += ', ';
+      }
+      result += relation.type.toString().replace('_', ' ');
+      if (linkedRelations.includes(relation.type)) {
+        result += ` ${relation.organizationName}`;
+      } else {
+        result += ` ${relation.entity.name.text}`;
+      }
+    });
+
+    return result;
+  }
 }
