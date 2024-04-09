@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from '../../../../services/organization/organization.service';
 import { take } from 'rxjs/operators';
-import { OrganizationList, Organization, OrganizationRelationType } from '../../../../types/organization';
+import { OrganizationList, Organization, OrganizationRelationType, OrganizationRelation } from '../../../../types/organization';
 import { ErrorUtil, GenericUtil } from '@worldskills/worldskills-angular-lib';
 import { defaultErrorMessage } from '../../../app-config';
 import { environment } from 'src/environments/environment';
@@ -23,6 +23,8 @@ export class OrganizationsComponent implements OnInit {
   limit = 10;
   name: string;
   relation: string;
+
+  linkedRelations = [OrganizationRelationType.PARENT, OrganizationRelationType.CHILD];
 
   constructor(private orgs: OrganizationService) {}
 
@@ -72,26 +74,13 @@ export class OrganizationsComponent implements OnInit {
       : this.data.org_list.length <= 0;
   }
 
-  getRelationships(org: Organization) {
-    let result = '';
-    if (GenericUtil.isNullOrUndefined(org.relations)) {
-      return result;
+  getRelationText(relation: OrganizationRelation) {
+    let result = relation.type.toString().replace('_', ' ');
+    if (this.linkedRelations.includes(relation.type)) {
+      result += ` - ${relation.organizationName}`;
+    } else {
+      result += ` - ${relation.entity.name.text}`;
     }
-
-    const linkedRelations = [OrganizationRelationType.PARENT, OrganizationRelationType.CHILD];
-
-    org.relations.forEach((relation, index) => {
-      if (index > 0) {
-        result += ', ';
-      }
-      result += relation.type.toString().replace('_', ' ');
-      if (linkedRelations.includes(relation.type)) {
-        result += ` ${relation.organizationName}`;
-      } else {
-        result += ` ${relation.entity.name.text}`;
-      }
-    });
-
     return result;
   }
 }

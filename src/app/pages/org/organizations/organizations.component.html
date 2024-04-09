@@ -35,7 +35,11 @@
                   </a>
                 </td>
                 <td>
-                  {{ getRelationships(org) }}
+                  <div *ngIf="org.relations">
+                    <span *ngFor="let relation of org.relations" class="badge badge-secondary">
+                      {{ getRelationText(relation) }}
+                    </span>
+                  </div>
                 </td>
               </tr>
               <tr *ngIf="isEmpty()">
