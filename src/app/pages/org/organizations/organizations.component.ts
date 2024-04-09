@@ -74,20 +74,13 @@ export class OrganizationsComponent implements OnInit {
       : this.data.org_list.length <= 0;
   }
 
-  getSortedOrgRelations() {
-    return this.data.org_list
-      .map((o) => o.relations)
-      .filter((r) => r)
-      .reduce((acc, val) => acc.concat(val), [])
-      .sort((a, b) => {
-        if (a.type < b.type) {
-          return -1;
-        }
-        if (a.type > b.type) {
-          return 1;
-        }
-        return 0;
-      });
+  getSortedOrgRelations(org: Organization) {
+    return org.relations.sort((a, b) => {
+      if (a.type === b.type) {
+        return a.entity.name.text.localeCompare(b.entity.name.text);
+      }
+      return a.type.localeCompare(b.type);
+    });
   }
 
   getRelationText(relation: OrganizationRelation) {
