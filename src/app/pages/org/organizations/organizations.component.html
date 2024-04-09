@@ -36,7 +36,7 @@
                 </td>
                 <td>
                   <div *ngIf="org.relations">
-                    <span *ngFor="let relation of org.relations" class="badge badge-secondary">
+                    <span *ngFor="let relation of getSortedOrgRelations()" class="badge badge-secondary">
                       {{ getRelationText(relation) }}
                     </span>
                   </div>

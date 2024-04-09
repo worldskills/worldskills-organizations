@@ -74,6 +74,22 @@ export class OrganizationsComponent implements OnInit {
       : this.data.org_list.length <= 0;
   }
 
+  getSortedOrgRelations() {
+    return this.data.org_list
+      .map((o) => o.relations)
+      .filter((r) => r)
+      .reduce((acc, val) => acc.concat(val), [])
+      .sort((a, b) => {
+        if (a.type < b.type) {
+          return -1;
+        }
+        if (a.type > b.type) {
+          return 1;
+        }
+        return 0;
+      });
+  }
+
   getRelationText(relation: OrganizationRelation) {
     let result = relation.type.toString().replace('_', ' ');
     if (this.linkedRelations.includes(relation.type)) {
