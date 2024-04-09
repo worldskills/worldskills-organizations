@@ -189,7 +189,7 @@
       <tbody *ngFor="let relation of inboundRelations">
         <tr>
           <td>{{ relation.type }}</td>
-          <td>{{ relation.entity.name.text }}</td>
+          <td>{{ relation.organizationName }}</td>
           <td>{{ relation.since | date: 'longDate' }}</td>
         </tr>
       </tbody>

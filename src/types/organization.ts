@@ -42,10 +42,12 @@ export interface Organization {
 
 export interface OrganizationRelation {
   id: number;
+  organizationId?: number;
   entity: WsEntityModel;
   type: OrganizationRelationType;
   since?: Date;
   end?: Date;
+  organizationName?: string;
 }
 
 export interface OrganizationContact {
