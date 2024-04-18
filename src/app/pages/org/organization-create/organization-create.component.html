@@ -33,6 +33,16 @@
             </app-panel-row>
             <app-panel-row>
               <ng-container left>
+                {{ 'Country' | translate }}
+              </ng-container>
+              <ng-container right>
+                <ng-select name="country" [ngModel]="selectedCountry" placeholder="{{'Country' | translate}}"
+                           bindLabel="name.text" bindValue="id"
+                           [items]="countries || []"></ng-select>
+              </ng-container>
+            </app-panel-row>
+            <app-panel-row>
+              <ng-container left>
                 {{'Relationship' | translate}}&nbsp;*
               </ng-container>
               <ng-container right>

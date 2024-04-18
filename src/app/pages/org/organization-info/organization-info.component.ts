@@ -10,6 +10,8 @@ import { Image } from 'src/types/image';
 import { HttpEventType } from '@angular/common/http';
 import { NgbDate, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { OrgRelations } from '../../../../app/app-config';
+import { Country } from '../../../../types/country';
+import { CountriesService } from '../../../../services/countries/countries.service';
 
 @Component({
   selector: 'app-organization-info',
@@ -26,6 +28,8 @@ export class OrganizationInfoComponent implements OnInit {
 
   @ViewChild('logoInput') input: ElementRef<HTMLInputElement>;
 
+  selectedCountry: any;
+  countries: Array<Country>;
   entitySearchParams: EntityFetchParams;
   showForm = false;
   relation: OrganizationRelation;
@@ -44,13 +48,21 @@ export class OrganizationInfoComponent implements OnInit {
   cacheDate: NgbDateStruct;
 
   constructor(private orgs: OrganizationsService, private orgSerice: OrganizationService, private translateService: TranslateService,
-              private alertService: AlertService, private uploadService: UploadService, private imageService: ImageService) { }
+              private alertService: AlertService, private uploadService: UploadService, private imageService: ImageService,
+              private countriesService: CountriesService) { }
 
   ngOnInit(): void {
     this.inboundRelations = [];
     this.entitySearchParams = {
       // sort: 'name'
     };
+    this.countriesService.subject.subscribe(countries => {
+      this.countries = countries.country_list;
+      if (this.org.country) {
+        this.selectedCountry = this.org.country.id;
+      }
+    });
+    this.countriesService.fetch({offset: 0, limit: 9999});
     this.loadInboundRelations();
   }
 
@@ -211,6 +223,10 @@ export class OrganizationInfoComponent implements OnInit {
 
   onDateChange(date) {
     this.relation.since = toDate(date);
+  }
+
+  countryChange(item: any) {
+    this.org.country = item;
   }
 
 }

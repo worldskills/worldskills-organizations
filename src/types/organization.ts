@@ -3,6 +3,7 @@ import {Phone} from './phone';
 import {Address} from './address';
 import {Link} from './common';
 import {OrgWebsite as Website} from './website';
+import { Country } from './country';
 
 
 export enum OrganizationRelationType {
@@ -19,6 +20,7 @@ export interface OrganizationRequest {
   name: I18nText;
   description?: I18nText;
   logo?: Logo;
+  country?: Country;
 }
 
 export interface OrganizationRelationRequest {
@@ -39,6 +41,7 @@ export interface Organization {
   wsEntity: WsEntityModel;
   relations?: OrganizationRelation[];
   logo?: Logo;
+  country?: Country;
 }
 
 export interface OrganizationRelation {
@@ -80,6 +83,7 @@ export interface OrganizationCreate {
   description?: I18nText;
   relation?: OrganizationRelationType;
   relationSince?: Date;
+  countryId?: number;
 }
 
 export interface OrganizationRelationCreate {

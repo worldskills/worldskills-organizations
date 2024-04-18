@@ -27,6 +27,16 @@
       </app-panel-row>
       <app-panel-row>
         <ng-container left>
+          {{ 'Country' | translate }}
+        </ng-container>
+        <ng-container right>
+          <ng-select name="country" [ngModel]="selectedCountry" placeholder="{{'Country' | translate}}"
+                     bindLabel="name.text" bindValue="id"
+                     [items]="countries || []" [disabled]="loading" (change)="countryChange($event)"></ng-select>
+        </ng-container>
+      </app-panel-row>
+      <app-panel-row>
+        <ng-container left>
           {{'Logo' | translate}}
         </ng-container>
         <ng-container right>

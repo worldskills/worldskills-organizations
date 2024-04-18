@@ -127,7 +127,8 @@ export class OrganizationDetailComponent implements OnInit {
     const update: OrganizationRequest = {
       name: org.name,
       logo,
-      description: org.description
+      description: org.description,
+      country: org.country
     };
     this.orgs.update(this.orgId, update).pipe(take(1)).subscribe(
       next => {
