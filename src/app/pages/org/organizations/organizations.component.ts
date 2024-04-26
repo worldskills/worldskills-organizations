@@ -82,12 +82,6 @@ export class OrganizationsComponent implements OnInit {
   }
 
   getRelationText(relation: OrganizationRelation) {
-    let result = relation.type.toString().replace('_', ' ');
-    if (relation.type == OrganizationRelationType.PARENT || relation.type == OrganizationRelationType.CHILD) {
-      result += ` - ${relation.organizationName}`;
-    } else {
-      result += ` - ${relation.entity.name.text}`;
-    }
-    return result;
+    return relation.type.toString().replace('_', ' ') + ` - ${relation.organizationName}`;
   }
 }
