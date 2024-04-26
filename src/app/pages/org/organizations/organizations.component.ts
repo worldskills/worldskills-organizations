@@ -82,6 +82,6 @@ export class OrganizationsComponent implements OnInit {
   }
 
   getRelationText(relation: OrganizationRelation) {
-    return relation.type.toString().replace('_', ' ') + ` - ${relation.organizationName}`;
+    return relation.type.toString().replace('_', ' ') + ` - ${relation.entity.name.text}`;
   }
 }
