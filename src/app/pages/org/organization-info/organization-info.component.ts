@@ -45,7 +45,8 @@ export class OrganizationInfoComponent implements OnInit {
   resourceProgress = 0;
   uploadFile: File;
 
-  cacheDate: NgbDateStruct;
+  cacheSinceDate: NgbDateStruct;
+  cacheEndDate: NgbDateStruct;
 
   constructor(private orgs: OrganizationsService, private orgSerice: OrganizationService, private translateService: TranslateService,
               private alertService: AlertService, private uploadService: UploadService, private imageService: ImageService,
@@ -123,8 +124,12 @@ export class OrganizationInfoComponent implements OnInit {
       type: this.relation.type,
       entity: this.relationEntityId
     };
-    if (this.cacheDate) {
-      model.since = toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
+    if (this.cacheSinceDate) {
+      model.since = toDate(`${this.cacheSinceDate.year}-${this.cacheSinceDate.month}-${this.cacheSinceDate.day}`)
+    }
+
+    if (this.cacheEndDate) {
+      model.end = toDate(`${this.cacheEndDate.year}-${this.cacheEndDate.month}-${this.cacheEndDate.day}`)
     }
 
     this.orgs.createRelation(model).subscribe(
@@ -141,11 +146,16 @@ export class OrganizationInfoComponent implements OnInit {
     if (this.relationToEdit) {
       if (relation.since) {
         const dt = toDate(relation.since);
-        this.cacheDate = {
+        this.cacheSinceDate = {
           year: dt.getFullYear(),
           month: dt.getMonth() + 1,
           day: dt.getDate()
         }
+        // this.cacheEndDate = {
+        //   year: dt.getFullYear(),
+        //   month: dt.getMonth() + 1,
+        //   day: dt.getDate() + 1
+        // }
       }
     }
   }
@@ -156,9 +166,14 @@ export class OrganizationInfoComponent implements OnInit {
       type: this.relationToEdit.type,
       entity: this.relationToEdit.entity.id
     };
-    if (this.cacheDate) {
-      model.since = toDate(`${this.cacheDate.year}-${this.cacheDate.month}-${this.cacheDate.day}`)
+
+    if (this.cacheSinceDate) {
+      model.since = toDate(`${this.cacheSinceDate.year}-${this.cacheSinceDate.month}-${this.cacheSinceDate.day}`)
     }
+    if (this.cacheEndDate) {
+      model.end = toDate(`${this.cacheEndDate.year}-${this.cacheEndDate.month}-${this.cacheEndDate.day}`)
+    }
+
     this.orgs.editRelation(this.org.id, this.relationToEdit.id, model).subscribe(
       next => {},
       error => {},
