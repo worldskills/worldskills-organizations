@@ -72,7 +72,8 @@
         <tr>
           <th scope="col">Type</th>
           <th scope="col">To Entity</th>
-          <th scope="col" style="width: 200px">Since</th>
+          <th scope="col" style="width: 190px">Since</th>
+          <th scope="col" style="width: 190px">End</th>
           <th scope="col" style="width: 100px;"></th>
         </tr>
       </thead>
@@ -81,6 +82,7 @@
           <td>{{ relation.type }}</td>
           <td>{{ relation.entity.name.text }}</td>
           <td>{{ relation.since | date: 'longDate' }}</td>
+          <td>{{ relation.end | date: 'longDate' }}</td>
           <td>
             <button *ngIf="canEdit" style="width: 30px; height: 30px" type="button" class="btn btn-primary btn-sm ml-1"
               (click)="enableRelationEditMode(relation)">
@@ -108,11 +110,25 @@
           <td>
             <div class="col-12">
               <div class="input-group">
-                <input style="width:100px" placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheDate" ngbDatepicker
+                <input style="width:100px" placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheSinceDate" ngbDatepicker
                   #dsince="ngbDatepicker" />
                 &nbsp;
                 <button class="btn btn-outline-secondary"
                   style="font-size:20px; padding:0!important; border:0!important" (click)="dsince.toggle()"
+                  type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="col-12">
+              <div class="input-group">
+                <input style="width:100px" placeholder="yyyy-mm-dd" name="end" [(ngModel)]="cacheEndDate" ngbDatepicker
+                  #dend="ngbDatepicker" />
+                &nbsp;
+                <button class="btn btn-outline-secondary"
+                  style="font-size:20px; padding:0!important; border:0!important" (click)="dend.toggle()"
                   type="button">
                   <i class="fa fa-calendar"></i>
                 </button>
@@ -135,10 +151,11 @@
     <table class="table" *ngIf="showForm && canEdit">
       <thead>
         <tr>
-          <th scope="col">Type</th>
-          <th scope="col">Entity</th>
-          <th scope="col" style="width: 200px">Since</th>
-          <th scope="col" style="width: 100px;"></th>
+          <th scope="col" style="border:none"></th>
+          <th scope="col" style="border:none"></th>
+          <th scope="col" style="width: 190px; border:none"></th>
+          <th scope="col" style="width: 190px; border:none"></th>
+          <th scope="col" style="width: 100px; border:none"></th>
         </tr>
       </thead>
       <tbody>
@@ -159,11 +176,25 @@
           <td>
             <div class="col-12">
               <div class="input-group">
-                <input style="width:100px" placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheDate" ngbDatepicker
+                <input style="width:100px" placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheSinceDate" ngbDatepicker
                   #dsince="ngbDatepicker" />
                 &nbsp;
                 <button class="btn btn-outline-secondary"
                   style="font-size:20px; padding:0!important; border:0!important" (click)="dsince.toggle()"
+                  type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="col-12">
+              <div class="input-group">
+                <input style="width:100px" placeholder="yyyy-mm-dd" name="end" [(ngModel)]="cacheEndDate" ngbDatepicker
+                  #dend="ngbDatepicker" />
+                &nbsp;
+                <button class="btn btn-outline-secondary"
+                  style="font-size:20px; padding:0!important; border:0!important" (click)="dend.toggle()"
                   type="button">
                   <i class="fa fa-calendar"></i>
                 </button>
@@ -194,6 +225,7 @@
           <th scope="col">Type</th>
           <th scope="col">From Entity</th>
           <th scope="col" style="width: 200px">Since</th>
+          <th scope="col" style="width: 200px">End</th>
         </tr>
       </thead>
       <tbody *ngFor="let relation of inboundRelations">
@@ -201,6 +233,7 @@
           <td>{{ relation.type }}</td>
           <td>{{ relation.organizationName }}</td>
           <td>{{ relation.since | date: 'longDate' }}</td>
+          <td>{{ relation.end | date: 'longdate' }}</td>
         </tr>
       </tbody>
     </table>

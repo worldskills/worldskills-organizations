@@ -91,6 +91,7 @@ export interface OrganizationRelationCreate {
   entity: number;
   type: OrganizationRelationType;
   since?: Date;
+  end?: Date;
 }
 
 export interface LogoRequest {
