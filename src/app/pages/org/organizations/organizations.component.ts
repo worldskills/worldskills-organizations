@@ -23,6 +23,7 @@ export class OrganizationsComponent implements OnInit {
   limit = 10;
   name: string;
   relation: string;
+  country: number;
 
   constructor(private orgs: OrganizationService) {}
 
@@ -33,7 +34,7 @@ export class OrganizationsComponent implements OnInit {
   loadData() {
     this.loading = true;
     this.orgs
-      .list(this.offset, this.limit, this.name, this.relation)
+      .list(this.offset, this.limit, this.name, this.relation, this.country)
       .pipe(take(1))
       .subscribe(
         (next) => (this.data = next),
@@ -45,6 +46,7 @@ export class OrganizationsComponent implements OnInit {
   search(model: OrganizationSearch) {
     this.name = model.name;
     this.relation = model.relation;
+    this.country = model.country;
     this.offset = 0;
     this.limit = this.pageSize;
     this.loadData();

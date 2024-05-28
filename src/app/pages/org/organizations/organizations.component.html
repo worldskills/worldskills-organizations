@@ -33,6 +33,11 @@
                   <a routerLink="{{org.id}}">
                     {{org.name.text}}
                   </a>
+                  <div *ngIf="org.country">
+                    <span class="badge badge-secondary">
+                      Country: {{ org.country.code }} - {{ org.country.name.text }}
+                    </span>
+                  </div>
                 </td>
                 <td>
                   <div *ngIf="org.relations">
