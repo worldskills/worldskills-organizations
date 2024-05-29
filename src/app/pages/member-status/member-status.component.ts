@@ -59,7 +59,6 @@ export class MemberStatusComponent {
   loadMemberList() {
     this.memberList = null;
     this.loading = true;
-    console.log(this.membersFilter);
     this.members.getMemberList(this.membersFilter).subscribe((memberList) => {
       this.member_of = this.membersFilter.member_of;
       this.memberList = memberList;

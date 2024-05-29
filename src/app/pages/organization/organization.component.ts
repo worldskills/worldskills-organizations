@@ -86,7 +86,6 @@ export class OrganizationComponent extends WsComponent implements OnInit {
       month: dt.getMonth() + 1,
       day: dt.getDate()
     }
-    console.log(this.cacheDate);
     this.editMode = editMode;
   }
 

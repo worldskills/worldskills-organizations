@@ -44,8 +44,6 @@ export class OrganizationCreateComponent implements OnInit {
         countryId: country,
       };
 
-      console.log(model);
-
       this.orgs.create(model).subscribe(
         result => {},
         error => {
