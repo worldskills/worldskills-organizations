@@ -35,6 +35,7 @@ export interface MemberRequest {
   contacts?: Array<Contact>;
   social_networks?: Array<SocialNetwork>;
   flag?: FlagRequest;
+  no_org?: boolean;
 }
 
 export interface Member {

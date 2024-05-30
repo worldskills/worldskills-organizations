@@ -38,15 +38,20 @@
               </ng-container>
               <ng-container right>
                 <div>
-                  <input type="radio" name="existingOrg" value="false" (change)="existingOrg = false" [checked]="!existingOrg" />&nbsp;<span [ngStyle]="{'font-weight': existingOrg ? 'normal' : 'bold' }">{{'New organization' | translate}}</span>
+                  <input type="radio" name="existingOrg" value="false" (change)="existingOrg = false; noOrg = false;" [checked]="!existingOrg" />&nbsp;<span [ngStyle]="{'font-weight': existingOrg && !noOrg ? 'normal' : 'bold' }">{{'New organization' | translate}}</span>
                   &nbsp;
-                  <input type="radio" name="existingOrg" value="true" (change)="existingOrg = true" [checked]="existingOrg" />&nbsp;<span [ngStyle]="{'font-weight': existingOrg ? 'bold' : 'normal' }">{{'Existing organization' | translate}}</span>
+                  <input type="radio" name="existingOrg" value="true" (change)="existingOrg = true; noOrg = false;" [checked]="existingOrg" />&nbsp;<span [ngStyle]="{'font-weight': existingOrg && !noOrg ? 'bold' : 'normal' }">{{'Existing organization' | translate}}</span>
+                  &nbsp;
+                  <input *ngIf="isAdmin" type="radio" name="existingOrg" value="false" (change)="existingOrg = false; noOrg = true" [checked]="noOrg" />&nbsp;<span [ngStyle]="{'font-weight': !noOrg ? 'normal' : 'bold' }">{{'No organization' | translate}}</span>
                 </div>
                 <hr style="margin-top: 5px; margin-bottom: 5px;" />
-                <div *ngIf="!existingOrg">
+                <div *ngIf="noOrg">
+                  <em>No organization entity will be created.</em>
+                </div>
+                <div *ngIf="!existingOrg && !noOrg">
                   <em>A new organization entity will be created.</em>
                 </div>
-                <div *ngIf="existingOrg">
+                <div *ngIf="existingOrg && !noOrg">
                   Please select an existing organization entity:
                   <ng-select [wsSelect]="['id', 'name.text']" name="organization" [ngModel]="null"
                     placeholder="{{'Organization' | translate}}" [items]="organizations || []" [disabled]="loading"

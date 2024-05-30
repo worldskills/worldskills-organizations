@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {APIError, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {APIError, NgAuthService, RxjsUtil, WsComponent} from '@worldskills/worldskills-angular-lib';
 import {NgForm} from '@angular/forms';
 import {MemberService} from '../../../services/member/member.service';
 import {CountriesService} from '../../../services/countries/countries.service';
@@ -10,6 +10,7 @@ import {MembersService} from '../../../services/members/members.service';
 import {Router} from '@angular/router';
 import { Organization } from '../../../types/organization';
 import { OrganizationService } from '../../../services/organization/organization.service';
+import { PermissionHelper } from '../../helpers/permission-helper';
 
 @Component({
   selector: 'app-add-member',
@@ -22,10 +23,13 @@ export class AddMemberComponent extends WsComponent implements OnInit {
   countries: Array<Country>;
   loading: boolean = false;
   existingOrg: boolean = false;
+  noOrg: boolean = false;
   organizations: Organization[] = [];
+  isAdmin = false;
   @ViewChild('form') form: NgForm;
 
   constructor(
+    private auth: NgAuthService,
     private membersService: MembersService,
     private memberService: MemberService,
     private countriesService: CountriesService,
@@ -53,6 +57,7 @@ export class AddMemberComponent extends WsComponent implements OnInit {
     );
     this.membersService.fetch({editable: true, offset: 0, limit: 9999});
     this.countriesService.fetch({offset: 0, limit: 9999});
+    this.isAdmin = PermissionHelper.isAdmin(this.auth.currentUser.value);
   }
 
   loadOrganizations() {
@@ -88,7 +93,8 @@ export class AddMemberComponent extends WsComponent implements OnInit {
         member_of: {id, status, year_joined},
         name: {lang_code: 'en', text: name},
         name_1058: {lang_code: 'en', text: name},
-        organization: this.existingOrg ?  this.form.form.get('organization').value : null
+        organization: this.existingOrg ?  this.form.form.get('organization').value : null,
+        no_org: this.noOrg
       };
 
       this.memberService.create(data).subscribe(
