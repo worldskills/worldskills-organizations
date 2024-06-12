@@ -97,6 +97,8 @@ export interface OrganizationRelationCreate {
 export interface LogoRequest {
   image_id: number;
   thumbnail_hash: string;
+  width: number;
+  height: number;
 }
 
 export interface Logo {
@@ -104,5 +106,7 @@ export interface Logo {
   image_id: number;
   thumbnail_hash: string;
   thumbnail?: string;
+  width: number;
+  height: number;
   links?: Array<Link>;
 }

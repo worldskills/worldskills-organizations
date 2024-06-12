@@ -12,6 +12,8 @@ import {OrgWebsite as Website} from './website';
 export interface FlagRequest {
   image_id: number;
   thumbnail_hash: string;
+  width: number;
+  height: number;
 }
 
 export interface Flag {
@@ -19,6 +21,8 @@ export interface Flag {
   image_id: number;
   thumbnail_hash: string;
   thumbnail: string;
+  width: number;
+  height: number;
   links: Array<Link>;
 }
 

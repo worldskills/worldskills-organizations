@@ -84,6 +84,8 @@ export class OrganizationInfoComponent implements OnInit {
           image_id: img.id,
           thumbnail:img.thumbnail,
           thumbnail_hash: img.thumbnail_hash,
+          width: img.width,
+          height: img.height,
         }
         this.save.emit(this.org);
       });

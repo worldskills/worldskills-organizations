@@ -93,10 +93,12 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
 
       if (this.uploadFile) {
         // tslint:disable-next-line:variable-name
-        this.upload(({id: image_id, thumbnail_hash}) => {
+        this.upload(({id: image_id, thumbnail_hash, width, height}) => {
           data.flag = {
             image_id,
-            thumbnail_hash
+            thumbnail_hash,
+            width,
+            height,
           };
           this.memberService.update(memberId, data).subscribe(complete);
         });

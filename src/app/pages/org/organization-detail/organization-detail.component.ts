@@ -123,6 +123,8 @@ export class OrganizationDetailComponent implements OnInit {
       image_id: org.logo.image_id,
       thumbnail: org.logo.thumbnail,
       thumbnail_hash: org.logo.thumbnail_hash,
+      width: org.logo.width,
+      height: org.logo.height
     }
     const update: OrganizationRequest = {
       name: org.name,
