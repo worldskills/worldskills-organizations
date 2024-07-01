@@ -149,67 +149,73 @@
       </tbody>
     </table>
     <table class="table" *ngIf="showForm && canEdit">
-      <thead>
-        <tr>
-          <th scope="col" style="border:none"></th>
-          <th scope="col" style="border:none"></th>
-          <th scope="col" style="width: 190px; border:none"></th>
-          <th scope="col" style="width: 190px; border:none"></th>
-          <th scope="col" style="width: 100px; border:none"></th>
-        </tr>
-      </thead>
       <tbody>
         <tr>
-          <td>
-            <select class="form-control" [(ngModel)]="relation.type" required>
-              <option [ngValue]="null" [disabled]="true">{{ 'Select type' | translate }}</option>
-              <option *ngFor="let orgRelation of orgRelations" value="{{ orgRelation.value }}">
-                {{ orgRelation.label | translate }}
-              </option>
-            </select>
-          </td>
-          <td>
-            <ws-entity-tree-select [ngModel]="relationEntityId" name="treeSelect" [query]="entitySearchParams"
+          <td colspan="5">
+            <div class="row">
+              <div class="col-md-2"><strong>Type:</strong></div>
+              <div class="col-md-10">
+                <select class="form-control" [(ngModel)]="relation.type" required>
+                  <option [ngValue]="null" [disabled]="true">{{ 'Select type' | translate }}</option>
+                  <option *ngFor="let orgRelation of orgRelations" value="{{ orgRelation.value }}">
+                    {{ orgRelation.label | translate }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 2px;">
+              <div class="col-md-2"><strong>To Entity:</strong></div>
+              <div class="col-md-10">
+                <ws-entity-tree-select [ngModel]="relationEntityId" name="treeSelect" [query]="entitySearchParams"
               [showControls]="false" [showFullPath]="false" [defaultExpand]="false" (change)="onEntityChange($event)"
               required></ws-entity-tree-select>
-          </td>
-          <td>
-            <div class="col-12">
-              <div class="input-group">
-                <input style="width:100px" placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheSinceDate" ngbDatepicker
-                  #dsince="ngbDatepicker" />
-                &nbsp;
-                <button class="btn btn-outline-secondary"
-                  style="font-size:20px; padding:0!important; border:0!important" (click)="dsince.toggle()"
-                  type="button">
-                  <i class="fa fa-calendar"></i>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 2px;">
+              <div class="col-md-2"><strong>Since:</strong></div>
+              <div class="col-md-10">
+                <div class="col-12" style="padding: 0;">
+                  <div class="input-group">
+                    <input placeholder="yyyy-mm-dd" name="since" [(ngModel)]="cacheSinceDate" ngbDatepicker
+                      #dsince="ngbDatepicker" />
+                    &nbsp;
+                    <button class="btn btn-outline-secondary"
+                      style="font-size:20px; padding:0!important; border:0!important" (click)="dsince.toggle()"
+                      type="button">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 2px;">
+              <div class="col-md-2"><strong>End:</strong></div>
+              <div class="col-md-10">
+                <div class="col-12" style="padding: 0;">
+                  <div class="input-group">
+                    <input placeholder="yyyy-mm-dd" name="end" [(ngModel)]="cacheEndDate" ngbDatepicker
+                      #dend="ngbDatepicker" />
+                    &nbsp;
+                    <button class="btn btn-outline-secondary"
+                      style="font-size:20px; padding:0!important; border:0!important" (click)="dend.toggle()"
+                      type="button">
+                      <i class="fa fa-calendar"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 2px;">
+              <div class="col-md-2"></div>
+              <div class="col-md-10 text-right">
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="hideForm()">
+                  <fa-icon size="xs" [icon]="faTrash"></fa-icon>&nbsp;Cancel
+                </button>
+                <button type="button" class="btn btn-success btn-sm ml-1" (click)="createRelation()">
+                  <fa-icon size="xs" [icon]="faSave"></fa-icon>&nbsp;Save
                 </button>
               </div>
             </div>
-          </td>
-          <td>
-            <div class="col-12">
-              <div class="input-group">
-                <input style="width:100px" placeholder="yyyy-mm-dd" name="end" [(ngModel)]="cacheEndDate" ngbDatepicker
-                  #dend="ngbDatepicker" />
-                &nbsp;
-                <button class="btn btn-outline-secondary"
-                  style="font-size:20px; padding:0!important; border:0!important" (click)="dend.toggle()"
-                  type="button">
-                  <i class="fa fa-calendar"></i>
-                </button>
-              </div>
-            </div>
-          </td>
-          <td>
-            <button style="width: 30px; height: 30px" type="button" class="btn btn-danger btn-sm ml-1"
-              (click)="hideForm()">
-              <fa-icon size="xs" [icon]="faTrash"></fa-icon>
-            </button>
-            <button style="width: 30px; height: 30px" type="button" class="btn btn-success btn-sm ml-1"
-              (click)="createRelation()">
-              <fa-icon size="xs" [icon]="faSave"></fa-icon>
-            </button>
           </td>
         </tr>
       </tbody>
