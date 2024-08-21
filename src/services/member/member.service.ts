@@ -31,6 +31,11 @@ export class MemberService extends WsService<Member> {
     return this.http.get<Membership[]>(url);
   }
 
+  getWithCode(code: string): Observable<Member> {
+    const url = `${environment.worldskillsApiOrg}/members/by_code/${code}`;
+    return this.http.get<Member>(url);
+  }
+
   fetch(memberId: number, rOpt?: RequestOptions): Observable<Member>;
   fetch(memberId: number, p1: WsServiceRequestP1, p2?: WsServiceRequestP2, p3?: WsServiceRequestP3): Observable<Member> {
     const {fetchParams, multicastOptions, requestOptions} = this.resolveArgs(p1, p2, p3, FULL);

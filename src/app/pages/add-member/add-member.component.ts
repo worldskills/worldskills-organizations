@@ -84,6 +84,18 @@ export class AddMemberComponent extends WsComponent implements OnInit {
       this.members.find(m => m.id === parseInt(this.form.value.id)).member_of.length === 0;
   }
 
+  checkMemberByCode(code: any, callback: (member: Member) => void) {
+    if (code && code.length > 0) {
+      this.memberService.getWithCode(code).subscribe(
+        next => {
+          callback(next);
+        },
+        error => callback(null)
+      );
+    }
+
+  }
+
   submitForm() {
     if (this.form.valid) {
       const {code, name, id, status, year_joined, member_country} = this.form.value;
@@ -97,33 +109,39 @@ export class AddMemberComponent extends WsComponent implements OnInit {
         no_org: this.noOrg
       };
 
-      this.memberService.create(data).subscribe(
-        member => {
-          if (member_country) {
-            // tslint:disable-next-line:no-shadowed-variable
-            const country = this.countries.find(c => member_country === c.id);
-            const countryData: CountryRequest = {
-              code: country.code,
-              phone_prefix: country.phone_prefix,
-              member: member.id,
-              name: country.name,
-            };
-            this.countryService.update(country.code, countryData).subscribe(
-              () => this.router.navigate(['members', member.id])
-            );
-          } else {
-            this.router.navigate(['members', member.id]);
-          }
-        },
-        error => {
-          if (error.error) {
-            const apiError = error.error as APIError;
-            alert(apiError.dev_msg);
-          } else {
-            alert('An unknown error occurred');
-          }
+      this.checkMemberByCode(code, member => {
+        if (member != null) {
+          alert(`A member with the code ${code} already exists`);
+        } else {
+          this.memberService.create(data).subscribe(
+            member => {
+              if (member_country) {
+                // tslint:disable-next-line:no-shadowed-variable
+                const country = this.countries.find(c => member_country === c.id);
+                const countryData: CountryRequest = {
+                  code: country.code,
+                  phone_prefix: country.phone_prefix,
+                  member: member.id,
+                  name: country.name,
+                };
+                this.countryService.update(country.code, countryData).subscribe(
+                  () => this.router.navigate(['members', member.id])
+                );
+              } else {
+                this.router.navigate(['members', member.id]);
+              }
+            },
+            error => {
+              if (error.error) {
+                const apiError = error.error as APIError;
+                alert(apiError.dev_msg);
+              } else {
+                alert('An unknown error occurred');
+              }
+            }
+          );
         }
-      );
+      });
     }
   }
 
