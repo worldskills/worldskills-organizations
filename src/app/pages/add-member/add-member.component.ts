@@ -23,7 +23,7 @@ export class AddMemberComponent extends WsComponent implements OnInit {
   countries: Array<Country>;
   loading: boolean = false;
   existingOrg: boolean = false;
-  noOrg: boolean = false;
+  noOrg: boolean = true;
   organizations: Organization[] = [];
   isAdmin = false;
   @ViewChild('form') form: NgForm;
