@@ -27,6 +27,8 @@ export class ContactsComponent extends WsComponent implements OnInit {
   toggleGenneralContact = false;
   toggleFinanceContact = false;
   canEdit = false;
+  PEOPLE_FETCH_PARAMS = {offset: 0, limit: 9999, show_hidden: 1};
+
   @ViewChild('generalForm') generalForm: NgForm;
   @ViewChild('financeForm') financeForm: NgForm;
 
@@ -99,7 +101,7 @@ export class ContactsComponent extends WsComponent implements OnInit {
   }
 
   search(name: string) {
-    return this.peopleService.fetch({...DEFAULT_FETCH_PARAMS, name, entity: null});
+    return this.peopleService.fetch({...this.PEOPLE_FETCH_PARAMS, name, entity: null});
   }
 
   unbindContact(contact: Contact) {
