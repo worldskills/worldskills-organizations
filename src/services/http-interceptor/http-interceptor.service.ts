@@ -53,7 +53,17 @@ export class HttpInterceptorService implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const l = this.overrideLanguage ? this.overrideLanguage : this.currentLanguage;
     const isLogout = request.url.includes('logout');
-    const handled = isLogout ? request : request.clone({
+    let isIgnored = false;
+    if (!isLogout) {
+      // determine if the current error is meant to be sup
+      const suppressedError = this.app.supresseedErrors.find(x => request.url.includes(x));
+      if (suppressedError) {
+        // remove the supressed error from the list
+        this.app.supresseedErrors = this.app.supresseedErrors.filter(x => x !== suppressedError);
+        isIgnored = true;
+      }
+    }
+    const handled = isLogout || isIgnored ? request : request.clone({
       body: request.body ? I18nUtil.setObjectI18n(request.body, l) : undefined,
       setParams: {l},
     });
@@ -71,14 +81,6 @@ export class HttpInterceptorService implements HttpInterceptor {
           this.ngAuthService.login();
           return;
         }
-      }
-
-      // determine if the current error is meant to be suppressed
-      const suppressedError = this.app.supresseedErrors.find(x => request.url.includes(x));
-      if (suppressedError) {
-        // remove the supressed error from the list
-        this.app.supresseedErrors = this.app.supresseedErrors.filter(x => x !== suppressedError);
-        return; // do not process further
       }
 
       switch (err.status) {
