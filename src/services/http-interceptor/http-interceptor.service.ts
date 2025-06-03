@@ -13,6 +13,7 @@ import {
 } from '@worldskills/worldskills-angular-lib';
 import { LocaleContextService } from '../locale-context/locale-context.service';
 import { notLoggedInCode, authorizationMissingCode } from '../../app/app-config';
+import { AppService } from '../app/app.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,7 @@ export class HttpInterceptorService implements HttpInterceptor {
   private overrideLanguage: string = undefined;
 
   constructor(
+    private app: AppService,
     private injector: Injector,
     private router: Router,
     private authService: AuthService,
@@ -69,6 +71,14 @@ export class HttpInterceptorService implements HttpInterceptor {
           this.ngAuthService.login();
           return;
         }
+      }
+
+      // determine if the current error is meant to be suppressed
+      const suppressedError = this.app.supresseedErrors.find(x => request.url.includes(x));
+      if (suppressedError) {
+        // remove the supressed error from the list
+        this.app.supresseedErrors = this.app.supresseedErrors.filter(x => x !== suppressedError);
+        return; // do not process further
       }
 
       switch (err.status) {

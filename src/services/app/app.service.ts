@@ -8,6 +8,9 @@ export class AppService {
 
   showBreadcrumbs: Subject<boolean> = new Subject<boolean>();
 
+  supresseedErrors: string[] = [];
+
   constructor() {
   }
+
 }

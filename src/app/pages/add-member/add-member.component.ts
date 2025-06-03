@@ -11,6 +11,7 @@ import {Router} from '@angular/router';
 import { Organization } from '../../../types/organization';
 import { OrganizationService } from '../../../services/organization/organization.service';
 import { PermissionHelper } from '../../helpers/permission-helper';
+import { AppService } from 'src/services/app/app.service';
 
 @Component({
   selector: 'app-add-member',
@@ -29,6 +30,7 @@ export class AddMemberComponent extends WsComponent implements OnInit {
   @ViewChild('form') form: NgForm;
 
   constructor(
+    private app: AppService,
     private auth: NgAuthService,
     private membersService: MembersService,
     private memberService: MemberService,
@@ -86,11 +88,14 @@ export class AddMemberComponent extends WsComponent implements OnInit {
 
   checkMemberByCode(code: any, callback: (member: Member) => void) {
     if (code && code.length > 0) {
+      const targetUrl = `/members/by_code/${code}`;
+      this.app.supresseedErrors.push(targetUrl);
       this.memberService.getWithCode(code).subscribe(
         next => {
           callback(next);
         },
-        error => callback(null)
+        error => callback(null),
+        () => {}
       );
     }
 
