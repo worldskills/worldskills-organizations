@@ -135,7 +135,7 @@ export class SocialMediaComponent extends WsComponent implements OnInit {
       case 1:
         return 'https://www.facebook.com/' + identifier;
       case 3:
-        return 'https://twitter.com/' + identifier;
+        return 'https://x.com/' + identifier;
       case 4:
         return 'https://www.linkedin.com/' + identifier;
       case 5:
