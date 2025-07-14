@@ -2,8 +2,8 @@
   <ws-spinner></ws-spinner>
 </ng-container>
 <ng-container *ngIf="initialized && !loading">
-  <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate
-        (ngSubmit)="submitForm()" #form="ngForm">
+  <form class="form-horizontal" [ngClass]="{'was-validated': this.form.submitted}" novalidate (ngSubmit)="submitForm()"
+    #form="ngForm">
     <app-panel-header title="{{'Member info' | translate}}"></app-panel-header>
     <app-panel title="{{'Member info' | translate}}">
       <div class="container">
@@ -12,13 +12,8 @@
             {{'Name' | translate}}&nbsp;*
           </ng-container>
           <ng-container right>
-            <input *ngIf="canEdit"
-              class="form-control"
-              name="name"
-              placeholder="{{'Name' | translate}}"
-              [ngModel]="member.name ? member.name.text : ''"
-              required
-            />
+            <ws-i18n-text *ngIf="canEdit" [ngModel]="member.name" inputId="name" name="name" placeholder="{{'Name' | translate}}"
+              required="true"></ws-i18n-text>
             <span *ngIf="!canEdit">{{ member.name ? member.name.text : '' }}</span>
           </ng-container>
         </app-panel-row>
@@ -27,13 +22,8 @@
             {{'Member code' | translate}}&nbsp;*
           </ng-container>
           <ng-container right>
-            <input *ngIf="canEdit"
-              class="form-control"
-              name="code"
-              placeholder="{{'Member code' | translate}}"
-              [ngModel]="member.code"
-              required
-            />
+            <input *ngIf="canEdit" class="form-control" name="code" placeholder="{{'Member code' | translate}}"
+              [ngModel]="member.code" required />
             <span *ngIf="!canEdit">{{ member.code }}</span>
           </ng-container>
         </app-panel-row>
@@ -42,13 +32,9 @@
             {{'Name for 1058 sorting' | translate}}&nbsp;*
           </ng-container>
           <ng-container right>
-            <input *ngIf="canEdit"
-              class="form-control"
-              name="name_1058"
+            <input *ngIf="canEdit" class="form-control" name="name_1058"
               placeholder="{{'Name for 1058 sorting' | translate}}"
-              [ngModel]="member.name_1058 ? member.name_1058.text : ''"
-              required
-            />
+              [ngModel]="member.name_1058 ? member.name_1058.text : ''" required />
             <span *ngIf="!canEdit">{{ member.name_1058 ? member.name_1058.text : '' }}</span>
           </ng-container>
         </app-panel-row>
@@ -58,23 +44,14 @@
           </ng-container>
           <ng-container right>
             <div class="mb-1 mw-100">
-              <img class="mw-100" *ngIf="member.flag" [src]="member.flag.thumbnail"/>
-              <div
-                *ngIf="!member.flag"
-                class="alert alert-warning"
-              >
+              <img class="mw-100" *ngIf="member.flag" [src]="member.flag.thumbnail" />
+              <div *ngIf="!member.flag" class="alert alert-warning">
                 {{'No flag has been uploaded' | translate}}
               </div>
             </div>
 
-            <div  *ngIf="canEdit">
-              <input
-                #flagInput
-                class="float-left"
-                name="flag"
-                type="file"
-                (change)="setFileFromInput($event)"
-              />
+            <div *ngIf="canEdit">
+              <input #flagInput class="float-left" name="flag" type="file" (change)="setFileFromInput($event)" />
               <button *ngIf="!!uploadFile" class="btn btn-danger btn-sm float-right" (click)="unsetFlag()">
                 {{'Remove image' | translate}}
               </button>
@@ -82,23 +59,20 @@
             </div>
           </ng-container>
         </app-panel-row>
-        <app-panel-row [alignRightRowRight]="true"  *ngIf="canEdit">
+        <app-panel-row [alignRightRowRight]="true" *ngIf="canEdit">
           <ng-container right>
             <span *ngIf="canDelete">
               <button (click)="deleteMember()" class="btn btn-danger btn-sm">{{'Delete' | translate}}</button>
               &nbsp;
             </span>
             <span *ngIf="member.flag">
-              <button type="button" class="btn btn-danger btn-sm mr-1" (click)="deleteFlag()">{{'Remove flag' | translate}}</button>
+              <button type="button" class="btn btn-danger btn-sm mr-1" (click)="deleteFlag()">{{'Remove flag' |
+                translate}}</button>
             </span>
             <button type="submit" class="btn btn-success btn-sm">{{'Save' | translate}}</button>
           </ng-container>
           <p class="my-4" *ngIf="resourceLoading">
-            <ngb-progressbar
-              type="info"
-              [value]="resourceProgress * 100"
-              [striped]="true"
-            ></ngb-progressbar>
+            <ngb-progressbar type="info" [value]="resourceProgress * 100" [striped]="true"></ngb-progressbar>
           </p>
         </app-panel-row>
       </div>

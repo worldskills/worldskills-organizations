@@ -31,8 +31,13 @@ export class MemberService extends WsService<Member> {
     return this.http.get<Membership[]>(url);
   }
 
-  getWithCode(code: string): Observable<Member> {
-    const url = `${environment.worldskillsApiOrg}/members/by_code/${code}`;
+  getWithCode(code: string, includeTranslations: boolean = false): Observable<Member> {
+    const url = `${environment.worldskillsApiOrg}/members/by_code/${code}?include_translations=${includeTranslations ? 'true' : 'false'}`;
+    return this.http.get<Member>(url);
+  }
+
+  getById(id: number, includeTranslations: boolean = false): Observable<Member> {
+    const url = `${environment.worldskillsApiOrg}/members/${id}?include_translations=${includeTranslations ? 'true' : 'false'}`;
     return this.http.get<Member>(url);
   }
 

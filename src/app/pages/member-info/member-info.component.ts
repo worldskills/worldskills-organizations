@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AlertService, AlertType, NgAuthService, UploadService, WsComponent} from '@worldskills/worldskills-angular-lib';
+import {AlertService, AlertType, NgAuthService, UploadService} from '@worldskills/worldskills-angular-lib';
 import {Member, MemberRequest} from '../../../types/member';
 import {MemberService} from '../../../services/member/member.service';
 import {NgForm} from '@angular/forms';
@@ -8,14 +8,14 @@ import {ImageService} from '../../../services/image/image.service';
 import {HttpEventType} from '@angular/common/http';
 import {Image} from '../../../types/image';
 import { PermissionHelper } from '../../helpers/permission-helper';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-member-info',
   templateUrl: './member-info.component.html',
   styleUrls: ['./member-info.component.css']
 })
-export class MemberInfoComponent extends WsComponent implements OnInit {
+export class MemberInfoComponent implements OnInit {
 
   member: Member;
   loading = false;
@@ -29,6 +29,7 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
   canDelete = false;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private auth: NgAuthService,
     private memberService: MemberService,
@@ -37,18 +38,18 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
     private uploadService: UploadService,
     private imageService: ImageService,
   ) {
-    super();
   }
 
   ngOnInit(): void {
-    this.subscribe(
-      this.memberService.subject.subscribe(member => {
+
+    this.route.params.subscribe(({memberId}) => {
+      this.memberService.getById(memberId, true).subscribe(member => {
         this.member = member;
         this.calculateCanEdit(member);
         this.canDelete = PermissionHelper.isAdmin(this.auth.currentUser.value);
-      }),
-      this.memberService.loading.subscribe(loading => (this.loading = loading)),
-    );
+      });
+      this.memberService.loading.subscribe(loading => (this.loading = loading));
+    });
   }
 
   calculateCanEdit(member: Member)
@@ -74,15 +75,13 @@ export class MemberInfoComponent extends WsComponent implements OnInit {
       const {code, name, name_1058} = this.form.value;
       const data: MemberRequest = {
         code,
-        name: {
-          lang_code: 'en',
-          text: name,
-        },
+        name,
         name_1058: {
           lang_code: 'en',
           text: name_1058,
         },
       };
+
       const memberId = this.member.id;
       const complete = () => {
         this.translateService.get('Member data saved').subscribe(t => {
